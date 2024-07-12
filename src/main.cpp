@@ -2,7 +2,7 @@
 #include <imgui-SFML.h>
 #include <box2d/box2d.h>
 #include "gui.h"
-#include "utilities.h"
+//#include "utilities.h"
 
 #define WIDTH 1920u
 #define HEIGHT 1080u
