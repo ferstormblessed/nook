@@ -1,13 +1,32 @@
 #include <SFML/Graphics.hpp>
 #include <imgui-SFML.h>
-#include <imgui.h>
+#include <box2d/box2d.h>
 #include "gui.h"
 #include "utilities.h"
 
+#define WIDTH 1920u
+#define HEIGHT 1080u
+#define FRAMES 30
+
 int main()
 {
-    auto window = sf::RenderWindow{ { 1920u, 1080u }, "nook" };
-    window.setFramerateLimit(144);
+    // box2d initialization
+    // gravity vector
+    b2Vec2 gravity(0.0f, -10.0f);
+    // create world
+    b2World world(gravity);
+
+    // create ground
+    b2BodyDef groundBodyDef;
+    groundBodyDef.position.Set(0.0f, -10.0f);
+
+    b2Body* groundBody = world.CreateBody(&groundBodyDef);
+    b2PolygonShape groundBox;
+    groundBox.SetAsBox(50.0f, 10.0f);
+    groundBody->CreateFixture(&groundBox, 0.0f);
+
+    auto window = sf::RenderWindow{ {WIDTH, HEIGHT }, "nook" };
+    window.setFramerateLimit(FRAMES);
 
     if (!ImGui::SFML::Init(window)) {
         return -1;
@@ -16,6 +35,7 @@ int main()
     sf::Clock clock;
     while (window.isOpen())
     {
+
         for (auto event = sf::Event{}; window.pollEvent(event);)
         {
             ImGui::SFML::ProcessEvent(window, event);
@@ -28,6 +48,7 @@ int main()
 
         ImGui::SFML::Update(window, clock.restart());
 
+        // gui function
         gui();
 
         window.clear();
@@ -35,6 +56,6 @@ int main()
         window.display();
     }
 
-    print("fernando");
+    //print("fernando");
     ImGui::SFML::Shutdown();
 }

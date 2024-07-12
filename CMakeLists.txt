@@ -22,12 +22,18 @@ FetchContent_Declare(ImGui-SFML
         GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(ImGui-SFML)
 
+option(BOX2D_BUILD_UNIT_TESTS OFF)
+FetchContent_Declare(box2d
+        GIT_REPOSITORY      https://github.com/erincatto/Box2D.git
+        GIT_TAG             v2.4.1)
+FetchContent_MakeAvailable(box2d)
+
 add_executable(main src/main.cpp
         src/utilities.h
         src/utilities.cpp
         src/gui.h
         src/gui.cpp)
-target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
+target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)
