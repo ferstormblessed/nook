@@ -10,10 +10,22 @@ FetchContent_Declare(SFML
     GIT_TAG 2.6.x)
 FetchContent_MakeAvailable(SFML)
 
+FetchContent_Declare(ImGui
+        GIT_REPOSITORY https://github.com/ocornut/imgui
+        GIT_TAG v1.90.9-docking)
+FetchContent_MakeAvailable(ImGui)
+FetchContent_GetProperties(ImGui SOURCE_DIR IMGUI_DIR)
+
+set(IMGUI_SFML_FIND_SFML OFF)
+FetchContent_Declare(ImGui-SFML
+        GIT_REPOSITORY https://github.com/SFML/imgui-sfml
+        GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(ImGui-SFML)
+
 add_executable(main src/main.cpp
         src/utilities.h
         src/utilities.cpp)
-target_link_libraries(main PRIVATE sfml-graphics)
+target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)
