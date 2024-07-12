@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include "utilities.h"
 
 int main()
 {
@@ -17,5 +18,6 @@ int main()
 
         window.clear();
         window.display();
+        print("fernando");
     }
 }
