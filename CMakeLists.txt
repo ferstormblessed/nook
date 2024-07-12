@@ -24,7 +24,9 @@ FetchContent_MakeAvailable(ImGui-SFML)
 
 add_executable(main src/main.cpp
         src/utilities.h
-        src/utilities.cpp)
+        src/utilities.cpp
+        src/gui.h
+        src/gui.cpp)
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML)
 target_compile_features(main PRIVATE cxx_std_17)
 

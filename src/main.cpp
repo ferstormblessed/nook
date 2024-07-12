@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <imgui-SFML.h>
 #include <imgui.h>
+#include "gui.h"
 #include "utilities.h"
 
 int main()
@@ -27,9 +28,7 @@ int main()
 
         ImGui::SFML::Update(window, clock.restart());
 
-        ImGui::Begin("Hello, world!");
-        ImGui::Button("click me");
-        ImGui::End();
+        gui();
 
         window.clear();
         ImGui::SFML::Render(window);
