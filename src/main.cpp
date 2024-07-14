@@ -5,7 +5,6 @@
 //#include "utilities.h"
 
 #include "NookManager.h"
-#include <spdlog/spdlog.h>
 
 #define WIDTH 1920u
 #define HEIGHT 1080u
