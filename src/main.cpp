@@ -5,6 +5,7 @@
 //#include "utilities.h"
 
 #include "NookManager.h"
+#include <spdlog/spdlog.h>
 
 #define WIDTH 1920u
 #define HEIGHT 1080u
@@ -13,7 +14,6 @@
 int main()
 {
     auto& nookManager = NookManager::getInstance();
-    auto& manager = GameLoopManager::getInstance();
     nookManager.startUp();
     nookManager.shutDown();
 }

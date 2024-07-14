@@ -5,6 +5,7 @@
 #include "GameLoopManager.h"
 #include "imgui-SFML.h"
 #include <iostream>
+#include "gui.h"
 
 GameLoopManager* GameLoopManager::m_instance = nullptr;
 
@@ -76,10 +77,12 @@ void GameLoopManager::handleEvents() {
 
         ImGui::SFML::Update(*m_window, m_deltaClock.restart());
 
+        m_window->clear();
         //m_updateCallback(elapsedTime.asSeconds()); // Pass elapsed time for smooth updates
         m_updateCallback();
         m_drawCallback();
 
+        gui();
         ImGui::SFML::Render(*m_window);
         m_window->display();
     }
