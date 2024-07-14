@@ -28,11 +28,6 @@ FetchContent_Declare(box2d
         GIT_TAG             v2.4.1)
 FetchContent_MakeAvailable(box2d)
 
-FetchContent_Declare(spdlog
-        GIT_REPOSITORY      https://github.com/gabime/spdlog
-        GIT_TAG             v1.x)
-FetchContent_MakeAvailable(spdlog)
-
 add_executable(main src/main.cpp
         src/utilities.h
         src/utilities.cpp
@@ -43,7 +38,7 @@ add_executable(main src/main.cpp
         src/GameLoopManager.cpp
         src/GameLoopManager.h
 )
-target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
+target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)
