@@ -13,18 +13,11 @@
 int main()
 {
     auto& nookManager = NookManager::getInstance();
+    auto& manager = GameLoopManager::getInstance();
     nookManager.startUp();
     nookManager.shutDown();
 }
 
-//RenderManager gRenderManager;
-//gRenderManager.startUp();
-//
-//// all code should theoretically be here
-//
-//gRenderManager.shutDown();
-//
-//
 //// box2d initialization
 //// gravity vector
 //b2Vec2 gravity(0.0f, -10.0f);

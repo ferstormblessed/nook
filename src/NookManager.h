@@ -5,13 +5,16 @@
 #ifndef NOOK_NOOKMANAGER_H
 #define NOOK_NOOKMANAGER_H
 
+#include "GameLoopManager.h"
+
 class NookManager {
 public:
     static NookManager& getInstance();
     void startUp();
     void shutDown();
 private:
-    static NookManager* s_instance;
+    static NookManager* m_instance;
+    GameLoopManager* m_gameLoopManager{};
     NookManager();
     ~NookManager();
 };
