@@ -7,26 +7,25 @@
 
 #include <SFML/Graphics.hpp>
 #include <functional>
+#include "InputManager.h"
 
 class GameLoopManager {
 public:
     static GameLoopManager& getInstance();
-    void init(sf::RenderWindow& window,
-              const std::function<void()>& updateCallback,
-              const std::function<void()>& drawCallback);
-    void startUp();
+    void startUp(sf::RenderWindow* window, InputManager* inputManager);
     void shutDown();
     void run();
 private:
+    static GameLoopManager* s_instance;
+    InputManager* m_inputManager;
+    sf::RenderWindow* m_window;
+    sf::Clock m_deltaClock;
+    bool m_running;
+    void update();
+    void draw();
+    void handleEvents();
     GameLoopManager();
     ~GameLoopManager();
-    static GameLoopManager* m_instance;
-    sf::RenderWindow* m_window{};
-    sf::Clock m_deltaClock{};
-    bool m_running{true};
-    std::function<void()> m_updateCallback{nullptr};
-    std::function<void()> m_drawCallback{nullptr};
-    void handleEvents();
 };
 
 

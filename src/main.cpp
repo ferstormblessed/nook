@@ -4,7 +4,8 @@
 #include "gui.h"
 //#include "utilities.h"
 
-#include "NookManager.h"
+#include "Nook.h"
+#include <spdlog/spdlog.h>
 
 #define WIDTH 1920u
 #define HEIGHT 1080u
@@ -12,7 +13,8 @@
 
 int main()
 {
-    auto& nookManager = NookManager::getInstance();
+    spdlog::info("ENTRY POINT: STARTING GAME");
+    auto& nookManager = Nook::getInstance();
     nookManager.startUp();
     nookManager.shutDown();
 }

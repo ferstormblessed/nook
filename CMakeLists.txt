@@ -38,10 +38,12 @@ add_executable(main src/main.cpp
         src/utilities.cpp
         src/gui.h
         src/gui.cpp
-        src/NookManager.cpp
-        src/NookManager.h
+        src/Nook.cpp
+        src/Nook.h
         src/GameLoopManager.cpp
         src/GameLoopManager.h
+        src/InputManager.cpp
+        src/InputManager.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
