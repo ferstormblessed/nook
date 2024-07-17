@@ -6,21 +6,19 @@
 #define NOOK_INPUTMANAGER_H
 
 
-#include <SFML/Graphics.hpp>
-#include <string>
+#include "SFML/Graphics.hpp"
+#include "Data.h"
 
 class InputManager {
 public:
-    static InputManager& getInstance();
-    void startUp(sf::RenderWindow* window);
+    InputManager();
+    ~InputManager();
+    void startUp();
     void shutDown();
     void processInput();
     static bool isKeyPressed(sf::Keyboard::Key key);
 private:
-    static InputManager* s_instance;
-    sf::RenderWindow* m_window;
-    InputManager();
-    ~InputManager();
+    Data* m_data;
 };
 
 

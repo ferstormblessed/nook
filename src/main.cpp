@@ -1,10 +1,3 @@
-#include <SFML/Graphics.hpp>
-#include <imgui-SFML.h>
-#include <box2d/box2d.h>
-#include "gui.h"
-//#include "utilities.h"
-
-#include "Nook.h"
 #include <spdlog/spdlog.h>
 
 #define WIDTH 1920u
@@ -14,9 +7,6 @@
 int main()
 {
     spdlog::info("ENTRY POINT: STARTING GAME");
-    auto& nookManager = Nook::getInstance();
-    nookManager.startUp();
-    nookManager.shutDown();
 }
 
 //// box2d initialization
