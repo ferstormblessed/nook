@@ -35,6 +35,10 @@ FetchContent_MakeAvailable(spdlog)
 
 add_executable(main src/main.cpp
         src/Entity.h
+        src/ComponentManager.cpp
+        src/ComponentManager.h
+        src/EntityMap.cpp
+        src/EntityMap.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
