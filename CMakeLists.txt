@@ -34,18 +34,7 @@ FetchContent_Declare(spdlog
 FetchContent_MakeAvailable(spdlog)
 
 add_executable(main src/main.cpp
-        src/utilities.h
-        src/utilities.cpp
-        src/gui.h
-        src/gui.cpp
-        src/previous-approach/Nook.cpp
-        src/previous-approach/Nook.h
-        src/previous-approach/GameLoopManager.cpp
-        src/previous-approach/GameLoopManager.h
-        src/previous-approach/InputManager.cpp
-        src/previous-approach/InputManager.h
-        src/previous-approach/Data.cpp
-        src/previous-approach/Data.h
+        src/Entity.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
