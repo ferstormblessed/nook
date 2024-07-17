@@ -24,22 +24,22 @@ void Nook::startUp() {
     GameLoopManager gameLoopManager{};
 
     // Initialization of Managers
-    inputManager.startUp(&window);
-    gameLoopManager.startUp(&window, &inputManager);
+    //inputManager.startUp(&window);
+    //gameLoopManager.startUp(&window, &inputManager);
 
     // Game Loop
-    gameLoopManager.run();
+    //gameLoopManager.run();
 
     // shutting down manager
-    gameLoopManager.shutDown();
-    inputManager.shutDown();
+    //gameLoopManager.shutDown();
+    //inputManager.shutDown();
 
-    m_data->shutDown();
+    //m_data->shutDown();
 }
 
 void Nook::shutDown() {
     spdlog::info("Shutting down Nook");
-    delete &m_data;
+    //delete &m_data;
 }
 
 Nook::Nook() {

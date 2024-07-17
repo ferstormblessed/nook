@@ -30,20 +30,18 @@ void GameLoopManager::run() {
 
     while (m_data->getRunning()) {
 
-        m_inputManager->processInput();
+        //m_inputManager->processInput();
         update();
         draw();
 
         handleEvents();
-        ImGui::SFML::Update(*m_window, m_deltaClock.restart());
-        m_window->clear();
+        //ImGui::SFML::Update(*m_window, m_deltaClock.restart());
+        //m_window->clear();
         update();
         draw();
         gui();
-        ImGui::SFML::Render(*m_window);
-        m_window->display();
-        if (!m_window->isOpen()) {
-        }
+        //ImGui::SFML::Render(*m_window);
+        //m_window->display();
     }
     ImGui::SFML::Shutdown();
     spdlog::info("Exiting game loop");
@@ -55,9 +53,9 @@ void GameLoopManager::handleEvents() {
 
 void GameLoopManager::shutDown() {
     spdlog::info("Shutting down GameLoopManager");
-    m_window = nullptr;
-    m_running = false;
-    m_deltaClock = {};
+    //m_window = nullptr;
+    //m_running = false;
+    //m_deltaClock = {};
 }
 
 GameLoopManager::GameLoopManager() {
