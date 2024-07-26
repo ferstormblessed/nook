@@ -38,6 +38,7 @@ add_executable(main src/main.cpp
         src/Components/Transform.h
         src/EntityManager.h
         src/ComponentArray.h
+        src/ComponentManager.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
