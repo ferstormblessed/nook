@@ -23,13 +23,13 @@ namespace NOOK {
     // Signature
     // way to track which components an entity “has”, way to track which components a system cares about.
     // example
-    // Components -- ID
+    // components -- ID
     // Transform  -- 0
     // RigidBody  -- 1
     // Render     -- 2
     // SignatureOfEntity = 0...111
     // Signature length in bits is equal to MAX_COMPONENTS
-    // And that's how we know which Components belong to specific Entity
+    // And that's how we know which components belong to specific Entity
     using Signature = std::bitset<MAK_COMPONENTS>;
 
 } // NAMESPACE NOOK

@@ -34,11 +34,11 @@ FetchContent_Declare(spdlog
 FetchContent_MakeAvailable(spdlog)
 
 add_executable(main src/main.cpp
-        src/Types.h
-        src/Components/Transform.h
-        src/EntityManager.h
-        src/ComponentArray.h
-        src/ComponentManager.h
+        src/core/Types.h
+        src/components/Transform.h
+        src/core/EntityManager.h
+        src/core/ComponentArray.h
+        src/core/ComponentManager.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
