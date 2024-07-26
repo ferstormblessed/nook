@@ -68,8 +68,9 @@ namespace NOOK {
         }
 
     private:
+        // TODO: thoroughly think if in this case using map, because memory is together, is better than unordered map since the latter is faster.
         // Map from type string pointer to a component type
-        std::map<const char*, NOOK::ComponentType> m_componentTypes{};
+        std::map<const char*, ComponentType> m_componentTypes{};
 
         // Map from type string pointer to a component array
         // TODO: fully investigate the implication of using a shared_ptr

@@ -19,7 +19,7 @@ namespace NOOK {
     const Entity MAX_ENTITIES = 100000;
     // Component
     using ComponentType = std::uint8_t;
-    const ComponentType MAK_COMPONENTS = 200;
+    const ComponentType MAX_COMPONENTS = 200;
     // Signature
     // way to track which components an entity “has”, way to track which components a system cares about.
     // example
@@ -30,7 +30,7 @@ namespace NOOK {
     // SignatureOfEntity = 0...111
     // Signature length in bits is equal to MAX_COMPONENTS
     // And that's how we know which components belong to specific Entity
-    using Signature = std::bitset<MAK_COMPONENTS>;
+    using Signature = std::bitset<MAX_COMPONENTS>;
 
 } // NAMESPACE NOOK
 
