@@ -13,6 +13,7 @@
 #include "ComponentArray.h"
 
 namespace NOOK {
+
     class ComponentManager {
     public:
         template<typename T>
