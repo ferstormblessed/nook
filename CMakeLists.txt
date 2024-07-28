@@ -42,6 +42,10 @@ add_executable(main src/main.cpp
         src/core/System.h
         src/core/SystemManager.h
         src/core/Coordinator.h
+        src/components/RigidBody.h
+        src/components/Gravity.h
+        src/Systems/PhysicsSystem.cpp
+        src/Systems/PhysicsSystem.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

@@ -15,6 +15,7 @@
 namespace NOOK {
 
     class Coordinator {
+    public:
         void init() {
             // Create pointers to each manager
             m_componentManager = std::make_unique<ComponentManager>();

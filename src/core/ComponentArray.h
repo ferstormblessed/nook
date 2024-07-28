@@ -15,7 +15,7 @@ namespace NOOK {
 
     class IComponentArray {
     public:
-        virtual ~IComponentArray() = default;
+        //virtual ~IComponentArray() = default;
         virtual void entityDestroyed(Entity entity) = 0;
     };
 

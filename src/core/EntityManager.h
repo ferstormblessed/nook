@@ -34,7 +34,7 @@ namespace NOOK {
         }
 
         void destroyEntity(Entity entity) {
-            assert(entity < MAK_COMPONENTS && "Entity out of range.\n");
+            assert(entity < MAX_COMPONENTS && "Entity out of range.\n");
 
             // Invalidate the destroyed Entity's Signature
             m_signatures[entity].reset();
