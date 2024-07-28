@@ -8,7 +8,7 @@
 #define NOOK_PHYSICSSYSTEM_H
 
 
-#include "../core/System.h"
+#include "../../core/System.h"
 
 namespace NOOK {
 

@@ -2,12 +2,12 @@
 // Created by stormblessed on 7/28/24.
 //
 
-#include "../core/Coordinator.h"
+#include "../../core/Coordinator.h"
 #include "PhysicsSystem.h"
 #include "spdlog/spdlog.h"
-#include "../components/RigidBody.h"
-#include "../components/Transform.h"
-#include "../components/Gravity.h"
+#include "../../components/RigidBody.h"
+#include "../../components/Transform.h"
+#include "../../components/Gravity.h"
 
 NOOK::PhysicsSystem::PhysicsSystem(const std::shared_ptr<Coordinator> &coordinator) : m_coordinator(coordinator) {}
 
