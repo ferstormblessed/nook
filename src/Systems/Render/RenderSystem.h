@@ -9,19 +9,18 @@
 
 #include <memory>
 #include "../../core/System.h"
-#include "SFML/Graphics/Texture.hpp"
-#include "SFML/Graphics/Sprite.hpp"
 #include "../../components/Render.h"
-#include "../../core/Coordinator.h"
+#include "SFML/Graphics/RenderWindow.hpp"
+#include "../../components/Transform.h"
 
 namespace NOOK {
 
     class RenderSystem : public System {
     public:
         void init();
-        void update();
+        void update(sf::RenderWindow* window);
     private:
-        void initObject(NOOK::Render& object);
+        void initObject(NOOK::Render& render);
     };
 
 } // NAMESPACE NOOK

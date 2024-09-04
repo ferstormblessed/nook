@@ -12,7 +12,9 @@
 namespace NOOK {
 
     struct Transform {
-        b2Transform transform;
+        b2Vec2 position;
+        b2Vec3 rotation; // vec(angle, xPos, yPos)
+        b2Vec2 scale; // vec(scaleX, scaleY)
     };
 
 } // NAMESPACE NOOK

@@ -1,3 +1,4 @@
+#include "utils.h"
 #include "core/Coordinator.h"
 #include <spdlog/spdlog.h>
 #include "Systems/Physics/PhysicsSystem.h"
@@ -12,8 +13,8 @@
 #define HEIGHT 1080u
 #define FRAMES 30
 
+
 NOOK::Coordinator gCoordinator;
-sf::RenderWindow window;
 
 int main()
 {
@@ -22,41 +23,60 @@ int main()
     gCoordinator.init();
     spdlog::info("Finish Coordinator initialization");
 
-    // TODO: make function that reads directory components and extracts the name of each file and registers the component
-    // Register Components
-    gCoordinator.registerComponent<NOOK::Gravity>();
-    gCoordinator.registerComponent<NOOK::RigidBody>();
-    gCoordinator.registerComponent<NOOK::Transform>();
-    gCoordinator.registerComponent<NOOK::Render>();
+    // Register COMPONENTS
+    registerComponents();
 
-    //Render System initialization
-    auto renderSystem = gCoordinator.registerSystem<NOOK::RenderSystem>();
-    {
-        NOOK::Signature signature;
-        signature.set(gCoordinator.getComponentType<NOOK::Render>());
-        gCoordinator.setSystemSignature<NOOK::RenderSystem>(signature);
-    }
+    // Render System initialization
+    auto renderSystem = registerRenderSystem();
     renderSystem->init();
 
+    // Physics System initialization
+    auto physicsSystem = registerPhysicsSystem();
+    physicsSystem->init();
+//    auto physicsSystem = gCoordinator.registerSystem<NOOK::PhysicsSystem>();
+//    {
+//        NOOK::Signature signature;
+//        signature.set(gCoordinator.getComponentType<NOOK::Transform>());
+//        signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
+//        signature.set(gCoordinator.getComponentType<NOOK::Gravity>());
+//        gCoordinator.setSystemSignature<NOOK::PhysicsSystem>(signature);
+//    }
+
     // Entities
-    std::vector<NOOK::Entity> entities(3);
+    std::vector<NOOK::Entity> entities(1);
 
     for (auto& entity : entities) {
         entity = gCoordinator.createEntity();
         gCoordinator.addComponent(entity,
                                   NOOK::Render{
-                                          .image = "images/texture.jpg",
+                                          .image = "/home/stormblessed/nook/src/images/mosca.png",
                                   });
+        gCoordinator.addComponent(entity,
+                                  NOOK::Transform{
+                                          .position = b2Vec2(float(WIDTH)/2, 0),
+                                          .rotation = b2Vec3(0, 0, 0),
+                                          .scale = b2Vec2(1, 0.5)
+                                  });
+        gCoordinator.addComponent(entity,
+                                  NOOK::Gravity{
+                                          .force = b2Vec2(0.0f, 10)
+                                  });
+        gCoordinator.addComponent(entity,
+                                  NOOK::RigidBody{});
     }
 
     // Game loop
     // TODO: try to abstract this to a separate function
-    window.create(sf::VideoMode(800, 600), "nook");
+    sf::RenderWindow window;
+    window.setFramerateLimit(FRAMES);
+    sf::Clock clock;
+    window.create(sf::VideoMode(WIDTH, HEIGHT), "NOOK");
 
     // run the program as long as the window is open
     while (window.isOpen()) {
+        clock.restart();
         // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event{};
+        sf::Event event;
         while (window.pollEvent(event)) {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed) {
@@ -65,7 +85,8 @@ int main()
         }
 
         window.clear();
-        //renderSystem->update();
+        physicsSystem->update(clock.restart().asSeconds());
+        renderSystem->update(&window);
         window.display();
     }
 

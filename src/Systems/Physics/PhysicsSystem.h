@@ -14,11 +14,8 @@ namespace NOOK {
 
     class PhysicsSystem : public System {
     public:
-        explicit PhysicsSystem(const std::shared_ptr<Coordinator>& coordinator);
         void init();
         void update(float dt);
-    private:
-        std::shared_ptr<Coordinator> m_coordinator;
     };
 
 } // NAMESPACE NOOK

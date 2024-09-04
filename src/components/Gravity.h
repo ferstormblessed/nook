@@ -12,7 +12,7 @@
 namespace NOOK {
 
     struct Gravity {
-       b2Vec2 gravity;
+       b2Vec2 force;
     };
 }
 

@@ -18,16 +18,8 @@ namespace NOOK {
 
     class Coordinator {
     public:
-        Coordinator() {
-            spdlog::info("CREATE COORDINATOR");
-        }
-
-        ~Coordinator() {
-            spdlog::info("DESTROY COORDINATOR");
-        }
-
         void init() {
-            spdlog::info("Initializing Coordinator");
+            spdlog::info("Initializing COORDINATOR");
             // Create pointers to each manager
             m_componentManager = std::make_unique<ComponentManager>();
             m_entityManager = std::make_unique<EntityManager>();

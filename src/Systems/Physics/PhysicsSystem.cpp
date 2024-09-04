@@ -9,16 +9,26 @@
 #include "../../components/Transform.h"
 #include "../../components/Gravity.h"
 
-NOOK::PhysicsSystem::PhysicsSystem(const std::shared_ptr<Coordinator> &coordinator) : m_coordinator(coordinator) {}
+extern NOOK::Coordinator gCoordinator;
 
 void NOOK::PhysicsSystem::init() {
-    spdlog::info("Initializing PHYSICS SYSTEM");
+    spdlog::info("initializing PHYSICS SYSTEM");
 }
 
 void NOOK::PhysicsSystem::update(float dt) {
     for (auto const& entity : m_entities) {
-        auto& rigidBody = m_coordinator->getComponent<NOOK::RigidBody>(entity);
-        auto& transform = m_coordinator->getComponent<NOOK::Transform>(entity);
-        auto const& gravity = m_coordinator->getComponent<NOOK::Gravity>(entity);
+        auto& rigidBody = gCoordinator.getComponent<NOOK::RigidBody>(entity);
+        auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
+        auto const& gravity = gCoordinator.getComponent<NOOK::Gravity>(entity);
+
+        transform.position.x += rigidBody.body.linearVelocity.x * dt;
+        transform.position.y += rigidBody.body.linearVelocity.y * dt;
+
+        rigidBody.body.linearVelocity.x += gravity.force.x * dt;
+        rigidBody.body.linearVelocity.y += gravity.force.y * dt;
+
+        spdlog::warn("PHYSICS SYSTEM INFO");
+        spdlog::warn("Transform position: ({}, {})", transform.position.x, transform.position.y);
+        spdlog::warn("RigidBody velocity: ({}, {})", rigidBody.body.linearVelocity.x, rigidBody.body.linearVelocity.y);
     }
 }
