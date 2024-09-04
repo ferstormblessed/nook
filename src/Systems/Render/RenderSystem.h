@@ -18,11 +18,9 @@ namespace NOOK {
 
     class RenderSystem : public System {
     public:
-        explicit RenderSystem(const std::shared_ptr<Coordinator>& coordinator);
         void init();
         void update();
     private:
-        const std::shared_ptr<Coordinator> &m_coordinator;
         void initObject(NOOK::Render& object);
     };
 

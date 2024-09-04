@@ -16,7 +16,7 @@ namespace NOOK {
         sf::Texture texture;
         sf::Sprite sprite;
         std::string image;
-        bool loaded;
+        bool loaded{};
     };
 
 } // NAMESPACE NOOK

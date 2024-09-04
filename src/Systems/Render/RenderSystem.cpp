@@ -3,23 +3,30 @@
 //
 
 #include "RenderSystem.h"
-#include "SFML/Graphics/Texture.hpp"
+#include "spdlog/spdlog.h"
 
-NOOK::RenderSystem::RenderSystem(const std::shared_ptr<Coordinator> &coordinator) : m_coordinator(coordinator) {}
+extern NOOK::Coordinator gCoordinator;
 
 void NOOK::RenderSystem::init() {
     for (auto const& entity : m_entities) {
-        auto& render = m_coordinator->getComponent<NOOK::Render>(entity);
+        auto& render = gCoordinator.getComponent<NOOK::Render>(entity);
         initObject(render);
     }
 }
 
 void NOOK::RenderSystem::update() {
+    for (auto& entity : m_entities) {
+        auto& renderComponent = gCoordinator.getComponent<NOOK::Render>(entity);
+    }
 }
 
 void NOOK::RenderSystem::initObject(NOOK::Render& object) {
     if (object.loaded) {
         return;
+    }
+    if (object.image.empty()) {
+       spdlog::error("Not a valid image string");
+       return;
     }
     object.texture.loadFromFile(object.image);
     object.sprite.setTexture(object.texture);

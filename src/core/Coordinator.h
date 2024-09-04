@@ -11,12 +11,23 @@
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "SystemManager.h"
+#include "SFML/Graphics/RenderWindow.hpp"
+#include "spdlog/spdlog.h"
 
 namespace NOOK {
 
     class Coordinator {
     public:
+        Coordinator() {
+            spdlog::info("CREATE COORDINATOR");
+        }
+
+        ~Coordinator() {
+            spdlog::info("DESTROY COORDINATOR");
+        }
+
         void init() {
+            spdlog::info("Initializing Coordinator");
             // Create pointers to each manager
             m_componentManager = std::make_unique<ComponentManager>();
             m_entityManager = std::make_unique<EntityManager>();
@@ -68,7 +79,7 @@ namespace NOOK {
         }
 
         template<typename T>
-        ComponentType GetComponentType() {
+        ComponentType getComponentType() {
             return m_componentManager->getComponentType<T>();
         }
 
@@ -84,9 +95,9 @@ namespace NOOK {
         }
 
     private:
-        std::unique_ptr<ComponentManager> m_componentManager;
-        std::unique_ptr<EntityManager> m_entityManager;
-        std::unique_ptr<SystemManager> m_systemManager;
+        std::unique_ptr<ComponentManager> m_componentManager{};
+        std::unique_ptr<EntityManager> m_entityManager{};
+        std::unique_ptr<SystemManager> m_systemManager{};
     };
 
 } // NAMESPACE NOOK
