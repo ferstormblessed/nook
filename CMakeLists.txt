@@ -58,7 +58,8 @@ add_executable(main src/main.cpp
         src/Systems/Render/RenderShapeSystem.cpp
         src/Systems/Render/RenderShapeSystem.h
         src/components/RectangleShape.h
-        src/components/LineShape.h
+        src/Systems/Render/RenderTextSystem.cpp
+        src/Systems/Render/RenderTextSystem.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

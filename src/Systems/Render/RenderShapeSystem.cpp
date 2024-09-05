@@ -31,10 +31,6 @@ void NOOK::RenderShapeSystem::drawShape(sf::RenderWindow& window, const NOOK::En
     if (shape.isRectangle) {
         drawRectangleShape(window, entity, shape);
     }
-
-    if (shape.isLine) {
-        drawLineShape(window, entity);
-    }
 }
 
 void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
@@ -80,8 +76,4 @@ void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const
     // TODO: handle textures for rectangle shapes
 
     window.draw(newShape);
-}
-
-void NOOK::RenderShapeSystem::drawLineShape(sf::RenderWindow &window, const NOOK::Entity &entity) {
-
 }

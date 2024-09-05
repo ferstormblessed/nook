@@ -8,7 +8,7 @@
 #define NOOK_SHAPE_H
 
 #include "SFML/Graphics/Color.hpp"
-#include "../../cmake-build-release/_deps/sfml-src/include/SFML/Graphics/Texture.hpp"
+#include "SFML/Graphics/Texture.hpp"
 
 namespace NOOK {
 
@@ -16,7 +16,7 @@ namespace NOOK {
         bool isCircle;
         bool isRectangle;
         bool isLine;
-        sf::Texture texture{};
+        sf::Texture texture;
         sf::Color color;
         sf::Color outlineColor;
         float outlineThickness;

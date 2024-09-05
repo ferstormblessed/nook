@@ -19,7 +19,6 @@ namespace NOOK {
         void drawShape(sf::RenderWindow& window, const NOOK::Entity& entity);
         void drawCircleShape(sf::RenderWindow& window, const NOOK::Entity& entity, NOOK::Shape& shape);
         void drawRectangleShape(sf::RenderWindow& window, const NOOK::Entity& entity, NOOK::Shape& shape);
-        void drawLineShape(sf::RenderWindow& window, const NOOK::Entity& entity);
     };
 
 } // NAMESPACE NOOK
