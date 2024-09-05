@@ -14,6 +14,7 @@ namespace NOOK {
     struct RigidBody {
         b2BodyDef body;
     };
+
 } // NAMESPACE NOOK
 
 #endif //NOOK_RIGIDBODY_H

@@ -5,7 +5,6 @@
 #include "RenderSystem.h"
 #include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
-#include "../../components/Renderable.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -15,71 +14,16 @@ void NOOK::RenderSystem::init() {
 
 void NOOK::RenderSystem::update(sf::RenderWindow* window) {
     for (auto& entity : m_entities) {
-        auto& renderable = gCoordinator.getComponent<NOOK::Renderable>(entity);
+        auto& render = gCoordinator.getComponent<NOOK::Sprite>(entity);
+        auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
 
-        if (renderable.isShape) {
-            spdlog::info("drawing SHAPE");
-            drawShape(*window, entity);
-        }
+        initSprite(render);
 
-        if (renderable.isSprite) {
-            auto& render = gCoordinator.getComponent<NOOK::Sprite>(entity);
-            auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
+        render.sprite.setScale(transform.scale.x, transform.scale.y);
+        render.sprite.setPosition(transform.position.x, transform.position.y);
 
-            initSprite(render);
-
-            render.sprite.setScale(transform.scale.x, transform.scale.y);
-            render.sprite.setPosition(transform.position.x, transform.position.y);
-
-            window->draw(render.sprite);
-        }
-
-        if (renderable.isText) {
-
-        }
+        window->draw(render.sprite);
     }
-}
-
-void NOOK::RenderSystem::drawShape(sf::RenderWindow& window, const NOOK::Entity& entity) {
-    auto& shape = gCoordinator.getComponent<NOOK::Shape>(entity);
-    if (shape.isCircle) {
-        spdlog::info("drawing CIRCLE");
-        drawCircleShape(window, entity, shape);
-    }
-
-    if (shape.isRectangle) {
-        drawRectangleShape(window, entity);
-    }
-
-    if (shape.isLine) {
-        drawLineShape(window, entity);
-    }
-}
-
-void NOOK::RenderSystem::drawCircleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
-    auto& circleShape = gCoordinator.getComponent<CircleShape>(entity);
-    sf::CircleShape newShape;
-    if (circleShape.numSides != 0) {
-        newShape.setRadius(circleShape.radius);
-        newShape.setPointCount(circleShape.numSides);
-    }
-    newShape.setRadius(circleShape.radius);
-
-    newShape.setFillColor(shape.color);
-    newShape.setOutlineColor(shape.outlineColor);
-    newShape.setOutlineThickness(shape.outlineThickness);
-
-    // TODO: handle textures
-
-    window.draw(newShape);
-}
-
-void NOOK::RenderSystem::drawRectangleShape(sf::RenderWindow &window, const NOOK::Entity &entity) {
-
-}
-
-void NOOK::RenderSystem::drawLineShape(sf::RenderWindow &window, const NOOK::Entity &entity) {
-
 }
 
 void NOOK::RenderSystem::initSprite(NOOK::Sprite& sprite) {

@@ -14,6 +14,7 @@ namespace NOOK {
     struct Gravity {
        b2Vec2 force;
     };
-}
+
+} // NAMESPACE NOOK
 
 #endif //NOOK_GRAVITY_H

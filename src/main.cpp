@@ -1,11 +1,7 @@
 #include "utils.h"
 #include "core/Coordinator.h"
 #include <spdlog/spdlog.h>
-#include "components/Gravity.h"
-#include "components/RigidBody.h"
-#include "components/Transform.h"
 #include "SFML/Graphics.hpp"
-#include "components/Sprite.h"
 #include "Systems/Render/RenderSystem.h"
 
 #define WIDTH 1920u
@@ -23,13 +19,17 @@ int main()
     // Register COMPONENTS
     registerComponents();
 
-    // Render System initialization
+    // ------------ REGISTER SYSTEMS ------------
+    // Render Shape System
+    auto renderShapeSystem = registerRenderShapeSystem();
+    renderShapeSystem->init();
+    // Render System system
     auto renderSystem = registerRenderSystem();
     renderSystem->init();
-
-    // Physics System initialization
+    // Physics System
     auto physicsSystem = registerPhysicsSystem();
     physicsSystem->init();
+    // ------------ REGISTER SYSTEMS ------------
 
     // Entities
 
@@ -37,9 +37,8 @@ int main()
     NOOK::Entity l_paddle = gCoordinator.createEntity();
     NOOK::Entity r_paddle = gCoordinator.createEntity();
 
+    // circle
     NOOK::Entity shape = gCoordinator.createEntity();
-
-    gCoordinator.addComponent(shape,NOOK::Renderable{ .isShape = true });
     gCoordinator.addComponent(shape,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
     gCoordinator.addComponent(shape,NOOK::CircleShape{ .radius = 500 });
 
@@ -84,11 +83,10 @@ int main()
 
         window.clear();
 
-        sf::CircleShape circle(100.0f);
-        //window.draw(circle);
-
         physicsSystem->update(clock.restart().asSeconds());
+        renderShapeSystem->update(&window);
         renderSystem->update(&window);
+
         window.display();
     }
 
