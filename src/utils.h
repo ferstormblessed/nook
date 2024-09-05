@@ -1,60 +1,47 @@
 //
-// Created by stormblessed on 9/4/24.
+// Created by stormblessed on 9/5/24.
 //
 
 #pragma once
 
-#include "core/Coordinator.h"
-#include "components/Gravity.h"
-#include "components/RigidBody.h"
-#include "components/Transform.h"
-#include "components/Sprite.h"
-#include "Systems/Render/RenderSystem.h"
-#include "Systems/Physics/PhysicsSystem.h"
-#include "Systems/Render/RenderShapeSystem.h"
-#include "components/RectangleShape.h"
+#ifndef NOOK_UTILS_H
+#define NOOK_UTILS_H
 
-extern NOOK::Coordinator gCoordinator;
+#include <vector>
+#include <string>
+#include <dirent.h>
+#include <filesystem>
+#include "spdlog/spdlog.h"
 
-void registerComponents() {
-    // TODO: make function that reads directory components and extracts the name of each file and registers the component
-    gCoordinator.registerComponent<NOOK::CircleShape>();
-    gCoordinator.registerComponent<NOOK::Gravity>();
-    gCoordinator.registerComponent<NOOK::RectangleShape>();
-    gCoordinator.registerComponent<NOOK::RigidBody>();
-    gCoordinator.registerComponent<NOOK::Shape>();
-    gCoordinator.registerComponent<NOOK::Sprite>();
-    gCoordinator.registerComponent<NOOK::Transform>();
-}
+namespace NOOK {
 
-std::shared_ptr<NOOK::RenderShapeSystem> registerRenderShapeSystem() {
-    auto renderShapeSystem = gCoordinator.registerSystem<NOOK::RenderShapeSystem>();
-    {
-        NOOK::Signature signature;
-        signature.set(gCoordinator.getComponentType<NOOK::Shape>());
-        gCoordinator.setSystemSignature<NOOK::RenderShapeSystem>(signature);
+    std::vector<std::string> getFilesInDirectory(const std::string& directoryPath) {
+        std::vector<std::string> files;
+
+        DIR *dir;
+        dir = opendir(directoryPath.c_str());
+        if (dir == nullptr) {
+            spdlog::error("Error opening directory: {}", directoryPath);
+            return files;
+        }
+
+        struct dirent *entry;
+        while ((entry = readdir(dir)) != nullptr) {
+            if (entry->d_type == DT_REG) { // Check if it's a regular file
+                std::string filePath = directoryPath + "/" + entry->d_name;
+                files.push_back(filePath);
+            }
+        }
+
+        closedir(dir);
+        return files;
     }
-    return renderShapeSystem;
-}
 
-std::shared_ptr<NOOK::RenderSystem> registerRenderSystem() {
-    auto renderSystem = gCoordinator.registerSystem<NOOK::RenderSystem>();
-    {
-        NOOK::Signature signature;
-        signature.set(gCoordinator.getComponentType<NOOK::Sprite>());
-        gCoordinator.setSystemSignature<NOOK::RenderSystem>(signature);
+    std::string getFileNameWithoutExtension(const std::string& filePath) {
+        std::filesystem::path path(filePath);
+        return path.stem().string();
     }
-    return renderSystem;
-}
 
-std::shared_ptr<NOOK::PhysicsSystem> registerPhysicsSystem() {
-    auto physicsSystem = gCoordinator.registerSystem<NOOK::PhysicsSystem>();
-    {
-        NOOK::Signature signature;
-        signature.set(gCoordinator.getComponentType<NOOK::Transform>());
-        signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
-        signature.set(gCoordinator.getComponentType<NOOK::Gravity>());
-        gCoordinator.setSystemSignature<NOOK::PhysicsSystem>(signature);
-    }
-    return physicsSystem;
-}
+} // NAMESPACE NOOK
+
+#endif //NOOK_UTILS_H

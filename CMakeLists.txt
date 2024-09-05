@@ -49,8 +49,8 @@ add_executable(main src/main.cpp
         src/components/Sprite.h
         src/Systems/Render/RenderSystem.cpp
         src/Systems/Render/RenderSystem.h
-        src/utils.h
-        src/utils.h
+        src/Register.h
+        src/Register.h
         src/Input/Input.cpp
         src/Input/Input.h
         src/components/Shape.h
@@ -60,6 +60,8 @@ add_executable(main src/main.cpp
         src/components/RectangleShape.h
         src/Systems/Render/RenderTextSystem.cpp
         src/Systems/Render/RenderTextSystem.h
+        src/components/Text.h
+        src/utils.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

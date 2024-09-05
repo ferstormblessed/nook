@@ -1,9 +1,7 @@
-#include "utils.h"
+#include "Register.h"
 #include "core/Coordinator.h"
 #include <spdlog/spdlog.h>
 #include "SFML/Graphics.hpp"
-#include "Systems/Render/RenderSystem.h"
-#include "components/RectangleShape.h"
 
 #define WIDTH 1920u
 #define HEIGHT 1080u
@@ -18,25 +16,28 @@ int main()
     gCoordinator.init();
 
     // Register COMPONENTS
-    registerComponents();
+    NOOK::registerComponents();
 
     // ------------ REGISTER SYSTEMS ------------
     // Render Shape System
-    auto renderShapeSystem = registerRenderShapeSystem();
+    auto renderShapeSystem = NOOK::registerRenderShapeSystem();
     renderShapeSystem->init();
+    // Render Text System
+    auto renderTextSystem = NOOK::registerRenderTextSystem();
+    renderTextSystem->init("/home/stormblessed/nook/src/fonts");
     // Render System system
-    auto renderSystem = registerRenderSystem();
+    auto renderSystem = NOOK::registerRenderSystem();
     renderSystem->init();
     // Physics System
-    auto physicsSystem = registerPhysicsSystem();
+    auto physicsSystem = NOOK::registerPhysicsSystem();
     physicsSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
     // Entities
 
     // Paddles
-    NOOK::Entity l_paddle = gCoordinator.createEntity();
-    NOOK::Entity r_paddle = gCoordinator.createEntity();
+//    NOOK::Entity l_paddle = gCoordinator.createEntity();
+//    NOOK::Entity r_paddle = gCoordinator.createEntity();
 
     // circle
     NOOK::Entity circle = gCoordinator.createEntity();
@@ -48,25 +49,16 @@ int main()
     gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
     gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
 
-//    for (auto& entity : entities) {
-//        entity = gCoordinator.createEntity();
-//        gCoordinator.addComponent(entity,
-//                                  NOOK::Render{
-//                                          .image = "/home/stormblessed/nook/src/images/mosca.png",
-//                                  });
-//        gCoordinator.addComponent(entity,
-//                                  NOOK::Transform{
-//                                          .position = b2Vec2(float(WIDTH)/2, 0),
-//                                          .rotation = b2Vec3(0, 0, 0),
-//                                          .scale = b2Vec2(1, 0.5)
-//                                  });
-//        gCoordinator.addComponent(entity,
-//                                  NOOK::Gravity{
-//                                          .force = b2Vec2(0.0f, 100)
-//                                  });
-//        gCoordinator.addComponent(entity,
-//                                  NOOK::RigidBody{});
-//    }
+    // Text
+    NOOK::Entity text = gCoordinator.createEntity();
+    gCoordinator.addComponent(text, NOOK::Text{
+            .font = "vinque.rg-regular",
+            .text = "Hello there!",
+            .size = 500,
+            .color = sf::Color::White,
+            .isUnderlined = true
+    });
+
 
     // Game loop
     // TODO: try to abstract this to a separate function
@@ -79,7 +71,7 @@ int main()
     while (window.isOpen()) {
         clock.restart();
         // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
+        sf::Event event{};
         while (window.pollEvent(event)) {
             // "close requested" event: we close the window
             if (event.type == sf::Event::Closed) {
@@ -89,10 +81,10 @@ int main()
 
         window.clear();
 
-        sf::RectangleShape r(sf::Vector2(1.f, 1000.f));
-
+        // TODO: could each system be on its own thread?
         physicsSystem->update(clock.restart().asSeconds());
         renderShapeSystem->update(&window);
+        renderTextSystem->update(&window);
         renderSystem->update(&window);
 
         window.display();
