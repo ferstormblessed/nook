@@ -10,7 +10,8 @@
 namespace NOOK {
 
     struct RectangleShape {
-
+        float height;
+        float width;
     };
 
 } // NAMESPACE NOOK

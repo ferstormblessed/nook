@@ -8,8 +8,6 @@
 #define NOOK_SHAPE_H
 
 #include "SFML/Graphics/Color.hpp"
-#include "SFML/Graphics/CircleShape.hpp"
-#include "SFML/Graphics/RectangleShape.hpp"
 #include "../../cmake-build-release/_deps/sfml-src/include/SFML/Graphics/Texture.hpp"
 
 namespace NOOK {

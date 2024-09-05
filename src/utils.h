@@ -12,6 +12,7 @@
 #include "Systems/Render/RenderSystem.h"
 #include "Systems/Physics/PhysicsSystem.h"
 #include "Systems/Render/RenderShapeSystem.h"
+#include "components/RectangleShape.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -19,6 +20,7 @@ void registerComponents() {
     // TODO: make function that reads directory components and extracts the name of each file and registers the component
     gCoordinator.registerComponent<NOOK::CircleShape>();
     gCoordinator.registerComponent<NOOK::Gravity>();
+    gCoordinator.registerComponent<NOOK::RectangleShape>();
     gCoordinator.registerComponent<NOOK::RigidBody>();
     gCoordinator.registerComponent<NOOK::Shape>();
     gCoordinator.registerComponent<NOOK::Sprite>();

@@ -3,6 +3,7 @@
 #include <spdlog/spdlog.h>
 #include "SFML/Graphics.hpp"
 #include "Systems/Render/RenderSystem.h"
+#include "components/RectangleShape.h"
 
 #define WIDTH 1920u
 #define HEIGHT 1080u
@@ -38,9 +39,14 @@ int main()
     NOOK::Entity r_paddle = gCoordinator.createEntity();
 
     // circle
-    NOOK::Entity shape = gCoordinator.createEntity();
-    gCoordinator.addComponent(shape,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
-    gCoordinator.addComponent(shape,NOOK::CircleShape{ .radius = 500 });
+    NOOK::Entity circle = gCoordinator.createEntity();
+    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
+    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 100, .numSides = 3 });
+
+    // rectangle
+    NOOK::Entity rectangle = gCoordinator.createEntity();
+    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
+    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
 
 //    for (auto& entity : entities) {
 //        entity = gCoordinator.createEntity();
@@ -82,6 +88,8 @@ int main()
         }
 
         window.clear();
+
+        sf::RectangleShape r(sf::Vector2(1.f, 1000.f));
 
         physicsSystem->update(clock.restart().asSeconds());
         renderShapeSystem->update(&window);
