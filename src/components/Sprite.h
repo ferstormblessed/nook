@@ -4,15 +4,15 @@
 
 #pragma once
 
-#ifndef NOOK_RENDER_H
-#define NOOK_RENDER_H
+#ifndef NOOK_SPRITE_H
+#define NOOK_SPRITE_H
 
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 
 namespace NOOK {
 
-    struct Render {
+    struct Sprite {
         sf::Texture texture;
         sf::Sprite sprite;
         std::string image;
@@ -21,4 +21,4 @@ namespace NOOK {
 
 } // NAMESPACE NOOK
 
-#endif //NOOK_RENDER_H
+#endif //NOOK_SPRITE_H

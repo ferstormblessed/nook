@@ -46,11 +46,16 @@ add_executable(main src/main.cpp
         src/components/Gravity.h
         src/Systems/Physics/PhysicsSystem.cpp
         src/Systems/Physics/PhysicsSystem.h
-        src/components/Render.h
+        src/components/Sprite.h
         src/Systems/Render/RenderSystem.cpp
         src/Systems/Render/RenderSystem.h
         src/utils.h
         src/utils.h
+        src/Input/Input.cpp
+        src/Input/Input.h
+        src/components/Renderable.h
+        src/components/Shape.h
+        src/components/CircleShape.h
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

@@ -9,9 +9,11 @@
 
 #include <memory>
 #include "../../core/System.h"
-#include "../../components/Render.h"
+#include "../../components/Sprite.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "../../components/Transform.h"
+#include "../../components/Shape.h"
+#include "../../components/CircleShape.h"
 
 namespace NOOK {
 
@@ -20,7 +22,11 @@ namespace NOOK {
         void init();
         void update(sf::RenderWindow* window);
     private:
-        void initObject(NOOK::Render& render);
+        void drawShape(sf::RenderWindow& window, const NOOK::Entity& entity);
+        void drawCircleShape(sf::RenderWindow& window, const NOOK::Entity& entity, NOOK::Shape& shape);
+        void drawRectangleShape(sf::RenderWindow& window, const NOOK::Entity& entity);
+        void drawLineShape(sf::RenderWindow& window, const NOOK::Entity& entity);
+        void initSprite(NOOK::Sprite& sprite);
     };
 
 } // NAMESPACE NOOK
