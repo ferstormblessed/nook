@@ -26,8 +26,8 @@ int main()
     auto renderTextSystem = NOOK::registerRenderTextSystem();
     renderTextSystem->init("/home/stormblessed/nook/src/fonts");
     // Render System system
-    auto renderSystem = NOOK::registerRenderSystem();
-    renderSystem->init();
+    auto renderSpriteSystem = NOOK::registerRenderSpriteSystem();
+    renderSpriteSystem->init("/home/stormblessed/nook/src/sprites");
     // Physics System
     auto physicsSystem = NOOK::registerPhysicsSystem();
     physicsSystem->init();
@@ -39,25 +39,29 @@ int main()
 //    NOOK::Entity l_paddle = gCoordinator.createEntity();
 //    NOOK::Entity r_paddle = gCoordinator.createEntity();
 
-    // circle
-    NOOK::Entity circle = gCoordinator.createEntity();
-    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
-    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 100, .numSides = 3 });
+//    // circle
+//    NOOK::Entity circle = gCoordinator.createEntity();
+//    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
+//    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 100, .numSides = 3 });
+//
+//    // rectangle
+//    NOOK::Entity rectangle = gCoordinator.createEntity();
+//    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
+//    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
 
-    // rectangle
-    NOOK::Entity rectangle = gCoordinator.createEntity();
-    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
-    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
+    // mosca
+    NOOK::Entity mosca = gCoordinator.createEntity();
+    gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "texture" });
 
     // Text
-    NOOK::Entity text = gCoordinator.createEntity();
-    gCoordinator.addComponent(text, NOOK::Text{
-            .font = "vinque.rg-regular",
-            .text = "Hello there!",
-            .size = 500,
-            .color = sf::Color::White,
-            .isUnderlined = true
-    });
+//    NOOK::Entity text = gCoordinator.createEntity();
+//    gCoordinator.addComponent(text, NOOK::Text{
+//            .font = "vinque.rg-regular",
+//            .text = "Hello there!",
+//            .size = 500,
+//            .color = sf::Color::White,
+//            .isUnderlined = true
+//    });
 
 
     // Game loop
@@ -67,13 +71,10 @@ int main()
     sf::Clock clock;
     window.create(sf::VideoMode(WIDTH, HEIGHT), "NOOK");
 
-    // run the program as long as the window is open
     while (window.isOpen()) {
         clock.restart();
-        // check all the window's events that were triggered since the last iteration of the loop
         sf::Event event{};
         while (window.pollEvent(event)) {
-            // "close requested" event: we close the window
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
@@ -81,11 +82,11 @@ int main()
 
         window.clear();
 
-        // TODO: could each system be on its own thread?
+        // TODO: could each system be on its own thread? Maybe not, because i need the physics transformations
         physicsSystem->update(clock.restart().asSeconds());
         renderShapeSystem->update(&window);
         renderTextSystem->update(&window);
-        renderSystem->update(&window);
+        renderSpriteSystem->update(&window);
 
         window.display();
     }

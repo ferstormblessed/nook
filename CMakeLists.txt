@@ -47,8 +47,8 @@ add_executable(main src/main.cpp
         src/Systems/Physics/PhysicsSystem.cpp
         src/Systems/Physics/PhysicsSystem.h
         src/components/Sprite.h
-        src/Systems/Render/RenderSystem.cpp
-        src/Systems/Render/RenderSystem.h
+        src/Systems/Render/RenderSpriteSystem.cpp
+        src/Systems/Render/RenderSpriteSystem.h
         src/Register.h
         src/Register.h
         src/Input/Input.cpp
@@ -61,7 +61,8 @@ add_executable(main src/main.cpp
         src/Systems/Render/RenderTextSystem.cpp
         src/Systems/Render/RenderTextSystem.h
         src/components/Text.h
-        src/utils.h
+        src/utils/utils.h
+        src/utils/utils.cpp
 )
 target_link_libraries(main PRIVATE sfml-graphics ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

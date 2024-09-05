@@ -4,7 +4,7 @@
 
 #include "RenderTextSystem.h"
 #include "../../core/Coordinator.h"
-#include "../../utils.h"
+#include "../../utils/utils.h"
 #include "../../components/Text.h"
 #include "SFML/Graphics/Text.hpp"
 
@@ -37,6 +37,7 @@ void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::En
         return;
     }
 
+    // TODO: check problems with map, use contains
     sf::Text newText;
     newText.setFont(currentFont);
     newText.setString(text.text);

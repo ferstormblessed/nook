@@ -12,11 +12,10 @@
 
 namespace NOOK {
 
+    // TODO: check the smooth, repeated, etc variables of the texture
     struct Sprite {
-        sf::Texture texture;
         sf::Sprite sprite;
-        std::string image;
-        bool loaded{};
+        std::string spriteName;
     };
 
 } // NAMESPACE NOOK

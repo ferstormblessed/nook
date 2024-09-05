@@ -9,12 +9,13 @@
 #include "components/RigidBody.h"
 #include "components/Transform.h"
 #include "components/Sprite.h"
-#include "Systems/Render/RenderSystem.h"
+#include "Systems/Render/RenderSpriteSystem.h"
 #include "Systems/Physics/PhysicsSystem.h"
 #include "Systems/Render/RenderShapeSystem.h"
 #include "components/RectangleShape.h"
 #include "Systems/Render/RenderTextSystem.h"
 #include "components/Text.h"
+#include "components/CircleShape.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -52,12 +53,12 @@ namespace NOOK {
         return renderTextSystem;
     }
 
-    std::shared_ptr<NOOK::RenderSystem> registerRenderSystem() {
-        auto renderSystem = gCoordinator.registerSystem<NOOK::RenderSystem>();
+    std::shared_ptr<NOOK::RenderSpriteSystem> registerRenderSpriteSystem() {
+        auto renderSystem = gCoordinator.registerSystem<NOOK::RenderSpriteSystem>();
         {
             NOOK::Signature signature;
             signature.set(gCoordinator.getComponentType<NOOK::Sprite>());
-            gCoordinator.setSystemSignature<NOOK::RenderSystem>(signature);
+            gCoordinator.setSystemSignature<NOOK::RenderSpriteSystem>(signature);
         }
         return renderSystem;
     }
