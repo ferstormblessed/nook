@@ -53,12 +53,15 @@ int main() {
     // circle
     NOOK::Entity circle = gCoordinator.createEntity();
     gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
-    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 800, .numSides = 3 });
+    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 80, .numSides = 3 });
+    gCoordinator.addComponent(circle, NOOK::Transform{ .position = b2Vec2(config.WIDTH/2.f - 80.f, config.HEIGHT/2.f - 80.f)});
+    gCoordinator.addComponent(circle, NOOK::RigidBody{});
+    gCoordinator.addComponent(circle, NOOK::Gravity{ .force = b2Vec2(0.f, 10000.f)});
 
     // rectangle
     NOOK::Entity rectangle = gCoordinator.createEntity();
     gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
-    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 800, .width = 500 });
+    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 80, .width = 50 });
 
     // mosca
     NOOK::Entity mosca = gCoordinator.createEntity();
@@ -69,7 +72,7 @@ int main() {
     gCoordinator.addComponent(text, NOOK::Text{
             .font = "vinque.rg-regular",
             .text = "Hello there!",
-            .size = 300,
+            .size = 50,
             .color = sf::Color::White,
             .isUnderlined = true
     });

@@ -26,9 +26,5 @@ void NOOK::PhysicsSystem::update(float dt) {
 
         rigidBody.body.linearVelocity.x += gravity.force.x * dt;
         rigidBody.body.linearVelocity.y += gravity.force.y * dt;
-
-        spdlog::warn("PHYSICS SYSTEM INFO");
-        spdlog::warn("Transform position: ({}, {})", transform.position.x, transform.position.y);
-        spdlog::warn("RigidBody velocity: ({}, {})", rigidBody.body.linearVelocity.x, rigidBody.body.linearVelocity.y);
     }
 }

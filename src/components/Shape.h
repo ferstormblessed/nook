@@ -20,6 +20,7 @@ namespace NOOK {
         sf::Color color;
         sf::Color outlineColor;
         float outlineThickness;
+        bool loaded;
     };
 
 } // NAMESPACE NOOK

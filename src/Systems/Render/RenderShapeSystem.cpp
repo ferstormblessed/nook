@@ -3,12 +3,11 @@
 //
 
 #include "RenderShapeSystem.h"
-#include "../../components/CircleShape.h"
 #include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
-#include "SFML/Graphics/CircleShape.hpp"
 #include "../../components/RectangleShape.h"
 #include "SFML/Graphics/RectangleShape.hpp"
+#include "../../components/Transform.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -33,9 +32,8 @@ void NOOK::RenderShapeSystem::drawShape(sf::RenderWindow& window, const NOOK::En
     }
 }
 
-void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
-    auto& circleShape = gCoordinator.getComponent<CircleShape>(entity);
-    sf::CircleShape newShape;
+void NOOK::RenderShapeSystem::initCircleShape(const NOOK::Entity& entity, NOOK::Shape& shape, NOOK::CircleShape& circleShape) {
+    auto newShape = std::make_shared<sf::CircleShape>();
 
     if (circleShape.radius <= 0) {
         spdlog::error("Invalid radius magnitude: {}", circleShape.radius);
@@ -44,18 +42,33 @@ void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NO
 
     // 2 because the function only works with 3 sides onwards
     if (circleShape.numSides > 2) {
-        newShape.setPointCount(circleShape.numSides);
+        newShape->setPointCount(circleShape.numSides);
     }
 
-    newShape.setRadius(circleShape.radius);
+    newShape->setRadius(circleShape.radius);
 
-    newShape.setFillColor(shape.color);
-    newShape.setOutlineColor(shape.outlineColor);
-    newShape.setOutlineThickness(shape.outlineThickness);
+    newShape->setFillColor(shape.color);
+    newShape->setOutlineColor(shape.outlineColor);
+    newShape->setOutlineThickness(shape.outlineThickness);
 
     // TODO: handle textures for circle shapes
 
-    window.draw(newShape);
+    circleShape.shape = newShape;
+    shape.loaded = true;
+}
+
+void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
+    auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
+    auto& circleShape = gCoordinator.getComponent<CircleShape>(entity);
+
+    // Detect change in data
+    if (!shape.loaded) {
+        initCircleShape(entity, shape, circleShape);
+    }
+
+    circleShape.shape->setPosition(transform.position.x, transform.position.y);
+
+    window.draw(*circleShape.shape);
 }
 
 void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
