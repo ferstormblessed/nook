@@ -6,7 +6,7 @@
 #include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
 #include "../../components/Transform.h"
-#include "../../utils/utils.h"
+#include "../../Utils//utils.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -40,6 +40,7 @@ void NOOK::RenderSpriteSystem::loadSprites(const std::string &path) {
     std::vector<std::string> spriteFiles = NOOK::getFilesInDirectory(path);
 
     for (auto& file : spriteFiles) {
+        // TODO: fix texture. The texture is loss because of how sfml handles things
         std::string spriteName = NOOK::getFileNameWithoutExtension(file);
         sf::Texture texture;
         texture.loadFromFile(file);

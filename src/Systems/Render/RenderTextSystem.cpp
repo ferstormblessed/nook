@@ -4,17 +4,18 @@
 
 #include "RenderTextSystem.h"
 #include "../../core/Coordinator.h"
-#include "../../utils/utils.h"
 #include "../../components/Text.h"
 #include "SFML/Graphics/Text.hpp"
+#include "../../Utils/utils.h"
+#include "../../core/ResourceManager.h"
 
 // TODO: add transform component management
 
 extern NOOK::Coordinator gCoordinator;
+extern NOOK::ResourceManager resourceManager;
 
-void NOOK::RenderTextSystem::init(const std::string& path) {
+void NOOK::RenderTextSystem::init() {
     spdlog::info("initializing RENDER TEXT SYSTEM");
-    loadFonts(path);
 }
 
 void NOOK::RenderTextSystem::update(sf::RenderWindow* window) {
@@ -24,22 +25,26 @@ void NOOK::RenderTextSystem::update(sf::RenderWindow* window) {
 }
 
 void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::Entity& entity) {
+    // TODO: should set an init function, so i don't do the creation every cycle and function to see when something changes
     auto& text = gCoordinator.getComponent<NOOK::Text>(entity);
 
     if (text.font.empty()) {
         spdlog::error("Provide a font name");
         return;
     }
-    setCurrentFont(text.font);
 
     if (text.size < 1) {
         spdlog::error("Invalid size for text");
         return;
     }
 
-    // TODO: check problems with map, use contains
+    if (resourceManager.getFont(text.font) == nullptr) {
+        spdlog::error("Unable to get font: {}", text.font);
+        return;
+    }
+
     sf::Text newText;
-    newText.setFont(currentFont);
+    newText.setFont(*resourceManager.getFont(text.font));
     newText.setString(text.text);
     newText.setCharacterSize(text.size);
     newText.setFillColor(text.color);
@@ -62,19 +67,4 @@ void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::En
     }
 
     window.draw(newText);
-}
-
-void NOOK::RenderTextSystem::loadFonts(const std::string &directory) {
-    std::vector<std::string> files = NOOK::getFilesInDirectory(directory);
-
-    for (auto& file : files) {
-        std::string fontName = NOOK::getFileNameWithoutExtension(file);
-        sf::Font font;
-        font.loadFromFile(file);
-        fontsLibrary[fontName] = font;
-    }
-}
-
-void NOOK::RenderTextSystem::setCurrentFont(const std::string& font) {
-    currentFont = fontsLibrary[font];
 }

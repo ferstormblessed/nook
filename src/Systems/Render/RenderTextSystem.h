@@ -16,14 +16,11 @@ namespace NOOK {
 
     class RenderTextSystem : public System {
     public:
-        void init(const std::string& path);
+        void init();
         void update(sf::RenderWindow* window);
     private:
         void renderText(sf::RenderWindow& window, const NOOK::Entity& entity);
         void loadFonts(const std::string& directory);
-        void setCurrentFont(const std::string& font);
-        sf::Font currentFont;
-        std::unordered_map<std::string, sf::Font> fontsLibrary;
     };
 
 } // NAMESPACE NOOK

@@ -9,11 +9,13 @@
 
 #include <vector>
 #include <string>
+#include "../Config.h"
 
 namespace NOOK {
 
     std::vector<std::string> getFilesInDirectory(const std::string& directoryPath);
     std::string getFileNameWithoutExtension(const std::string& filePath);
+    Config loadConfigFromFile(const std::string& filename);
 
 } // NAMESPACE NOOK
 
