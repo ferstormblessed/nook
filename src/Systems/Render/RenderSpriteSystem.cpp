@@ -7,12 +7,13 @@
 #include "../../core/Coordinator.h"
 #include "../../components/Transform.h"
 #include "../../Utils//utils.h"
+#include "../../core/ResourceManager.h"
 
 extern NOOK::Coordinator gCoordinator;
+extern NOOK::ResourceManager resourceManager;
 
-void NOOK::RenderSpriteSystem::init(const std::string& directory) {
+void NOOK::RenderSpriteSystem::init() {
     spdlog::info("initializing RENDER SPRITE SYSTEM");
-    loadSprites(directory);
 }
 
 void NOOK::RenderSpriteSystem::update(sf::RenderWindow* window) {
@@ -26,29 +27,12 @@ void NOOK::RenderSpriteSystem::renderSprite(sf::RenderWindow &window, const NOOK
     auto& sprite = gCoordinator.getComponent<NOOK::Sprite>(entity);
     //auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
 
-    if (sprite.spriteName.empty() || sprites.count(sprite.spriteName) == 0){
-        spdlog::error("Not a valid sprite name");
+    if (sprite.spriteName.empty() || resourceManager.getTexture(sprite.spriteName) == nullptr){
+        spdlog::error("Not a valid sprite name: {}", sprite.spriteName);
         return;
     }
 
-    sprite.sprite.setTexture(getTexture(sprite.spriteName));
+    sprite.sprite.setTexture(*resourceManager.getTexture(sprite.spriteName));
 
     window.draw(sprite.sprite);
-}
-
-void NOOK::RenderSpriteSystem::loadSprites(const std::string &path) {
-    std::vector<std::string> spriteFiles = NOOK::getFilesInDirectory(path);
-
-    for (auto& file : spriteFiles) {
-        // TODO: fix texture. The texture is loss because of how sfml handles things
-        std::string spriteName = NOOK::getFileNameWithoutExtension(file);
-        sf::Texture texture;
-        texture.loadFromFile(file);
-        sprites[spriteName] = texture;
-    }
-}
-
-sf::Texture NOOK::RenderSpriteSystem::getTexture(const std::string &spriteName) {
-    // can just return, checked if the texture exist elsewhere
-    return sprites[spriteName];
 }

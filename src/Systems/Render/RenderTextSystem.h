@@ -20,7 +20,6 @@ namespace NOOK {
         void update(sf::RenderWindow* window);
     private:
         void renderText(sf::RenderWindow& window, const NOOK::Entity& entity);
-        void loadFonts(const std::string& directory);
     };
 
 } // NAMESPACE NOOK

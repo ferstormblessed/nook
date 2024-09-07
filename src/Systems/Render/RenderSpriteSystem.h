@@ -18,13 +18,10 @@ namespace NOOK {
 
     class RenderSpriteSystem : public System {
     public:
-        void init(const std::string& directory);
+        void init();
         void update(sf::RenderWindow* window);
     private:
         void renderSprite(sf::RenderWindow& window, const NOOK::Entity& entity);
-        void loadSprites(const std::string& path);
-        sf::Texture getTexture(const std::string& spriteName);
-        std::unordered_map<std::string, sf::Texture> sprites;
     };
 
 } // NAMESPACE NOOK

@@ -27,6 +27,7 @@ namespace NOOK {
         std::string m_soundsDirectory;
         std::string m_fontsDirectory;
         std::shared_ptr<sf::Font> getFont(const std::string& font);
+        std::shared_ptr<sf::Texture> getTexture(const std::string& texture);
     private:
         std::shared_ptr<sf::Texture> loadTexture(const std::string& path);
         std::shared_ptr<sf::SoundBuffer> loadSound(const std::string& path);

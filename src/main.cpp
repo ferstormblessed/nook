@@ -38,7 +38,7 @@ int main() {
     renderTextSystem->init();
     // Render System system
     auto renderSpriteSystem = NOOK::registerRenderSpriteSystem();
-    renderSpriteSystem->init("/home/stormblessed/nook/src/sprites");
+    renderSpriteSystem->init();
     // Physics System
     auto physicsSystem = NOOK::registerPhysicsSystem();
     physicsSystem->init();
@@ -67,29 +67,29 @@ int main() {
 //    NOOK::Entity l_paddle = gCoordinator.createEntity();
 //    NOOK::Entity r_paddle = gCoordinator.createEntity();
 
-    // circle
-//    NOOK::Entity circle = gCoordinator.createEntity();
-//    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
-//    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 100, .numSides = 3 });
-//
-//    // rectangle
-//    NOOK::Entity rectangle = gCoordinator.createEntity();
-//    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
-//    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
+    //// circle
+    //NOOK::Entity circle = gCoordinator.createEntity();
+    //gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
+    //gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 100, .numSides = 3 });
 
-    // mosca
-//    NOOK::Entity mosca = gCoordinator.createEntity();
-//    gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "mosca" });
+    //// rectangle
+    //NOOK::Entity rectangle = gCoordinator.createEntity();
+    //gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
+    //gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
 
-    // Text
-    NOOK::Entity text = gCoordinator.createEntity();
-    gCoordinator.addComponent(text, NOOK::Text{
-            .font = "vinque.rg-regular",
-            .text = "Hello there!",
-            .size = 500,
-            .color = sf::Color::White,
-            .isUnderlined = true
-    });
+    //// mosca
+    //NOOK::Entity mosca = gCoordinator.createEntity();
+    //gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "texture" });
+
+    //// Text
+    //NOOK::Entity text = gCoordinator.createEntity();
+    //gCoordinator.addComponent(text, NOOK::Text{
+    //        .font = "vinque.rg-regular",
+    //        .text = "Hello there!",
+    //        .size = 500,
+    //        .color = sf::Color::White,
+    //        .isUnderlined = true
+    //});
 
     // Game loop
     // TODO: try to abstract this to a separate function

@@ -6,7 +6,6 @@
 #include "../../core/Coordinator.h"
 #include "../../components/Text.h"
 #include "SFML/Graphics/Text.hpp"
-#include "../../Utils/utils.h"
 #include "../../core/ResourceManager.h"
 
 // TODO: add transform component management

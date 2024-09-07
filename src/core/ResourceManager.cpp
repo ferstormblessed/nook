@@ -81,3 +81,11 @@ std::shared_ptr<sf::Font> NOOK::ResourceManager::getFont(const std::string& font
     return m_fonts.at(font);
 }
 
+std::shared_ptr<sf::Texture> NOOK::ResourceManager::getTexture(const std::string &texture) {
+    if (m_textures.count(texture) == 0) {
+        spdlog::error("Not a valid texture name: {}", texture);
+        return nullptr;
+    }
+    return m_textures.at(texture);
+}
+
