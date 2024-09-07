@@ -44,52 +44,35 @@ int main() {
     physicsSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
-//    spdlog::info("Audio available");
-//    sf::SoundBuffer soundBuffer;
-//    if (!soundBuffer.loadFromFile(config.ASSETS_PATH+config.AUDIO_DIRECTORY+"/ahem_x.wav")) {
-//        spdlog::error("Failed to load sound:");
-//        return 1;
-//    }
-//    sf::Sound sound;
-//    sound.setBuffer(soundBuffer);
-//    sound.play();
-
-
-//    sf::SoundBuffer sound;
-//    sound.loadFromFile("/home/stormblessed/nook/Assets/Audio/ahem_x.wav");
-//    sf::Sound song;
-//    song.setBuffer(sound);
-//    song.play();
-
     // Entities
 
     // Paddles
 //    NOOK::Entity l_paddle = gCoordinator.createEntity();
 //    NOOK::Entity r_paddle = gCoordinator.createEntity();
 
-    //// circle
-    //NOOK::Entity circle = gCoordinator.createEntity();
-    //gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
-    //gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 100, .numSides = 3 });
+    // circle
+    NOOK::Entity circle = gCoordinator.createEntity();
+    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
+    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 800, .numSides = 3 });
 
-    //// rectangle
-    //NOOK::Entity rectangle = gCoordinator.createEntity();
-    //gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
-    //gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 100, .width = 300 });
+    // rectangle
+    NOOK::Entity rectangle = gCoordinator.createEntity();
+    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
+    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 800, .width = 500 });
 
-    //// mosca
-    //NOOK::Entity mosca = gCoordinator.createEntity();
-    //gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "texture" });
+    // mosca
+    NOOK::Entity mosca = gCoordinator.createEntity();
+    gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "mosca" });
 
-    //// Text
-    //NOOK::Entity text = gCoordinator.createEntity();
-    //gCoordinator.addComponent(text, NOOK::Text{
-    //        .font = "vinque.rg-regular",
-    //        .text = "Hello there!",
-    //        .size = 500,
-    //        .color = sf::Color::White,
-    //        .isUnderlined = true
-    //});
+    // Text
+    NOOK::Entity text = gCoordinator.createEntity();
+    gCoordinator.addComponent(text, NOOK::Text{
+            .font = "vinque.rg-regular",
+            .text = "Hello there!",
+            .size = 300,
+            .color = sf::Color::White,
+            .isUnderlined = true
+    });
 
     // Game loop
     // TODO: try to abstract this to a separate function

@@ -5,9 +5,8 @@
 #include "RenderSpriteSystem.h"
 #include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
-#include "../../components/Transform.h"
-#include "../../Utils//utils.h"
 #include "../../core/ResourceManager.h"
+#include "../../components/Sprite.h"
 
 extern NOOK::Coordinator gCoordinator;
 extern NOOK::ResourceManager resourceManager;

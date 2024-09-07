@@ -10,7 +10,6 @@
 #include <unordered_map>
 #include "../../core/System.h"
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "SFML/Graphics/Font.hpp"
 
 namespace NOOK {
 

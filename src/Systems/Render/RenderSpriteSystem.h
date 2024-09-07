@@ -10,9 +10,7 @@
 #include <memory>
 #include <unordered_map>
 #include "../../core/System.h"
-#include "../../components/Sprite.h"
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "../../components/Shape.h"
 
 namespace NOOK {
 
