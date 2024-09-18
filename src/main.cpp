@@ -5,6 +5,7 @@
 #include "Utils/utils.h"
 #include "core/ResourceManager.h"
 #include "SFML/Audio.hpp"
+#include "components/PlayerMove.h"
 
 NOOK::Coordinator gCoordinator;
 NOOK::ResourceManager resourceManager;
@@ -42,40 +43,66 @@ int main() {
     // Physics System
     auto physicsSystem = NOOK::registerPhysicsSystem();
     physicsSystem->init();
+    // Movement System
+    auto movementSystem = NOOK::registerMovementSystem();
+    movementSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
     // Entities
 
     // Paddles
-//    NOOK::Entity l_paddle = gCoordinator.createEntity();
-//    NOOK::Entity r_paddle = gCoordinator.createEntity();
+    NOOK::Entity l_paddle = gCoordinator.createEntity();
+    NOOK::Entity r_paddle = gCoordinator.createEntity();
 
-    // circle
-    NOOK::Entity circle = gCoordinator.createEntity();
-    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
-    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 80, .numSides = 3 });
-    gCoordinator.addComponent(circle, NOOK::Transform{ .position = b2Vec2(config.WIDTH/2.f - 80.f, config.HEIGHT/2.f - 80.f)});
-    gCoordinator.addComponent(circle, NOOK::RigidBody{});
-    gCoordinator.addComponent(circle, NOOK::Gravity{ .force = b2Vec2(0.f, 10000.f)});
+    gCoordinator.addComponent(l_paddle, NOOK::Shape{ .isRectangle = true, .color = sf::Color::White });
+    gCoordinator.addComponent(l_paddle, NOOK::RectangleShape{ .height = 200.f, .width = 20.f });
+    gCoordinator.addComponent(l_paddle, NOOK::Transform{ .position = b2Vec2(30.f, config.HEIGHT/2 - 100)});
+    gCoordinator.addComponent(l_paddle,
+                              NOOK::PlayerMove{
+                                      .speed = 10.f,
+                                      .up = sf::Keyboard::Key::W,
+                                      .down = sf::Keyboard::Key::S,
+                                      .right = sf::Keyboard::Key::D,
+                                      .left = sf::Keyboard::Key::L
+                              });
 
-    // rectangle
-    NOOK::Entity rectangle = gCoordinator.createEntity();
-    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
-    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 80, .width = 50 });
-
-    // mosca
-    NOOK::Entity mosca = gCoordinator.createEntity();
-    gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "mosca" });
-
-    // Text
-    NOOK::Entity text = gCoordinator.createEntity();
-    gCoordinator.addComponent(text, NOOK::Text{
-            .font = "vinque.rg-regular",
-            .text = "Hello there!",
-            .size = 50,
-            .color = sf::Color::White,
-            .isUnderlined = true
-    });
+    gCoordinator.addComponent(r_paddle, NOOK::Shape{ .isRectangle = true, .color = sf::Color::White });
+    gCoordinator.addComponent(r_paddle, NOOK::RectangleShape{ .height = 200.f, .width = 20.f });
+    gCoordinator.addComponent(r_paddle, NOOK::Transform{ .position = b2Vec2(config.WIDTH - 50.f, config.HEIGHT/2 - 100)});
+    gCoordinator.addComponent(r_paddle,
+                              NOOK::PlayerMove{
+                                      .speed = 10.f,
+                                      .up = sf::Keyboard::Key::Up,
+                                      .down = sf::Keyboard::Key::Down,
+                                      .right = sf::Keyboard::Key::Right,
+                                      .left = sf::Keyboard::Key::Left
+                              });
+//    // circle
+//    NOOK::Entity circle = gCoordinator.createEntity();
+//    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
+//    gCoordinator.addComponent(circle,NOOK::CircleShape{ .radius = 80, .numSides = 3 });
+//    gCoordinator.addComponent(circle, NOOK::Transform{ .position = b2Vec2(config.WIDTH/2.f - 80.f, config.HEIGHT/2.f - 80.f)});
+//    gCoordinator.addComponent(circle, NOOK::RigidBody{});
+//    gCoordinator.addComponent(circle, NOOK::Gravity{ .force = b2Vec2(0.f, 10000.f)});
+//
+//    // rectangle
+//    NOOK::Entity rectangle = gCoordinator.createEntity();
+//    gCoordinator.addComponent(rectangle,NOOK::Shape{ .isRectangle = true, .color = sf::Color::Blue });
+//    gCoordinator.addComponent(rectangle,NOOK::RectangleShape{ .height = 80, .width = 50 });
+//
+//    // mosca
+//    NOOK::Entity mosca = gCoordinator.createEntity();
+//    gCoordinator.addComponent(mosca, NOOK::Sprite{ .spriteName = "mosca" });
+//
+//    // Text
+//    NOOK::Entity text = gCoordinator.createEntity();
+//    gCoordinator.addComponent(text, NOOK::Text{
+//            .font = "vinque.rg-regular",
+//            .text = "Hello there!",
+//            .size = 50,
+//            .color = sf::Color::White,
+//            .isUnderlined = true
+//    });
 
     // Game loop
     // TODO: try to abstract this to a separate function
@@ -97,6 +124,7 @@ int main() {
 
         // TODO: could each system be on its own thread? Maybe not, because i need the physics transformations
         physicsSystem->update(clock.restart().asSeconds());
+        movementSystem->update(&event);
         renderShapeSystem->update(&window);
         renderTextSystem->update(&window);
         renderSpriteSystem->update(&window);

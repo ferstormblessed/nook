@@ -9,6 +9,7 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "../../components/Shape.h"
 #include "../../components/CircleShape.h"
+#include "../../components/RectangleShape.h"
 
 namespace NOOK {
 
@@ -22,6 +23,7 @@ namespace NOOK {
         void drawRectangleShape(sf::RenderWindow& window, const NOOK::Entity& entity, NOOK::Shape& shape);
 
         void initCircleShape(const NOOK::Entity &entity, NOOK::Shape &shape, NOOK::CircleShape& circleShape);
+        void initRectangleShape(const NOOK::Entity &entity, NOOK::Shape &shape, NOOK::RectangleShape& rectangleShape);
     };
 
 } // NAMESPACE NOOK

@@ -71,22 +71,35 @@ void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NO
     window.draw(*circleShape.shape);
 }
 
-void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
-    auto& rectangleShape = gCoordinator.getComponent<RectangleShape>(entity);
-    sf::RectangleShape newShape;
+void NOOK::RenderShapeSystem::initRectangleShape(const NOOK::Entity& entity, NOOK::Shape& shape, NOOK::RectangleShape& rectangleShape) {
+    auto newShape = std::make_shared<sf::RectangleShape>();
 
     if (rectangleShape.height <= 0 || rectangleShape.width <= 0) {
         spdlog::error("Invalid rectangle dimensions: {} {}", rectangleShape.height, rectangleShape.width);
         return;
     }
 
-    newShape.setSize(sf::Vector2f(rectangleShape.width, rectangleShape.height));
+    newShape->setSize(sf::Vector2f(rectangleShape.width, rectangleShape.height));
 
-    newShape.setFillColor(shape.color);
-    newShape.setOutlineColor(shape.outlineColor);
-    newShape.setOutlineThickness(shape.outlineThickness);
+    newShape->setFillColor(shape.color);
+    newShape->setOutlineColor(shape.outlineColor);
+    newShape->setOutlineThickness(shape.outlineThickness);
+
+    rectangleShape.shape = newShape;
+    shape.loaded = true;
 
     // TODO: handle textures for rectangle shapes
+}
 
-    window.draw(newShape);
+void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {
+    auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
+    auto& rectangleShape = gCoordinator.getComponent<RectangleShape>(entity);
+
+    if (!shape.loaded) {
+        initRectangleShape(entity, shape, rectangleShape);
+    }
+
+    rectangleShape.shape->setPosition(transform.position.x, transform.position.y);
+
+    window.draw(*rectangleShape.shape);
 }

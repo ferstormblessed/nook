@@ -16,6 +16,8 @@
 #include "Systems/Render/RenderTextSystem.h"
 #include "components/Text.h"
 #include "components/CircleShape.h"
+#include "components/PlayerMove.h"
+#include "Systems/MovementSystem.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -25,6 +27,7 @@ namespace NOOK {
         // TODO: make function that reads directory components and extracts the name of each file and registers the component
         gCoordinator.registerComponent<NOOK::CircleShape>();
         gCoordinator.registerComponent<NOOK::Gravity>();
+        gCoordinator.registerComponent<NOOK::PlayerMove>();
         gCoordinator.registerComponent<NOOK::RectangleShape>();
         gCoordinator.registerComponent<NOOK::RigidBody>();
         gCoordinator.registerComponent<NOOK::Shape>();
@@ -73,5 +76,16 @@ namespace NOOK {
             gCoordinator.setSystemSignature<NOOK::PhysicsSystem>(signature);
         }
         return physicsSystem;
+    }
+
+    std::shared_ptr<NOOK::MovementSystem> registerMovementSystem() {
+        auto movementSystem = gCoordinator.registerSystem<NOOK::MovementSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
+            signature.set(gCoordinator.getComponentType<NOOK::PlayerMove>());
+            gCoordinator.setSystemSignature<NOOK::PhysicsSystem>(signature);
+        }
+        return movementSystem;
     }
 }
