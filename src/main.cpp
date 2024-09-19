@@ -1,11 +1,11 @@
 #include "Register.h"
 #include "core/Coordinator.h"
 #include <spdlog/spdlog.h>
-#include "SFML/Graphics.hpp"
-#include "Utils/utils.h"
 #include "core/ResourceManager.h"
 #include "SFML/Audio.hpp"
-#include "components/PlayerMove.h"
+#include "Config.h"
+#include "Utils/utils.h"
+#include "Games/Pong.h"
 
 NOOK::Coordinator gCoordinator;
 NOOK::ResourceManager resourceManager;
@@ -48,35 +48,7 @@ int main() {
     movementSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
-    // Entities
 
-    // Paddles
-    NOOK::Entity l_paddle = gCoordinator.createEntity();
-    NOOK::Entity r_paddle = gCoordinator.createEntity();
-
-    gCoordinator.addComponent(l_paddle, NOOK::Shape{ .isRectangle = true, .color = sf::Color::White });
-    gCoordinator.addComponent(l_paddle, NOOK::RectangleShape{ .height = 200.f, .width = 20.f });
-    gCoordinator.addComponent(l_paddle, NOOK::Transform{ .position = b2Vec2(30.f, config.HEIGHT/2 - 100)});
-    gCoordinator.addComponent(l_paddle,
-                              NOOK::PlayerMove{
-                                      .speed = 10.f,
-                                      .up = sf::Keyboard::Key::W,
-                                      .down = sf::Keyboard::Key::S,
-                                      .right = sf::Keyboard::Key::D,
-                                      .left = sf::Keyboard::Key::L
-                              });
-
-    gCoordinator.addComponent(r_paddle, NOOK::Shape{ .isRectangle = true, .color = sf::Color::White });
-    gCoordinator.addComponent(r_paddle, NOOK::RectangleShape{ .height = 200.f, .width = 20.f });
-    gCoordinator.addComponent(r_paddle, NOOK::Transform{ .position = b2Vec2(config.WIDTH - 50.f, config.HEIGHT/2 - 100)});
-    gCoordinator.addComponent(r_paddle,
-                              NOOK::PlayerMove{
-                                      .speed = 10.f,
-                                      .up = sf::Keyboard::Key::Up,
-                                      .down = sf::Keyboard::Key::Down,
-                                      .right = sf::Keyboard::Key::Right,
-                                      .left = sf::Keyboard::Key::Left
-                              });
 //    // circle
 //    NOOK::Entity circle = gCoordinator.createEntity();
 //    gCoordinator.addComponent(circle,NOOK::Shape{ .isCircle = true, .color = sf::Color::Red });
@@ -103,6 +75,9 @@ int main() {
 //            .color = sf::Color::White,
 //            .isUnderlined = true
 //    });
+
+    // Pong
+    NOOK::Pong(config);
 
     // Game loop
     // TODO: try to abstract this to a separate function
