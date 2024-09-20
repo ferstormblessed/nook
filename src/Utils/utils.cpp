@@ -3,7 +3,6 @@
 //
 
 #include "utils.h"
-#include <dirent.h>
 #include <filesystem>
 #include "spdlog/spdlog.h"
 #include <fstream>
@@ -14,22 +13,17 @@ namespace NOOK {
     std::vector<std::string> getFilesInDirectory(const std::string &directoryPath) {
         std::vector<std::string> files;
 
-        DIR *dir;
-        dir = opendir(directoryPath.c_str());
-        if (dir == nullptr) {
+        if (!std::filesystem::exists(directoryPath) || !std::filesystem::is_directory(directoryPath)) {
             spdlog::error("Error opening directory: {}", directoryPath);
             return files;
         }
 
-        struct dirent *entry;
-        while ((entry = readdir(dir)) != nullptr) {
-            if (entry->d_type == DT_REG) { // Check if it's a regular file
-                std::string filePath = directoryPath + "/" + entry->d_name;
-                files.push_back(filePath);
+        for (const auto& entry : std::filesystem::directory_iterator(directoryPath)) {
+            if (entry.is_regular_file()) {
+                files.push_back(entry.path().string());
             }
         }
 
-        closedir(dir);
         return files;
     }
 
@@ -76,4 +70,4 @@ namespace NOOK {
         return config;
     }
 
-}
+} // NAMESPACE NOOK

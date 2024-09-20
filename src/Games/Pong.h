@@ -18,7 +18,7 @@
 
 namespace NOOK {
 
-    void Pong(const NOOK::Config& config) {
+    void paddles(const NOOK::Config& config) {
         // Paddles
         NOOK::Entity l_paddle = gCoordinator.createEntity();
         NOOK::Entity r_paddle = gCoordinator.createEntity();
@@ -69,6 +69,10 @@ namespace NOOK {
         gCoordinator.addComponent(r_paddle, r_rectangleShape);
         gCoordinator.addComponent(r_paddle, r_transform);
         gCoordinator.addComponent(r_paddle, r_playerMove);
+    }
+
+    void Pong(const NOOK::Config& config) {
+        paddles(config);
     }
 
 } // NAMESPACE NOOK
