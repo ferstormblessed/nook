@@ -15,10 +15,10 @@ namespace NOOK {
     struct PlayerMove {
         float speed{};
 
-        sf::Keyboard::Key up{};
-        sf::Keyboard::Key down{};
-        sf::Keyboard::Key right{};
-        sf::Keyboard::Key left{};
+        sf::Keyboard::Key up = sf::Keyboard::Unknown;
+        sf::Keyboard::Key down = sf::Keyboard::Unknown;
+        sf::Keyboard::Key right = sf::Keyboard::Unknown;
+        sf::Keyboard::Key left = sf::Keyboard::Unknown;;
     };
 
 } // NAMESPACE NOOK

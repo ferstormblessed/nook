@@ -13,14 +13,13 @@
 namespace NOOK {
 
     struct Shape {
-        bool isCircle;
-        bool isRectangle;
-        bool isLine;
-        sf::Texture texture;
-        sf::Color color;
-        sf::Color outlineColor;
-        float outlineThickness;
-        bool loaded;
+        bool isCircle{};
+        bool isRectangle{};
+        sf::Texture texture{};
+        sf::Color color{};
+        sf::Color outlineColor{};
+        float outlineThickness{};
+        bool loaded{};
     };
 
 } // NAMESPACE NOOK
