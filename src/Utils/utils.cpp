@@ -8,6 +8,8 @@
 #include <fstream>
 #include <sstream>
 
+const extern NOOK::Config config;
+
 namespace NOOK {
 
     std::vector<std::string> getFilesInDirectory(const std::string &directoryPath) {
@@ -62,6 +64,8 @@ namespace NOOK {
                     config.FONTS_DIRECTORY = value;
                 } else if (key == "SPRITES_DIRECTORY") {
                     config.SPRITES_DIRECTORY = value;
+                } else if (key == "GRAVITY") {
+                    config.GRAVITY = std::stof(value);
                 }
             }
         }
@@ -69,5 +73,29 @@ namespace NOOK {
         configFile.close();
         return config;
     }
+
+    float xCoordinatePixelToMetric(float pixelValue) {
+        return (pixelValue - config.WIDTH / 2) * 0.02f;
+    }
+
+    float yCoordinatePixelToMetric(float pixelValue) {
+        return (config.HEIGHT / 2 - pixelValue) * 0.02f;
+    }
+
+    float xCoordinateMetricToPixel(float metricValue) {
+        return (metricValue + config.WIDTH / 2) * 50.0f;
+    }
+    float yCoordinateMetricToPixel(float metricValue) {
+        return (config.HEIGHT / 2 - metricValue ) * 50.0f;
+    }
+
+    float pixelToMetric(float pixelValue) {
+        return pixelValue * 0.02f;
+    }
+
+    float metricToPixel(float metricValue) {
+        return metricValue * 50.0f;
+    }
+
 
 } // NAMESPACE NOOK

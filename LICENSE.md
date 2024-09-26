@@ -1,4 +1,4 @@
-# CMake SFML Project Licenses
+# Development of Nook a comprehensive 2D game engine using modern C++
 
 *This software is available under 2 licenses -- choose whichever you prefer.*
 
@@ -29,7 +29,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 ## MIT License
 
-Copyright (c) 2022 Lukas Dürrenberger
+Copyright (c) 2022 Lukas Dï¿½rrenberger
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

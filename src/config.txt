@@ -6,3 +6,4 @@ ASSETS_PATH=/home/stormblessed/nook/Assets/
 AUDIO_DIRECTORY=/Audio
 FONTS_DIRECTORY=/Fonts
 SPRITES_DIRECTORY=/Sprites
+GRAVITY=-10.0

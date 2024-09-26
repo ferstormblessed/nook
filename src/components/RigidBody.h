@@ -7,12 +7,26 @@
 #ifndef NOOK_RIGIDBODY_H
 #define NOOK_RIGIDBODY_H
 
-#include "box2d/b2_body.h"
+
+#include "box2d/types.h"
 
 namespace NOOK {
 
+    enum shape {
+        b2Polygon,
+        b2Circle
+    };
+
     struct RigidBody {
-        b2BodyDef body;
+        b2BodyDef bodyDef{};
+        b2BodyType bodyType{};
+        b2Vec2 position{};
+        b2BodyId bodyId{};
+        shape shapeType{};
+        b2ShapeDef shapeDef{};
+        float density{};
+        float friction{};
+        float restitution{};
     };
 
 } // NAMESPACE NOOK

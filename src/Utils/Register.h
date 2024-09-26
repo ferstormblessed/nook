@@ -4,20 +4,22 @@
 
 #pragma once
 
-#include "core/Coordinator.h"
-#include "components/Gravity.h"
-#include "components/RigidBody.h"
-#include "components/Transform.h"
-#include "components/Sprite.h"
-#include "Systems/Render/RenderSpriteSystem.h"
-#include "Systems/Physics/PhysicsSystem.h"
-#include "Systems/Render/RenderShapeSystem.h"
-#include "components/RectangleShape.h"
-#include "Systems/Render/RenderTextSystem.h"
-#include "components/Text.h"
-#include "components/CircleShape.h"
-#include "components/PlayerMove.h"
-#include "Systems/MovementSystem.h"
+#include "../core/Coordinator.h"
+#include "../components/RigidBody.h"
+#include "../components/Transform.h"
+#include "../components/Sprite.h"
+#include "../Systems/Render/RenderSpriteSystem.h"
+#include "../Systems/Physics/PhysicsSystem.h"
+#include "../Systems/Render/RenderShapeSystem.h"
+#include "../components/RectangleShape.h"
+#include "../Systems/Render/RenderTextSystem.h"
+#include "../components/Text.h"
+#include "../components/CircleShape.h"
+#include "../components/PlayerMove.h"
+#include "../Systems/MovementSystem.h"
+#include "../Systems/Physics/BouncePhysicsSystem.h"
+#include "../components/b2CircleComponent.h"
+#include "../components/b2PolygonComponent.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -25,8 +27,9 @@ namespace NOOK {
 
     void registerComponents() {
         // TODO: make function that reads directory components and extracts the name of each file and registers the component
+        gCoordinator.registerComponent<NOOK::b2CircleComponent>();
+        gCoordinator.registerComponent<NOOK::b2PolygonComponent>();
         gCoordinator.registerComponent<NOOK::CircleShape>();
-        gCoordinator.registerComponent<NOOK::Gravity>();
         gCoordinator.registerComponent<NOOK::PlayerMove>();
         gCoordinator.registerComponent<NOOK::RectangleShape>();
         gCoordinator.registerComponent<NOOK::RigidBody>();
@@ -70,9 +73,7 @@ namespace NOOK {
         auto physicsSystem = gCoordinator.registerSystem<NOOK::PhysicsSystem>();
         {
             NOOK::Signature signature;
-            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
             signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
-            signature.set(gCoordinator.getComponentType<NOOK::Gravity>());
             gCoordinator.setSystemSignature<NOOK::PhysicsSystem>(signature);
         }
         return physicsSystem;
@@ -84,8 +85,20 @@ namespace NOOK {
             NOOK::Signature signature;
             signature.set(gCoordinator.getComponentType<NOOK::Transform>());
             signature.set(gCoordinator.getComponentType<NOOK::PlayerMove>());
-            gCoordinator.setSystemSignature<NOOK::PhysicsSystem>(signature);
+            gCoordinator.setSystemSignature<NOOK::MovementSystem>(signature);
         }
         return movementSystem;
     }
-}
+
+    std::shared_ptr<NOOK::BouncePhysicsSystem> registerBouncePhysicsSystem() {
+        auto bouncePhysicsSystem = gCoordinator.registerSystem<NOOK::BouncePhysicsSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
+            signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
+            gCoordinator.setSystemSignature<NOOK::BouncePhysicsSystem>(signature);
+        }
+        return bouncePhysicsSystem;
+    }
+
+} // NAMESPACE NOOK

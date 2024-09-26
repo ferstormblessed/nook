@@ -9,13 +9,17 @@
 
 
 #include "../../core/System.h"
+#include "box2d/id.h"
 
 namespace NOOK {
 
     class PhysicsSystem : public System {
     public:
         void init();
-        void update(float dt);
+        void update(b2WorldId& worldId);
+        void awake(b2WorldId& world);
+    private:
+        void initRigidBody(b2WorldId& world, const NOOK::Entity& entity);
     };
 
 } // NAMESPACE NOOK

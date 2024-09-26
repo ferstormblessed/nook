@@ -25,7 +25,7 @@ FetchContent_MakeAvailable(ImGui-SFML)
 option(BOX2D_BUILD_UNIT_TESTS OFF)
 FetchContent_Declare(box2d
         GIT_REPOSITORY      https://github.com/erincatto/Box2D.git
-        GIT_TAG             v2.4.1)
+        GIT_TAG             v3.0.0)
 FetchContent_MakeAvailable(box2d)
 
 FetchContent_Declare(spdlog
@@ -43,14 +43,13 @@ add_executable(main src/main.cpp
         src/core/SystemManager.h
         src/core/Coordinator.h
         src/components/RigidBody.h
-        src/components/Gravity.h
         src/Systems/Physics/PhysicsSystem.cpp
         src/Systems/Physics/PhysicsSystem.h
         src/components/Sprite.h
         src/Systems/Render/RenderSpriteSystem.cpp
         src/Systems/Render/RenderSpriteSystem.h
-        src/Register.h
-        src/Register.h
+        src/Utils/Register.h
+        src/Utils/Register.h
         src/Input/Input.cpp
         src/Input/Input.h
         src/components/Shape.h
@@ -70,6 +69,10 @@ add_executable(main src/main.cpp
         src/Systems/MovementSystem.h
         src/components/PlayerMove.h
         src/Games/Pong.h
+        src/Systems/Physics/BouncePhysicsSystem.cpp
+        src/Systems/Physics/BouncePhysicsSystem.h
+        src/components/b2PolygonComponent.h
+        src/components/b2CircleComponent.h
 )
 target_link_libraries(main PRIVATE sfml-graphics sfml-audio ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

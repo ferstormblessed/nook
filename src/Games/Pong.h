@@ -14,7 +14,7 @@
 #include "../components/Transform.h"
 #include "../components/PlayerMove.h"
 #include "../Config.h"
-#include "../Register.h"
+#include "../Utils/Register.h"
 
 namespace NOOK {
 
@@ -34,7 +34,7 @@ namespace NOOK {
         l_rectangleShape.width = 20.f;
         // Transform component
         NOOK::Transform l_transform;
-        l_transform.position = b2Vec2(30.f, config.HEIGHT/2 - 100);
+        l_transform.position = b2Vec2{30.f, config.HEIGHT/2.f - 100};
         // PlayerMove component
         NOOK::PlayerMove l_playerMove;
         l_playerMove.speed = 10.f;
@@ -52,7 +52,7 @@ namespace NOOK {
         r_rectangleShape.width = 20.f;
         // Transform component
         NOOK::Transform r_transform;
-        r_transform.position = b2Vec2(config.WIDTH - 50.f, config.HEIGHT/2 - 100);
+        r_transform.position = b2Vec2{config.WIDTH - 50.f, config.HEIGHT/2.f - 100};
         // PlayerMove component
         NOOK::PlayerMove r_playerMove;
         r_playerMove.speed = 10.f;
@@ -71,8 +71,36 @@ namespace NOOK {
         gCoordinator.addComponent(r_paddle, r_playerMove);
     }
 
+    void ball(const NOOK::Config& config) {
+        // Ball
+        NOOK::Entity ball = gCoordinator.createEntity();
+
+        // Ball components
+        // Shape component
+        NOOK::Shape shape;
+        shape.isCircle = true;
+        shape.color = sf::Color::White;
+        // CircleShape component
+        NOOK::CircleShape circleShape;
+        circleShape.radius = 10.f;
+        circleShape.numSides = 100;
+        // Transform component
+        NOOK::Transform transform;
+        transform.position = b2Vec2{config.WIDTH/2.f - circleShape.radius, config.HEIGHT/2.f - circleShape.radius};
+        // RigidBody component
+        NOOK::RigidBody rigidBody;
+//        rigidBody.body.linearVelocity = b2Vec2(0.1, 0);
+
+        // Add components to Ball
+        gCoordinator.addComponent(ball, shape);
+        gCoordinator.addComponent(ball, circleShape);
+        gCoordinator.addComponent(ball, transform);
+        gCoordinator.addComponent(ball, rigidBody);
+    }
+
     void Pong(const NOOK::Config& config) {
         paddles(config);
+        ball(config);
     }
 
 } // NAMESPACE NOOK

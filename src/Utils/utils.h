@@ -16,6 +16,12 @@ namespace NOOK {
     std::vector<std::string> getFilesInDirectory(const std::string& directoryPath);
     std::string getFileNameWithoutExtension(const std::string& filePath);
     Config loadConfigFromFile(const std::string& filename);
+    float xCoordinatePixelToMetric(float pixelValue);
+    float yCoordinatePixelToMetric(float pixelValue);
+    float xCoordinateMetricToPixel(float metricValue);
+    float yCoordinateMetricToPixel(float metricValue);
+    float pixelToMetric(float pixelValue);
+    float metricToPixel(float metricValue);
 
 } // NAMESPACE NOOK
 

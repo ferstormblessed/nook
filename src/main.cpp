@@ -1,4 +1,4 @@
-#include "Register.h"
+#include "Utils/Register.h"
 #include "core/Coordinator.h"
 #include <spdlog/spdlog.h>
 #include "core/ResourceManager.h"
@@ -6,17 +6,27 @@
 #include "Config.h"
 #include "Utils/utils.h"
 #include "Games/Pong.h"
+#include "box2d/box2d.h"
+#include "components/b2PolygonComponent.h"
 
 NOOK::Coordinator gCoordinator;
 NOOK::ResourceManager resourceManager;
+// TODO: fix config uses
+NOOK::Config config;
 
 int main() {
     spdlog::info("ENTRY POINT: STARTING GAME");
     // Initialize coordinator
     gCoordinator.init();
 
+    // ------------ WORLD BOX2D ------------
+    b2WorldDef worldDef = b2DefaultWorldDef();
+    worldDef.gravity = (b2Vec2){0.0f, -10.0f};
+    b2WorldId worldId = b2CreateWorld(&worldDef);
+    // ------------ WORLD BOX2D ------------
+
     // ------------ LOAD CONFIG ------------
-    NOOK::Config config = NOOK::loadConfigFromFile("/home/stormblessed/nook/src/config.txt");
+    config = NOOK::loadConfigFromFile("/home/stormblessed/nook/src/config.txt");
     // ------------ LOAD CONFIG ------------
 
     // ------------ RESOURCE MANAGER ------------
@@ -46,20 +56,44 @@ int main() {
     // Movement System
     auto movementSystem = NOOK::registerMovementSystem();
     movementSystem->init();
+    // Bounce Physics System
+    auto bouncePhysicsSystem = NOOK::registerBouncePhysicsSystem();
+    bouncePhysicsSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
     // Pong
-    NOOK::Pong(config);
+    // NOOK::Pong(config);
+
+    NOOK::Entity box = gCoordinator.createEntity();
+    NOOK::RigidBody rb;
+    rb.bodyType = b2_dynamicBody;
+    rb.position = b2Vec2{config.WIDTH / 2.0f, config.HEIGHT / 2.0f};
+    rb.shapeType = NOOK::b2Polygon;
+    rb.density = 1.0f;
+    rb.friction = 0.3f;
+    rb.restitution = 0.5;
+
+    NOOK::b2PolygonComponent rect;
+    rect.width = 500.0f;
+    rect.height = 400.0;
+
+    gCoordinator.addComponent(box, rb);
+    gCoordinator.addComponent(box, rect);
 
     // Game loop
     // TODO: try to abstract this to a separate function
+
     sf::RenderWindow window;
     window.setFramerateLimit(config.FRAMES);
     sf::Clock clock;
     window.create(sf::VideoMode(config.WIDTH, config.HEIGHT), config.WINDOW_TITLE);
 
+    int iteration = 0;
     while (window.isOpen()) {
-        clock.restart();
+        if (iteration < 1) {
+            physicsSystem->awake(worldId);
+            iteration++;
+        }
         sf::Event event{};
         while (window.pollEvent(event)) {
             if (event.type == sf::Event::Closed) {
@@ -70,14 +104,14 @@ int main() {
         window.clear();
 
         // TODO: could each system be on its own thread? Maybe not, because i need the physics transformations
-        physicsSystem->update(clock.restart().asSeconds());
+        physicsSystem->update(worldId);
         movementSystem->update(&event);
+        bouncePhysicsSystem->update();
         renderShapeSystem->update(&window);
         renderTextSystem->update(&window);
         renderSpriteSystem->update(&window);
 
         window.display();
     }
-
     return 0;
 }

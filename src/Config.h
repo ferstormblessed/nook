@@ -18,6 +18,7 @@ namespace NOOK {
         std::string AUDIO_DIRECTORY;
         std::string FONTS_DIRECTORY;
         std::string SPRITES_DIRECTORY;
+        float GRAVITY;
     };
 
 } // NAMESPACE NOOK
