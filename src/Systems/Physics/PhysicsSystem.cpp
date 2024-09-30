@@ -10,6 +10,7 @@
 #include "box2d/box2d.h"
 #include "../../components/b2CircleComponent.h"
 #include "../../components/b2PolygonComponent.h"
+#include "../../components/Transform.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -31,6 +32,8 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     float xCoordinate = NOOK::xCoordinatePixelToMetric(rigidBody.position.x);
     float yCoordinate = NOOK::yCoordinatePixelToMetric(rigidBody.position.y);
     rigidBody.bodyDef.position = b2Vec2{xCoordinate, yCoordinate};
+    rigidBody.bodyDef.gravityScale = rigidBody.gravityScale;
+    rigidBody.bodyDef.fixedRotation = rigidBody.fixedRotation;
 
 
     rigidBody.bodyId = b2CreateBody(world, &rigidBody.bodyDef);
@@ -65,8 +68,19 @@ void NOOK::PhysicsSystem::update(b2WorldId& world) {
     b2World_Step(world, timeStep, subStepCount);
     for (auto& entity : m_entities) {
         auto& rigidBody = gCoordinator.getComponent<NOOK::RigidBody>(entity);
+        auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
         b2Vec2 position = b2Body_GetPosition(rigidBody.bodyId);
-        b2Rot rotation = b2Body_GetRotation(rigidBody.bodyId);
-        printf("%4.2f %4.2f %4.2f\n", position.x, position.y, b2Rot_GetAngle(rotation));
+        printf("RB position: ");
+        printf("%4.2f %4.2f\n", position.x, position.y);
+        position.x = NOOK::xCoordinateMetricToPixel(position.x);
+        position.y = NOOK::yCoordinateMetricToPixel(position.y);
+        transform.position = position;
+        printf("tr position: ");
+        printf("%4.2f %4.2f\n", position.x, position.y);
+    }
+    for (auto& entity : m_entities) {
+        auto& rigidBody = gCoordinator.getComponent<NOOK::RigidBody>(entity);
+        b2Vec2 position = b2Body_GetPosition(rigidBody.bodyId);
+
     }
 }

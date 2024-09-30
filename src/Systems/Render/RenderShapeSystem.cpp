@@ -85,10 +85,10 @@ void NOOK::RenderShapeSystem::initRectangleShape(const NOOK::Entity& entity, NOO
     newShape->setOutlineColor(shape.outlineColor);
     newShape->setOutlineThickness(shape.outlineThickness);
 
+    // TODO: handle textures for rectangle shapes
+
     rectangleShape.shape = newShape;
     shape.loaded = true;
-
-    // TODO: handle textures for rectangle shapes
 }
 
 void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const NOOK::Entity &entity, NOOK::Shape& shape) {

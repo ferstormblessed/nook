@@ -74,21 +74,6 @@ namespace NOOK {
         return config;
     }
 
-    float xCoordinatePixelToMetric(float pixelValue) {
-        return (pixelValue - config.WIDTH / 2) * 0.02f;
-    }
-
-    float yCoordinatePixelToMetric(float pixelValue) {
-        return (config.HEIGHT / 2 - pixelValue) * 0.02f;
-    }
-
-    float xCoordinateMetricToPixel(float metricValue) {
-        return (metricValue + config.WIDTH / 2) * 50.0f;
-    }
-    float yCoordinateMetricToPixel(float metricValue) {
-        return (config.HEIGHT / 2 - metricValue ) * 50.0f;
-    }
-
     float pixelToMetric(float pixelValue) {
         return pixelValue * 0.02f;
     }
@@ -96,6 +81,22 @@ namespace NOOK {
     float metricToPixel(float metricValue) {
         return metricValue * 50.0f;
     }
+
+    float xCoordinatePixelToMetric(float pixelValue) {
+        return (pixelValue - config.WIDTH / 2);
+    }
+
+    float yCoordinatePixelToMetric(float pixelValue) {
+        return (pixelValue - config.HEIGHT / 2);
+    }
+
+    float xCoordinateMetricToPixel(float metricValue) {
+        return (metricValue + config.WIDTH / 2);
+    }
+    float yCoordinateMetricToPixel(float metricValue) {
+        return (metricValue + config.HEIGHT / 2);
+    }
+
 
 
 } // NAMESPACE NOOK

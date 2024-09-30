@@ -21,7 +21,7 @@ int main() {
 
     // ------------ WORLD BOX2D ------------
     b2WorldDef worldDef = b2DefaultWorldDef();
-    worldDef.gravity = (b2Vec2){0.0f, -10.0f};
+    worldDef.gravity = (b2Vec2){0.0f, 10.0f};
     b2WorldId worldId = b2CreateWorld(&worldDef);
     // ------------ WORLD BOX2D ------------
 
@@ -72,13 +72,28 @@ int main() {
     rb.density = 1.0f;
     rb.friction = 0.3f;
     rb.restitution = 0.5;
+    rb.gravityScale = 0.1;
+    rb.fixedRotation = true;
 
     NOOK::b2PolygonComponent rect;
-    rect.width = 500.0f;
-    rect.height = 400.0;
+    rect.width = 50.0f;
+    rect.height = 40.0;
+
+    NOOK::Shape shape;
+    shape.isRectangle = true;
+    shape.color = sf::Color::White;
+
+    NOOK::RectangleShape rectangleShape;
+    rectangleShape.width = 50.0f;
+    rectangleShape.height = 40.0f;
+
+    NOOK::Transform transform;
 
     gCoordinator.addComponent(box, rb);
     gCoordinator.addComponent(box, rect);
+    gCoordinator.addComponent(box, shape);
+    gCoordinator.addComponent(box, rectangleShape);
+    gCoordinator.addComponent(box, transform);
 
     // Game loop
     // TODO: try to abstract this to a separate function
@@ -88,6 +103,7 @@ int main() {
     sf::Clock clock;
     window.create(sf::VideoMode(config.WIDTH, config.HEIGHT), config.WINDOW_TITLE);
 
+    // TODO: change awake implementation. Awake runs only in the first frame of the game
     int iteration = 0;
     while (window.isOpen()) {
         if (iteration < 1) {
