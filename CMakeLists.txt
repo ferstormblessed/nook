@@ -75,7 +75,7 @@ add_executable(main src/main.cpp
         src/Systems/GameLogic/GameLogicSystem.cpp
         src/components/Logic.h
 )
-target_link_libraries(main PRIVATE sfml-graphics sfml-audio ImGui-SFML::ImGui-SFML box2d spdlog)
+target_link_libraries(main PRIVATE sfml-graphics sfml-audio sfml-network ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)
