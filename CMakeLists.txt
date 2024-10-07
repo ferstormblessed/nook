@@ -69,8 +69,6 @@ add_executable(main src/main.cpp
         src/Systems/MovementSystem.h
         src/components/PlayerMove.h
         src/Games/Pong.h
-        src/Systems/Physics/BouncePhysicsSystem.cpp
-        src/Systems/Physics/BouncePhysicsSystem.h
         src/components/b2PolygonComponent.h
         src/components/b2CircleComponent.h
 )

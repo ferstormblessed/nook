@@ -17,7 +17,6 @@
 #include "../components/CircleShape.h"
 #include "../components/PlayerMove.h"
 #include "../Systems/MovementSystem.h"
-#include "../Systems/Physics/BouncePhysicsSystem.h"
 #include "../components/b2CircleComponent.h"
 #include "../components/b2PolygonComponent.h"
 
@@ -83,22 +82,11 @@ namespace NOOK {
         auto movementSystem = gCoordinator.registerSystem<NOOK::MovementSystem>();
         {
             NOOK::Signature signature;
-            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
             signature.set(gCoordinator.getComponentType<NOOK::PlayerMove>());
+            signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
             gCoordinator.setSystemSignature<NOOK::MovementSystem>(signature);
         }
         return movementSystem;
-    }
-
-    std::shared_ptr<NOOK::BouncePhysicsSystem> registerBouncePhysicsSystem() {
-        auto bouncePhysicsSystem = gCoordinator.registerSystem<NOOK::BouncePhysicsSystem>();
-        {
-            NOOK::Signature signature;
-            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
-            signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
-            gCoordinator.setSystemSignature<NOOK::BouncePhysicsSystem>(signature);
-        }
-        return bouncePhysicsSystem;
     }
 
 } // NAMESPACE NOOK

@@ -34,7 +34,7 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     rigidBody.bodyDef.position = b2Vec2{xCoordinate, yCoordinate};
     rigidBody.bodyDef.gravityScale = rigidBody.gravityScale;
     rigidBody.bodyDef.fixedRotation = rigidBody.fixedRotation;
-
+    rigidBody.bodyDef.linearVelocity = rigidBody.initSpeed;
 
     rigidBody.bodyId = b2CreateBody(world, &rigidBody.bodyDef);
 
@@ -42,11 +42,11 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     rigidBody.shapeDef.density = rigidBody.density;
     rigidBody.shapeDef.friction = rigidBody.friction;
     rigidBody.shapeDef.restitution = rigidBody.restitution;
+    rigidBody.shapeDef.enableHitEvents = rigidBody.collidable;
 
     if (rigidBody.shapeType == NOOK::b2Circle) {
         auto& b2CircleComponent = gCoordinator.getComponent<NOOK::b2CircleComponent>(entity);
-        float radius = NOOK::pixelToMetric(b2CircleComponent.radius);
-        b2CircleComponent.shape.radius = radius;
+        b2CircleComponent.shape.radius = b2CircleComponent.radius;
 
         b2CreateCircleShape(rigidBody.bodyId, &rigidBody.shapeDef, &b2CircleComponent.shape);
     }
@@ -54,8 +54,8 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     if (rigidBody.shapeType == NOOK::b2Polygon) {
         auto& b2PolygonComponent = gCoordinator.getComponent<NOOK::b2PolygonComponent>(entity);
         // b2MakeBox function takes half height and width
-        float x = NOOK::pixelToMetric(b2PolygonComponent.width) / 2;
-        float y = NOOK::pixelToMetric(b2PolygonComponent.height) / 2;
+        float x = b2PolygonComponent.width / 2.0f;
+        float y = b2PolygonComponent.height / 2.0f;
         b2PolygonComponent.shape = b2MakeBox(x, y);
 
         b2CreatePolygonShape(rigidBody.bodyId, &rigidBody.shapeDef,&b2PolygonComponent.shape);
@@ -66,21 +66,14 @@ void NOOK::PhysicsSystem::update(b2WorldId& world) {
     int subStepCount = 4; // Library value
     float timeStep = 1.0f / 60.0f; // Library value
     b2World_Step(world, timeStep, subStepCount);
+
     for (auto& entity : m_entities) {
         auto& rigidBody = gCoordinator.getComponent<NOOK::RigidBody>(entity);
         auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
         b2Vec2 position = b2Body_GetPosition(rigidBody.bodyId);
-        printf("RB position: ");
-        printf("%4.2f %4.2f\n", position.x, position.y);
         position.x = NOOK::xCoordinateMetricToPixel(position.x);
         position.y = NOOK::yCoordinateMetricToPixel(position.y);
         transform.position = position;
-        printf("tr position: ");
-        printf("%4.2f %4.2f\n", position.x, position.y);
-    }
-    for (auto& entity : m_entities) {
-        auto& rigidBody = gCoordinator.getComponent<NOOK::RigidBody>(entity);
-        b2Vec2 position = b2Body_GetPosition(rigidBody.bodyId);
-
+        transform.rotation = b2Body_GetRotation(rigidBody.bodyId);
     }
 }

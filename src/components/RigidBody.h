@@ -29,6 +29,8 @@ namespace NOOK {
         float restitution{};
         float gravityScale{};
         bool fixedRotation{};
+        b2Vec2 initSpeed{};
+        bool collidable{};
     };
 
 } // NAMESPACE NOOK

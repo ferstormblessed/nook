@@ -66,7 +66,10 @@ void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NO
         initCircleShape(entity, shape, circleShape);
     }
 
-    circleShape.shape->setPosition(transform.position.x, transform.position.y);
+    float x = transform.position.x - circleShape.radius;
+    float y = transform.position.y - circleShape.radius;
+
+    circleShape.shape->setPosition(x, y);
 
     window.draw(*circleShape.shape);
 }
@@ -99,7 +102,10 @@ void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const
         initRectangleShape(entity, shape, rectangleShape);
     }
 
-    rectangleShape.shape->setPosition(transform.position.x, transform.position.y);
+    float x = transform.position.x - rectangleShape.width / 2;
+    float y = transform.position.y - rectangleShape.height / 2;
+
+    rectangleShape.shape->setPosition(x, y);
 
     window.draw(*rectangleShape.shape);
 }

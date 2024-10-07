@@ -10,6 +10,7 @@
 
 #include "../../core/System.h"
 #include "box2d/id.h"
+#include "box2d/math_functions.h"
 
 namespace NOOK {
 
@@ -20,6 +21,7 @@ namespace NOOK {
         void awake(b2WorldId& world);
     private:
         void initRigidBody(b2WorldId& world, const NOOK::Entity& entity);
+        void setSpeed(const b2Vec2& speed, const NOOK::Entity& entity);
     };
 
 } // NAMESPACE NOOK

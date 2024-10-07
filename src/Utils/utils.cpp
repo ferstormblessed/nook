@@ -74,14 +74,6 @@ namespace NOOK {
         return config;
     }
 
-    float pixelToMetric(float pixelValue) {
-        return pixelValue * 0.02f;
-    }
-
-    float metricToPixel(float metricValue) {
-        return metricValue * 50.0f;
-    }
-
     float xCoordinatePixelToMetric(float pixelValue) {
         return (pixelValue - config.WIDTH / 2);
     }

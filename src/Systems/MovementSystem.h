@@ -13,6 +13,7 @@
 #include "../core/System.h"
 #include "../components/PlayerMove.h"
 #include "../components/Transform.h"
+#include "../components/RigidBody.h"
 
 namespace NOOK {
 
@@ -21,7 +22,11 @@ namespace NOOK {
         void init();
         void update(sf::Event* event);
     private:
-        void moveWithKeyboard(NOOK::Transform& transform, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key);
+        void moveWithKeyboard(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key);
+        void moveUp(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity);
+        void moveDown(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity);
+        void moveRight(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity);
+        void moveLeft(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity);
     };
 
 } // NAMESPACE NOOK
