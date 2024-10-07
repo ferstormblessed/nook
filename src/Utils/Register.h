@@ -16,9 +16,11 @@
 #include "../components/Text.h"
 #include "../components/CircleShape.h"
 #include "../components/PlayerMove.h"
-#include "../Systems/MovementSystem.h"
+#include "../Systems/Movement/MovementSystem.h"
 #include "../components/b2CircleComponent.h"
 #include "../components/b2PolygonComponent.h"
+#include "../Systems/GameLogic/GameLogicSystem.h"
+#include "../components/Logic.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -36,6 +38,7 @@ namespace NOOK {
         gCoordinator.registerComponent<NOOK::Sprite>();
         gCoordinator.registerComponent<NOOK::Text>();
         gCoordinator.registerComponent<NOOK::Transform>();
+        gCoordinator.registerComponent<NOOK::Logic>();
     }
 
     std::shared_ptr<NOOK::RenderShapeSystem> registerRenderShapeSystem() {
@@ -43,6 +46,7 @@ namespace NOOK {
         {
             NOOK::Signature signature;
             signature.set(gCoordinator.getComponentType<NOOK::Shape>());
+            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
             gCoordinator.setSystemSignature<NOOK::RenderShapeSystem>(signature);
         }
         return renderShapeSystem;
@@ -53,6 +57,7 @@ namespace NOOK {
         {
             NOOK::Signature signature;
             signature.set(gCoordinator.getComponentType<NOOK::Text>());
+            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
             gCoordinator.setSystemSignature<NOOK::RenderTextSystem>(signature);
         }
         return renderTextSystem;
@@ -63,6 +68,7 @@ namespace NOOK {
         {
             NOOK::Signature signature;
             signature.set(gCoordinator.getComponentType<NOOK::Sprite>());
+            signature.set(gCoordinator.getComponentType<NOOK::Transform>());
             gCoordinator.setSystemSignature<NOOK::RenderSpriteSystem>(signature);
         }
         return renderSystem;
@@ -87,6 +93,16 @@ namespace NOOK {
             gCoordinator.setSystemSignature<NOOK::MovementSystem>(signature);
         }
         return movementSystem;
+    }
+
+    std::shared_ptr<NOOK::GameLogicSystem> registerGameLogicSystem() {
+        auto gameLogicSystem = gCoordinator.registerSystem<NOOK::GameLogicSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::Logic>());
+            gCoordinator.setSystemSignature<NOOK::GameLogicSystem>(signature);
+        }
+        return gameLogicSystem;
     }
 
 } // NAMESPACE NOOK

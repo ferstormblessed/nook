@@ -18,7 +18,16 @@
 
 namespace NOOK {
 
-    void paddles(const NOOK::Config& config) {
+    float width = 0;
+    float height = 0;
+
+    int scorePlayer1 = 0;
+    int scorePlayer2 = 0;
+
+    std::string player1ScoreName = "player1Score";
+    std::string player2ScoreName = "player2Score";
+
+    void paddles() {
         // Paddles
         NOOK::Entity l_paddle = gCoordinator.createEntity();
         NOOK::Entity r_paddle = gCoordinator.createEntity();
@@ -42,7 +51,7 @@ namespace NOOK {
         // RigidBody component
         NOOK::RigidBody l_rb;
         l_rb.bodyType = b2_dynamicBody;
-        l_rb.position = b2Vec2{30.f, config.HEIGHT / 2.f - 100};
+        l_rb.position = b2Vec2{30.f, height / 2.f - 100};
         l_rb.shapeType = NOOK::b2Polygon;
         l_rb.density = 1000.0f;
         l_rb.friction = 0.0f;
@@ -75,7 +84,7 @@ namespace NOOK {
         // RigidBody component
         NOOK::RigidBody r_rb;
         r_rb.bodyType = b2_dynamicBody;
-        r_rb.position = b2Vec2{config.WIDTH - 50.f, config.HEIGHT/2.f - 100};
+        r_rb.position = b2Vec2{width - 50.f, height/2.f - 100};
         r_rb.shapeType = NOOK::b2Polygon;
         r_rb.density = 1000.0f;
         r_rb.friction = 0.0f;
@@ -105,47 +114,7 @@ namespace NOOK {
         gCoordinator.addComponent(r_paddle, r_polygon);
     }
 
-    void ball(const NOOK::Config& config) {
-        // Ball
-        NOOK::Entity ball = gCoordinator.createEntity();
-
-        // TODO: Abstract the creation of this type of primitives
-        // TODO: a circle that can collide, get initial position, radius, etc.
-        // Ball components
-        // Shape component
-        NOOK::Shape shape;
-        shape.isCircle = true;
-        shape.color = sf::Color::White;
-        // CircleShape component
-        NOOK::CircleShape circleShape;
-        circleShape.radius = 10.f;
-        circleShape.numSides = 100;
-        // Transform component
-        NOOK::Transform transform;
-        // RigidBody component
-        NOOK::RigidBody rigidBody;
-        rigidBody.bodyType = b2_dynamicBody;
-        rigidBody.position = b2Vec2{config.WIDTH/2.f - circleShape.radius, config.HEIGHT/2.f - circleShape.radius};
-        rigidBody.shapeType = NOOK::b2Circle;
-        rigidBody.density = 1.0f;
-        rigidBody.restitution = 1.0f;
-        rigidBody.gravityScale = 0.0;
-        rigidBody.fixedRotation = true;
-        rigidBody.initSpeed = b2Vec2{-5.0f, -5.0f};
-        rigidBody.collidable = true;
-
-        NOOK::b2CircleComponent circleComponent;
-        circleComponent.radius = 10.0f;
-
-        // Add components to Ball
-        gCoordinator.addComponent(ball, shape);
-        gCoordinator.addComponent(ball, circleShape);
-        gCoordinator.addComponent(ball, transform);
-        gCoordinator.addComponent(ball, rigidBody);
-        gCoordinator.addComponent(ball, circleComponent);
-    }
-
-    void limits(const NOOK::Config& config) {
+    void limits() {
         NOOK::Entity up = gCoordinator.createEntity();
         NOOK::Entity down = gCoordinator.createEntity();
 
@@ -154,16 +123,17 @@ namespace NOOK {
         NOOK::Shape up_shape;
         up_shape.isRectangle = true;
         up_shape.color = sf::Color::White;
+        up_shape.color.a = 100;
         // RectangleShape component
         NOOK::RectangleShape up_rectShape;
         up_rectShape.height = 10.0f;
-        up_rectShape.width = config.WIDTH;
+        up_rectShape.width = width;
         // Transform component
         NOOK::Transform up_transform;
         // RigidBody component
         NOOK::RigidBody up_rb;
         up_rb.bodyType = b2_staticBody;
-        up_rb.position = b2Vec2{config.WIDTH / 2.0f, 10.0f};
+        up_rb.position = b2Vec2{width / 2.0f, 0.0f};
         up_rb.shapeType = NOOK::b2Polygon;
         up_rb.density = 1.0f;
         up_rb.fixedRotation = true;
@@ -171,23 +141,24 @@ namespace NOOK {
         // b2RectangleComponent component
         NOOK::b2PolygonComponent up_polygon;
         up_polygon.height = 10.0f;
-        up_polygon.width = config.WIDTH;
+        up_polygon.width = width;
 
         // up components
         // Shape component
         NOOK::Shape down_shape;
         down_shape.isRectangle = true;
         down_shape.color = sf::Color::White;
+        down_shape.color.a = 100;
         // RectangleShape component
         NOOK::RectangleShape down_rectShape;
         down_rectShape.height = 10.0f;
-        down_rectShape.width = config.WIDTH;
+        down_rectShape.width = width;
         // Transform component
         NOOK::Transform down_transform;
         // RigidBody component
         NOOK::RigidBody down_rb;
         down_rb.bodyType = b2_staticBody;
-        down_rb.position = b2Vec2{config.WIDTH / 2.0f, float(config.HEIGHT) - 10};
+        down_rb.position = b2Vec2{width / 2.0f, float(height)};
         down_rb.shapeType = NOOK::b2Polygon;
         down_rb.density = 1.0f;
         down_rb.fixedRotation = true;
@@ -195,7 +166,7 @@ namespace NOOK {
         // b2RectangleComponent component
         NOOK::b2PolygonComponent down_polygon;
         down_polygon.height = 10.0f;
-        down_polygon.width = config.WIDTH;
+        down_polygon.width = width;
 
         gCoordinator.addComponent(up, up_shape);
         gCoordinator.addComponent(up, up_rectShape);
@@ -210,10 +181,160 @@ namespace NOOK {
         gCoordinator.addComponent(down, down_polygon);
     }
 
+    void net() {
+        // Creat net component
+        Entity net = gCoordinator.createEntity();
+        // Net components
+        // Shape component
+        NOOK::Shape shape;
+        shape.isRectangle = true;
+        shape.color = sf::Color::White;
+        shape.color.a = 100;
+        // RectangleShape component
+        NOOK::RectangleShape rectangle;
+        rectangle.height = height - 10.f;
+        rectangle.width = 10.0f;
+        // Transform component
+        NOOK::Transform transform;
+        transform.position = b2Vec2{width / 2.0f, height / 2.0f};
+
+        gCoordinator.addComponent(net, shape);
+        gCoordinator.addComponent(net, rectangle);
+        gCoordinator.addComponent(net, transform);
+    }
+
+    void updateScore(const NOOK::Entity entity) {
+        auto& score = gCoordinator.getComponent<NOOK::Text>(entity);
+        auto& logic = gCoordinator.getComponent<NOOK::Logic>(entity);
+        if (logic.name == player1ScoreName) {
+            score.text = std::to_string(scorePlayer1);
+        }
+        if (logic.name == player2ScoreName) {
+            score.text = std::to_string(scorePlayer2);
+        }
+    }
+
+    void score() {
+        // Score texts
+        NOOK::Entity textScorePlayer1 = gCoordinator.createEntity();
+        NOOK::Entity textScorePlayer2 = gCoordinator.createEntity();
+
+        // Text Score Player 1 components
+        // Text component
+        NOOK::Text text_player1;
+        text_player1.font = "font1";
+        text_player1.text = std::to_string(scorePlayer1);
+        text_player1.size = 100;
+        text_player1.color = sf::Color::White;
+        // Transform component
+        NOOK::Transform transform_1;
+        transform_1.position = b2Vec2{width / 2.0f - text_player1.size, text_player1.size / 4.0f};
+        // Game Logic Component
+        NOOK::Logic logic1{};
+        logic1.gameLogicFunction = updateScore;
+        logic1.name = player1ScoreName;
+
+        // Text Score Player 2 components
+        // Text component
+        NOOK::Text text_player2;
+        text_player2.font = "font1";
+        text_player2.text = std::to_string(scorePlayer2);
+        text_player2.size = 100;
+        text_player2.color = sf::Color::White;
+        // Transform component
+        NOOK::Transform transform_2;
+        transform_2.position = b2Vec2{width / 2.0f + 30, text_player2.size / 4.0f};
+        // Game Logic Component
+        NOOK::Logic logic2{};
+        logic2.gameLogicFunction = updateScore;
+        logic2.name = player2ScoreName;
+
+        gCoordinator.addComponent(textScorePlayer1, text_player1);
+        gCoordinator.addComponent(textScorePlayer1, transform_1);
+        gCoordinator.addComponent(textScorePlayer1, logic1);
+
+        gCoordinator.addComponent(textScorePlayer2, text_player2);
+        gCoordinator.addComponent(textScorePlayer2, transform_2);
+        gCoordinator.addComponent(textScorePlayer2, logic2);
+    }
+
+    void updateBall(const NOOK::Entity entity) {
+        auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
+        auto& rb = gCoordinator.getComponent<NOOK::RigidBody>(entity);
+
+        float x = NOOK::xCoordinatePixelToMetric(width / 2);
+        float y = NOOK::yCoordinatePixelToMetric(height / 2);
+        b2Vec2 center = {x, y};
+
+        if (transform.position.x < 0) {
+            scorePlayer2++;
+            b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{0, 0});
+            b2Body_SetTransform(rb.bodyId, center, transform.rotation);
+            b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{randomFloat(5, 10), randomFloat(-10, -5)});
+        }
+        if(transform.position.x > width) {
+            scorePlayer1++;
+            b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{0, 0});
+            b2Body_SetTransform(rb.bodyId, center, transform.rotation);
+            b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{randomFloat(5, 10), randomFloat(-10, -5)});
+        }
+    }
+
+    void initBall() {
+        // Ball
+        NOOK::Entity ball = gCoordinator.createEntity();
+        // TODO: Abstract the creation of this type of primitives
+        // TODO: a circle that can collide, get initial position, radius, etc.
+        // Ball components
+        // Shape component
+        NOOK::Shape shape;
+        shape.isCircle = true;
+        shape.color = sf::Color::White;
+        // CircleShape component
+        NOOK::CircleShape circleShape;
+        circleShape.radius = 10.f;
+        circleShape.numSides = 100;
+        // Transform component
+        NOOK::Transform transform;
+        // Set velocities array
+        int numVelocities = 5;
+        // RigidBody component
+        NOOK::RigidBody rigidBody;
+        rigidBody.bodyType = b2_dynamicBody;
+        rigidBody.position = b2Vec2{width / 2.0f - circleShape.radius, height / 2.f - circleShape.radius};
+        rigidBody.shapeType = NOOK::b2Circle;
+        rigidBody.density = 1.0f;
+        rigidBody.restitution = 1.0f;
+        rigidBody.gravityScale = 0.0;
+        rigidBody.fixedRotation = true;
+        rigidBody.initSpeed = b2Vec2{-NOOK::randomFloat(5.0f, 8.0f), NOOK::randomFloat(5.0f, 8.f)};
+        rigidBody.collidable = true;
+        // b2CircleComponent component
+        NOOK::b2CircleComponent circleComponent;
+        circleComponent.radius = 10.0f;
+        // Game Logic component
+        NOOK::Logic logic{};
+        logic.gameLogicFunction = updateBall;
+
+        // Add components to Ball
+        gCoordinator.addComponent(ball, shape);
+        gCoordinator.addComponent(ball, circleShape);
+        gCoordinator.addComponent(ball, transform);
+        gCoordinator.addComponent(ball, rigidBody);
+        gCoordinator.addComponent(ball, circleComponent);
+        gCoordinator.addComponent(ball, logic);
+    }
+
     void Pong(const NOOK::Config& config) {
-        paddles(config);
-        ball(config);
-        limits(config);
+        width = float(config.WIDTH);
+        height = float(config.HEIGHT);
+
+        limits();
+        net();
+        score();
+
+        paddles();
+        initBall();
     }
 
 } // NAMESPACE NOOK

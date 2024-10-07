@@ -10,10 +10,10 @@
 #include "SFML/Graphics/RenderWindow.hpp"
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Window/Event.hpp"
-#include "../core/System.h"
-#include "../components/PlayerMove.h"
-#include "../components/Transform.h"
-#include "../components/RigidBody.h"
+#include "../../core/System.h"
+#include "../../components/PlayerMove.h"
+#include "../../components/Transform.h"
+#include "../../components/RigidBody.h"
 
 namespace NOOK {
 

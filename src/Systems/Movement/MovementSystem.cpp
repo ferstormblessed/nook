@@ -4,9 +4,9 @@
 
 #include "MovementSystem.h"
 #include "spdlog/spdlog.h"
-#include "../core/Coordinator.h"
-#include "../components/RigidBody.h"
-#include "../Utils/utils.h"
+#include "../../core/Coordinator.h"
+#include "../../components/RigidBody.h"
+#include "../../Utils/utils.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -20,7 +20,6 @@ void NOOK::MovementSystem::update(sf::Event* event) {
     }
 
     for (auto& entity : m_entities) {
-        auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
         auto& playerMove = gCoordinator.getComponent<NOOK::PlayerMove>(entity);
         auto& rb = gCoordinator.getComponent<NOOK::RigidBody>(entity);
 

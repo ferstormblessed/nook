@@ -65,12 +65,15 @@ add_executable(main src/main.cpp
         src/core/ResourceManager.cpp
         src/core/ResourceManager.h
         src/Config.h
-        src/Systems/MovementSystem.cpp
-        src/Systems/MovementSystem.h
+        src/Systems/Movement/MovementSystem.cpp
+        src/Systems/Movement/MovementSystem.h
         src/components/PlayerMove.h
         src/Games/Pong.h
         src/components/b2PolygonComponent.h
         src/components/b2CircleComponent.h
+        src/Systems/GameLogic/GameLogicSystem.h
+        src/Systems/GameLogic/GameLogicSystem.cpp
+        src/components/Logic.h
 )
 target_link_libraries(main PRIVATE sfml-graphics sfml-audio ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

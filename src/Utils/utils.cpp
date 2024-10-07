@@ -3,6 +3,8 @@
 //
 
 #include "utils.h"
+#include <cstdlib>
+#include <ctime>
 #include <filesystem>
 #include "spdlog/spdlog.h"
 #include <fstream>
@@ -89,6 +91,11 @@ namespace NOOK {
         return (metricValue + config.HEIGHT / 2);
     }
 
-
+    float randomFloat(float min, float max) {
+        srand(time(nullptr));
+        float randomNum = static_cast<float>(rand()) / RAND_MAX;
+        float result = min + randomNum * (max - min);
+        return result;
+    }
 
 } // NAMESPACE NOOK

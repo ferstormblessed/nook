@@ -16,7 +16,7 @@ namespace NOOK {
 
     // Entity
     using Entity = std::uint32_t;
-    const Entity MAX_ENTITIES = 100000;
+    const Entity MAX_ENTITIES = 1000000;
     // Component
     using ComponentType = std::uint8_t;
     const ComponentType MAX_COMPONENTS = 200;

@@ -7,6 +7,7 @@
 #include "../../components/Text.h"
 #include "SFML/Graphics/Text.hpp"
 #include "../../core/ResourceManager.h"
+#include "../../components/Transform.h"
 
 // TODO: add transform component management
 
@@ -26,6 +27,7 @@ void NOOK::RenderTextSystem::update(sf::RenderWindow* window) {
 void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::Entity& entity) {
     // TODO: should set an init function, so i don't do the creation every cycle and function to see when something changes
     auto& text = gCoordinator.getComponent<NOOK::Text>(entity);
+    auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
 
     if (text.font.empty()) {
         spdlog::error("Provide a font name");
@@ -51,6 +53,7 @@ void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::En
     newText.setOutlineThickness(text.outlineThickness);
     newText.setLineSpacing(text.lineSpacing);
     newText.setLetterSpacing(text.letterSpacing);
+    newText.setPosition(transform.position.x, transform.position.y);
 
     if (text.isBold) {
         newText.setStyle(newText.getStyle() | sf::Text::Bold);

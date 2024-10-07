@@ -57,6 +57,9 @@ int main() {
     // Movement System
     auto movementSystem = NOOK::registerMovementSystem();
     movementSystem->init();
+    // Game Logic System
+    auto gameLogicSystem = NOOK::registerGameLogicSystem();
+    gameLogicSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
     // Pong
@@ -92,6 +95,7 @@ int main() {
         renderShapeSystem->update(&window);
         renderTextSystem->update(&window);
         renderSpriteSystem->update(&window);
+        gameLogicSystem->update();
 
         window.display();
     }
