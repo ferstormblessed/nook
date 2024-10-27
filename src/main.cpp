@@ -70,6 +70,9 @@ int main() {
     // Game Over System
     auto gameOverSystem = NOOK::registerGameOverSystem();
     gameOverSystem->init();
+    // Debug System
+    auto debugSystem = NOOK::registerDebugSystem();
+    debugSystem->init();
     // ------------ REGISTER SYSTEMS ------------
 
     // ----------------- GAMES ------------------
@@ -120,6 +123,7 @@ int main() {
         gameLogicSystem->update();
         pauseSystem->update(&event, gameState);
         gameOverSystem->update(gameState);
+        debugSystem->update(&event);
 
         ImGui::SFML::Render(window);
 

@@ -27,6 +27,11 @@
 #include "../Systems/GameLogic/PauseSystem.h"
 #include "../components/GameOver.h"
 #include "../Systems/GameLogic/GameOverSystem.h"
+#include "../components/IntVariableDebug.h"
+#include "../components/FloatVariableDebug.h"
+#include "../components/BoolVariableDebug.h"
+#include "../Systems/Debug/DebugSystem.h"
+#include "../components/Debug.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -48,6 +53,10 @@ namespace NOOK {
         gCoordinator.registerComponent<NOOK::Jump>();
         gCoordinator.registerComponent<NOOK::Pause>();
         gCoordinator.registerComponent<NOOK::GameOver>();
+        gCoordinator.registerComponent<NOOK::Debug>();
+        gCoordinator.registerComponent<NOOK::IntVariableDebug>();
+        gCoordinator.registerComponent<NOOK::FloatVariableDebug>();
+        gCoordinator.registerComponent<NOOK::BoolVariableDebug>();
     }
 
     std::shared_ptr<NOOK::RenderShapeSystem> registerRenderShapeSystem() {
@@ -143,6 +152,16 @@ namespace NOOK {
             gCoordinator.setSystemSignature<NOOK::GameOverSystem>(signature);
         }
         return gameOverSystem;
+    }
+
+    std::shared_ptr<NOOK::DebugSystem> registerDebugSystem() {
+        auto debugSystem = gCoordinator.registerSystem<NOOK::DebugSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::Debug>());
+            gCoordinator.setSystemSignature<NOOK::DebugSystem>(signature);
+        }
+        return debugSystem;
     }
 
 } // NAMESPACE NOOK

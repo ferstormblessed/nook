@@ -167,10 +167,20 @@ void InfiniteRunnerScore() {
     NOOK::Logic logic{};
     logic.gameLogicFunction = updateInfiniteRunnerScore;
     logic.name = infinitRunnerScore;
+    // Debug
+    NOOK::Debug debug;
+    debug.toggleDebug = sf::Keyboard::Key::D;
+    debug.type = NOOK::INT;
+    // Debug int
+    NOOK::IntVariableDebug intDebug;
+    intDebug.name = "Score";
+    intDebug.value = &score;
 
     gCoordinator.addComponent(scoreText, text);
     gCoordinator.addComponent(scoreText, transform);
     gCoordinator.addComponent(scoreText, logic);
+    gCoordinator.addComponent(scoreText, debug);
+    gCoordinator.addComponent(scoreText, intDebug);
 }
 
 void ResetPosition(const NOOK::Entity entity) {

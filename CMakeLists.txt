@@ -87,6 +87,13 @@ add_executable(main src/main.cpp
         src/Systems/GameLogic/GameOverSystem.h
         src/Systems/GameLogic/GameOverSystem.h
         src/Systems/GameLogic/GameOverSystem.cpp
+        src/GUI/IntVariableDebugGUI.h
+        src/components/IntVariableDebug.h
+        src/components/Debug.h
+        src/Systems/Debug/DebugSystem.h
+        src/Systems/Debug/DebugSystem.cpp
+        src/components/BoolVariableDebug.h
+        src/components/FloatVariableDebug.h
 )
 target_link_libraries(main PRIVATE sfml-graphics sfml-audio sfml-network ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)
