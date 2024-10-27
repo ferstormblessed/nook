@@ -4,14 +4,14 @@
 
 #pragma once
 
-#ifndef NOOK_B2POLYGONCOMPONENT_H
-#define NOOK_B2POLYGONCOMPONENT_H
+#ifndef NOOK_PHYSICSPOLYGON_H
+#define NOOK_PHYSICSPOLYGON_H
 
 #include "box2d/collision.h"
 
 namespace NOOK {
 
-    struct b2PolygonComponent {
+    struct PhysicsPolygon {
         struct b2Polygon shape{};
         float width{};
         float height{};
@@ -19,4 +19,4 @@ namespace NOOK {
 
 } // NAMESPACE NOOK
 
-#endif //NOOK_B2POLYGONCOMPONENT_H
+#endif //NOOK_PHYSICSPOLYGON_H

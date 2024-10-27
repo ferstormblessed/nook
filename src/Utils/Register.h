@@ -17,10 +17,16 @@
 #include "../components/CircleShape.h"
 #include "../components/PlayerMove.h"
 #include "../Systems/Movement/MovementSystem.h"
-#include "../components/b2CircleComponent.h"
-#include "../components/b2PolygonComponent.h"
+#include "../components/PhysicsCircle.h"
+#include "../components/PhysicsPolygon.h"
 #include "../Systems/GameLogic/GameLogicSystem.h"
 #include "../components/Logic.h"
+#include "../Systems/Movement/JumpSystem.h"
+#include "../components/Jump.h"
+#include "../components/Pause.h"
+#include "../Systems/GameLogic/PauseSystem.h"
+#include "../components/GameOver.h"
+#include "../Systems/GameLogic/GameOverSystem.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -28,8 +34,8 @@ namespace NOOK {
 
     void registerComponents() {
         // TODO: make function that reads directory components and extracts the name of each file and registers the component
-        gCoordinator.registerComponent<NOOK::b2CircleComponent>();
-        gCoordinator.registerComponent<NOOK::b2PolygonComponent>();
+        gCoordinator.registerComponent<NOOK::PhysicsCircle>();
+        gCoordinator.registerComponent<NOOK::PhysicsPolygon>();
         gCoordinator.registerComponent<NOOK::CircleShape>();
         gCoordinator.registerComponent<NOOK::PlayerMove>();
         gCoordinator.registerComponent<NOOK::RectangleShape>();
@@ -39,6 +45,9 @@ namespace NOOK {
         gCoordinator.registerComponent<NOOK::Text>();
         gCoordinator.registerComponent<NOOK::Transform>();
         gCoordinator.registerComponent<NOOK::Logic>();
+        gCoordinator.registerComponent<NOOK::Jump>();
+        gCoordinator.registerComponent<NOOK::Pause>();
+        gCoordinator.registerComponent<NOOK::GameOver>();
     }
 
     std::shared_ptr<NOOK::RenderShapeSystem> registerRenderShapeSystem() {
@@ -95,6 +104,17 @@ namespace NOOK {
         return movementSystem;
     }
 
+    std::shared_ptr<NOOK::JumpSystem> registerJumpSystem() {
+        auto jumpSystem = gCoordinator.registerSystem<NOOK::JumpSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::Jump>());
+            signature.set(gCoordinator.getComponentType<NOOK::RigidBody>());
+            gCoordinator.setSystemSignature<NOOK::JumpSystem>(signature);
+        }
+        return jumpSystem;
+    }
+
     std::shared_ptr<NOOK::GameLogicSystem> registerGameLogicSystem() {
         auto gameLogicSystem = gCoordinator.registerSystem<NOOK::GameLogicSystem>();
         {
@@ -103,6 +123,26 @@ namespace NOOK {
             gCoordinator.setSystemSignature<NOOK::GameLogicSystem>(signature);
         }
         return gameLogicSystem;
+    }
+
+    std::shared_ptr<NOOK::PauseSystem> registerPauseSystem() {
+        auto pauseSystem = gCoordinator.registerSystem<NOOK::PauseSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::Pause>());
+            gCoordinator.setSystemSignature<NOOK::PauseSystem>(signature);
+        }
+        return pauseSystem;
+    }
+
+    std::shared_ptr<NOOK::GameOverSystem> registerGameOverSystem() {
+        auto gameOverSystem = gCoordinator.registerSystem<NOOK::GameOverSystem>();
+        {
+            NOOK::Signature signature;
+            signature.set(gCoordinator.getComponentType<NOOK::GameOver>());
+            gCoordinator.setSystemSignature<NOOK::GameOverSystem>(signature);
+        }
+        return gameOverSystem;
     }
 
 } // NAMESPACE NOOK

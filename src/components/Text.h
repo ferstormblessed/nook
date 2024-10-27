@@ -13,18 +13,18 @@
 namespace NOOK {
 
     struct Text {
-        std::string font;
-        std::string text;
-        int size;
-        sf::Color color;
-        sf::Color outlineColor;
-        float outlineThickness;
-        float lineSpacing;
-        float letterSpacing;
-        bool isBold;
-        bool isItalic;
-        bool isUnderlined;
-        bool isStrikeThrough;
+        std::string font{};
+        std::string text{};
+        int size{};
+        sf::Color color{};
+        sf::Color outlineColor{};
+        float outlineThickness{};
+        float lineSpacing{};
+        float letterSpacing{};
+        bool isBold{};
+        bool isItalic{};
+        bool isUnderlined{};
+        bool isStrikeThrough{};
     };
 
 } // NAMESPACE NOOK

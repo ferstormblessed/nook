@@ -12,8 +12,8 @@
 namespace NOOK {
 
     struct Logic {
-        void (*gameLogicFunction)(const NOOK::Entity entity);
         std::string name{};
+        void (*gameLogicFunction)(const NOOK::Entity entity){};
     };
 
 } // NAMESPACE NOOK

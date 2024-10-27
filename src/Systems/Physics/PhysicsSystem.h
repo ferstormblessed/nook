@@ -17,11 +17,10 @@ namespace NOOK {
     class PhysicsSystem : public System {
     public:
         void init();
-        void update(b2WorldId& worldId);
+        void update(b2WorldId& worldId, const GAME_STATE& gameState);
         void awake(b2WorldId& world);
     private:
         void initRigidBody(b2WorldId& world, const NOOK::Entity& entity);
-        void setSpeed(const b2Vec2& speed, const NOOK::Entity& entity);
     };
 
 } // NAMESPACE NOOK

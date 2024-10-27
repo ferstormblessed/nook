@@ -20,7 +20,7 @@ namespace NOOK {
     class MovementSystem : public System {
     public:
         void init();
-        void update(sf::Event* event);
+        void update(sf::Event* event, const GAME_STATE& gameState);
     private:
         void moveWithKeyboard(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key);
         void moveUp(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity);

@@ -14,7 +14,6 @@ namespace NOOK {
 
     struct PlayerMove {
         float speed{};
-
         sf::Keyboard::Key up = sf::Keyboard::Unknown;
         sf::Keyboard::Key down = sf::Keyboard::Unknown;
         sf::Keyboard::Key right = sf::Keyboard::Unknown;

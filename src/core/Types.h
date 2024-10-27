@@ -32,6 +32,13 @@ namespace NOOK {
     // And that's how we know which components belong to specific Entity
     using Signature = std::bitset<MAX_COMPONENTS>;
 
+    // game state
+    enum GAME_STATE {
+        PLAY_STATE,
+        PAUSE_STATE,
+        OVER_STATE
+    };
+
 } // NAMESPACE NOOK
 
 #endif //NOOK_TYPES_H

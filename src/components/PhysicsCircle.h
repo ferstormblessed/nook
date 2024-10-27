@@ -4,18 +4,18 @@
 
 #pragma once
 
-#ifndef NOOK_B2CIRCLECOMPONENT_H
-#define NOOK_B2CIRCLECOMPONENT_H
+#ifndef NOOK_PHYSICSCIRCLE_H
+#define NOOK_PHYSICSCIRCLE_H
 
 #include "box2d/collision.h"
 
 namespace NOOK {
 
-    struct b2CircleComponent {
+    struct PhysicsCircle {
         struct b2Circle shape{};
         float radius{};
     };
 
 } // NAMESPACE NOOK
 
-#endif //NOOK_B2CIRCLECOMPONENT_H
+#endif //NOOK_PHYSICSCIRCLE_H

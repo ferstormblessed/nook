@@ -14,7 +14,10 @@ void NOOK::MovementSystem::init() {
     spdlog::info("initializing MOVEMENT SYSTEM");
 }
 
-void NOOK::MovementSystem::update(sf::Event* event) {
+void NOOK::MovementSystem::update(sf::Event* event, const GAME_STATE& gameState) {
+    if (gameState != NOOK::PLAY_STATE) {
+        return;
+    }
     if (sf::Event::KeyPressed != event->type) {
         return;
     }
@@ -51,6 +54,7 @@ void NOOK::MovementSystem::moveUp(NOOK::RigidBody& rb, const NOOK::PlayerMove& p
         b2Body_SetLinearDamping(rb.bodyId,1);
     }
 }
+
 void NOOK::MovementSystem::moveDown(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
     velocity.y += playerMove.speed * b2Body_GetMass(rb.bodyId);
     b2Body_ApplyLinearImpulseToCenter(rb.bodyId, velocity, true);

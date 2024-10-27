@@ -69,11 +69,24 @@ add_executable(main src/main.cpp
         src/Systems/Movement/MovementSystem.h
         src/components/PlayerMove.h
         src/Games/Pong.h
-        src/components/b2PolygonComponent.h
-        src/components/b2CircleComponent.h
+        src/components/PhysicsPolygon.h
+        src/components/PhysicsCircle.h
         src/Systems/GameLogic/GameLogicSystem.h
         src/Systems/GameLogic/GameLogicSystem.cpp
         src/components/Logic.h
+        src/Games/InfiniteRunner.h
+        src/components/Jump.h
+        src/Systems/Movement/JumpSystem.h
+        src/Systems/Movement/JumpSystem.cpp
+        src/components/Pause.h
+        src/Systems/GameLogic/PauseSystem.h
+        src/Systems/GameLogic/PauseSystem.cpp
+        src/GUI/GameOverScreen.h
+        src/GUI/PauseScreen.h
+        src/components/GameOver.h
+        src/Systems/GameLogic/GameOverSystem.h
+        src/Systems/GameLogic/GameOverSystem.h
+        src/Systems/GameLogic/GameOverSystem.cpp
 )
 target_link_libraries(main PRIVATE sfml-graphics sfml-audio sfml-network ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

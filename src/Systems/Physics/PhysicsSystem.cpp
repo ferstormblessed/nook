@@ -8,8 +8,8 @@
 #include "../../components/RigidBody.h"
 #include "../../Utils/utils.h"
 #include "box2d/box2d.h"
-#include "../../components/b2CircleComponent.h"
-#include "../../components/b2PolygonComponent.h"
+#include "../../components/PhysicsCircle.h"
+#include "../../components/PhysicsPolygon.h"
 #include "../../components/Transform.h"
 
 extern NOOK::Coordinator gCoordinator;
@@ -45,14 +45,14 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     rigidBody.shapeDef.enableHitEvents = rigidBody.collidable;
 
     if (rigidBody.shapeType == NOOK::b2Circle) {
-        auto& b2CircleComponent = gCoordinator.getComponent<NOOK::b2CircleComponent>(entity);
+        auto& b2CircleComponent = gCoordinator.getComponent<NOOK::PhysicsCircle>(entity);
         b2CircleComponent.shape.radius = b2CircleComponent.radius;
 
         b2CreateCircleShape(rigidBody.bodyId, &rigidBody.shapeDef, &b2CircleComponent.shape);
     }
 
     if (rigidBody.shapeType == NOOK::b2Polygon) {
-        auto& b2PolygonComponent = gCoordinator.getComponent<NOOK::b2PolygonComponent>(entity);
+        auto& b2PolygonComponent = gCoordinator.getComponent<NOOK::PhysicsPolygon>(entity);
         // b2MakeBox function takes half height and width
         float x = b2PolygonComponent.width / 2.0f;
         float y = b2PolygonComponent.height / 2.0f;
@@ -62,7 +62,10 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     }
 }
 
-void NOOK::PhysicsSystem::update(b2WorldId& world) {
+void NOOK::PhysicsSystem::update(b2WorldId& world, const GAME_STATE& gameState) {
+    if (gameState != NOOK::PLAY_STATE) {
+        return;
+    }
     int subStepCount = 4; // Library value
     float timeStep = 1.0f / 60.0f; // Library value
     b2World_Step(world, timeStep, subStepCount);
