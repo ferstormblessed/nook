@@ -13,7 +13,7 @@ namespace NOOK {
 
     struct BoolVariableDebug {
         std::string name{};
-        bool value{};
+        bool* value{};
     };
 
 } // NAMESPACE NOOK

@@ -13,7 +13,7 @@ namespace NOOK {
 
     struct PhysicsCircle {
         struct b2Circle shape{};
-        float radius{};
+        float* radius{};
     };
 
 } // NAMESPACE NOOK

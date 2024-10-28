@@ -12,7 +12,7 @@
 namespace NOOK {
 
     struct Jump {
-        float force{};
+        float* force{};
         sf::Keyboard::Key jumpKey = sf::Keyboard::Unknown;;
     };
 

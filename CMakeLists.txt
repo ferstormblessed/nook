@@ -94,6 +94,7 @@ add_executable(main src/main.cpp
         src/Systems/Debug/DebugSystem.cpp
         src/components/BoolVariableDebug.h
         src/components/FloatVariableDebug.h
+        src/GUI/FloatVariableDebugGUI.h
 )
 target_link_libraries(main PRIVATE sfml-graphics sfml-audio sfml-network ImGui-SFML::ImGui-SFML box2d spdlog)
 target_compile_features(main PRIVATE cxx_std_17)

@@ -16,8 +16,8 @@ namespace NOOK {
     struct Sprite {
         sf::Sprite sprite;
         std::string spriteName;
-        float width{};
-        float height{};
+        float* width{};
+        float* height{};
         bool loaded{};
     };
 

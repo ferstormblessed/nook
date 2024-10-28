@@ -14,8 +14,8 @@ namespace NOOK {
 
     struct RectangleShape {
         std::shared_ptr<sf::RectangleShape> shape{};
-        float height;
-        float width;
+        float* height;
+        float* width;
     };
 
 } // NAMESPACE NOOK

@@ -10,6 +10,8 @@
 #include "../../components/IntVariableDebug.h"
 #include "../../GUI/IntVariableDebugGUI.h"
 #include "../../components/BoolVariableDebug.h"
+#include "../../GUI/FloatVariableDebugGUI.h"
+#include "../../components/RigidBody.h"
 
 extern NOOK::Coordinator gCoordinator;
 
@@ -29,13 +31,16 @@ void NOOK::DebugSystem::update(const sf::Event* event) {
 
         if (!debug.debugOn) return;
 
+
         if (debug.type == NOOK::INT) {
             auto& debugType = gCoordinator.getComponent<NOOK::IntVariableDebug>(entity);
             NOOK::IntVariableDebugGUI(debugType.name, debugType.value);
         } else if(debug.type == NOOK::FLOAT) {
             auto& debugType = gCoordinator.getComponent<NOOK::FloatVariableDebug>(entity);
+            NOOK::FloatVariableDebugGUI(debugType.name, debugType.value);
         } else if (debug.type == NOOK::BOOL) {
             auto& debugType = gCoordinator.getComponent<NOOK::BoolVariableDebug>(entity);
+            // NOOK::BoolVariableDebugGUI(debugType.name, debugType.value);
         }
     }
 }

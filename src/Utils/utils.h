@@ -20,6 +20,7 @@ namespace NOOK {
     float yCoordinatePixelToMetric(float pixelValue);
     float xCoordinateMetricToPixel(float metricValue);
     float yCoordinateMetricToPixel(float metricValue);
+    int randomSign();
     float randomFloat(float min, float max);
 
 } // NAMESPACE NOOK

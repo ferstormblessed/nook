@@ -16,14 +16,41 @@
 #include "../Config.h"
 #include "../Utils/Register.h"
 
+// Globals for all elements
 float width = 0;
 float height = 0;
+bool fixedRotation = true;
+bool isCollidable = true;
 
+// paddle variables
+float paddleHeight = 200.0f;
+float paddleWidth = 20.0f;
+float paddleDensity = 1000.0f;
+
+// limits variables
+float limitHeight = 10.0f;
+float limitWidth = width;
+float limitDensity = 1.0f;
+
+// net variables
+float netHeight = height - 10.0f;
+float netWidth = 10.0f;
+
+// Score text variables
 int scorePlayer1 = 0;
 int scorePlayer2 = 0;
-
 std::string player1ScoreName = "player1Score";
 std::string player2ScoreName = "player2Score";
+std::string scorePlayer1Text = std::to_string(scorePlayer1);
+std::string scorePlayer2Text = std::to_string(scorePlayer2);
+std::string fontName = "font1";
+int fontSize = 100.0f;
+
+// ball variables
+float circleRadius = 10.0f;
+int circleSides = 100;
+float ballDensity = 1.0f;
+float ballRestitution = 1.0f;
 
 void paddles() {
     // Paddles
@@ -37,8 +64,8 @@ void paddles() {
     l_shape.color = sf::Color::White;
     // RectangleShape component
     NOOK::RectangleShape l_rectangleShape;
-    l_rectangleShape.height = 200.f;
-    l_rectangleShape.width = 20.f;
+    l_rectangleShape.height = &paddleHeight;
+    l_rectangleShape.width = &paddleHeight;
     // Transform component
     NOOK::Transform l_transform;
     // PlayerMove component
@@ -51,17 +78,17 @@ void paddles() {
     l_rb.bodyType = b2_dynamicBody;
     l_rb.position = b2Vec2{30.f, height / 2.f - 100};
     l_rb.shapeType = NOOK::b2Polygon;
-    l_rb.density = 1000.0f;
-    l_rb.friction = 0.0f;
-    l_rb.restitution = 0.0f;
-    l_rb.gravityScale = 0.0f;
-    l_rb.fixedRotation = true;
-    l_rb.collidable = true;
-    // TODO: try to combine/simplify the component for rendering shape and physics shape
+    l_rb.density = &paddleDensity;
+    // TODO: probably will need to fix this by creating variables or the pointer will be null and problems
+//    l_rb.friction = 0.0f;
+//    l_rb.restitution = 0.0f;
+//    l_rb.gravityScale = 0.0f;
+    l_rb.fixedRotation = &fixedRotation;
+    l_rb.collidable = &isCollidable;
     // b2RectangleComponent component
     NOOK::PhysicsPolygon l_polygon;
-    l_polygon.height = 200.0f;
-    l_polygon.width = 20.0f;
+    l_polygon.height = &paddleHeight;
+    l_polygon.width = &paddleWidth;
 
     // Right paddle components
     // Shape component
@@ -70,8 +97,8 @@ void paddles() {
     r_shape.color = sf::Color::White;
     // RectangleShape component
     NOOK::RectangleShape r_rectangleShape;
-    r_rectangleShape.height = 200.f;
-    r_rectangleShape.width = 20.f;
+    r_rectangleShape.height = &paddleHeight;
+    r_rectangleShape.width = &paddleWidth;
     // Transform component
     NOOK::Transform r_transform;
     // PlayerMove component
@@ -84,17 +111,16 @@ void paddles() {
     r_rb.bodyType = b2_dynamicBody;
     r_rb.position = b2Vec2{width - 50.f, height/2.f - 100};
     r_rb.shapeType = NOOK::b2Polygon;
-    r_rb.density = 1000.0f;
-    r_rb.friction = 0.0f;
-    r_rb.restitution = 0.0f;
-    r_rb.gravityScale = 0.0f;
-    r_rb.fixedRotation = true;
-    r_rb.collidable = true;
-    // TODO: try to combine/simplify the component for rendering shape and physics shape
+    r_rb.density = &paddleDensity;
+//    r_rb.friction = 0.0f;
+//    r_rb.restitution = 0.0f;
+//    r_rb.gravityScale = 0.0f;
+    r_rb.fixedRotation = &fixedRotation;
+    r_rb.collidable = &isCollidable;
     // b2RectangleComponent component
     NOOK::PhysicsPolygon r_polygon;
-    r_polygon.height = 200.0f;
-    r_polygon.width = 20.0f;
+    r_polygon.height = &paddleHeight;
+    r_polygon.width = &paddleWidth;
 
     // Add components to Left paddle
     gCoordinator.addComponent(l_paddle, l_shape);
@@ -124,8 +150,8 @@ void limits() {
     up_shape.color.a = 100;
     // RectangleShape component
     NOOK::RectangleShape up_rectShape;
-    up_rectShape.height = 10.0f;
-    up_rectShape.width = width;
+    up_rectShape.height = &limitHeight;
+    up_rectShape.width = &limitWidth;
     // Transform component
     NOOK::Transform up_transform;
     // RigidBody component
@@ -133,13 +159,13 @@ void limits() {
     up_rb.bodyType = b2_staticBody;
     up_rb.position = b2Vec2{width / 2.0f, 0.0f};
     up_rb.shapeType = NOOK::b2Polygon;
-    up_rb.density = 1.0f;
-    up_rb.fixedRotation = true;
-    up_rb.collidable = true;
+    up_rb.density = &limitDensity;
+    up_rb.fixedRotation = &fixedRotation;
+    up_rb.collidable = &isCollidable;
     // b2RectangleComponent component
     NOOK::PhysicsPolygon up_polygon;
-    up_polygon.height = 10.0f;
-    up_polygon.width = width;
+    up_polygon.height = &limitHeight;
+    up_polygon.width = &limitWidth;
 
     // up components
     // Shape component
@@ -149,8 +175,8 @@ void limits() {
     down_shape.color.a = 100;
     // RectangleShape component
     NOOK::RectangleShape down_rectShape;
-    down_rectShape.height = 10.0f;
-    down_rectShape.width = width;
+    down_rectShape.height = &limitHeight;
+    down_rectShape.width = &limitWidth;
     // Transform component
     NOOK::Transform down_transform;
     // RigidBody component
@@ -158,13 +184,13 @@ void limits() {
     down_rb.bodyType = b2_staticBody;
     down_rb.position = b2Vec2{width / 2.0f, float(height)};
     down_rb.shapeType = NOOK::b2Polygon;
-    down_rb.density = 1.0f;
-    down_rb.fixedRotation = true;
-    down_rb.collidable = true;
+    down_rb.density = &limitDensity;
+    down_rb.fixedRotation = &fixedRotation;
+    down_rb.collidable = &isCollidable;
     // b2RectangleComponent component
     NOOK::PhysicsPolygon down_polygon;
-    down_polygon.height = 10.0f;
-    down_polygon.width = width;
+    down_polygon.height = &limitHeight;
+    down_polygon.width = &limitWidth;
 
     gCoordinator.addComponent(up, up_shape);
     gCoordinator.addComponent(up, up_rectShape);
@@ -190,8 +216,8 @@ void net() {
     shape.color.a = 100;
     // RectangleShape component
     NOOK::RectangleShape rectangle;
-    rectangle.height = height - 10.f;
-    rectangle.width = 10.0f;
+    rectangle.height = &netHeight;
+    rectangle.width = &netWidth;
     // Transform component
     NOOK::Transform transform;
     transform.position = b2Vec2{width / 2.0f, height / 2.0f};
@@ -205,10 +231,10 @@ void updateScore(const NOOK::Entity entity) {
     auto& score = gCoordinator.getComponent<NOOK::Text>(entity);
     auto& logic = gCoordinator.getComponent<NOOK::Logic>(entity);
     if (logic.name == player1ScoreName) {
-        score.text = std::to_string(scorePlayer1);
+        score.text = &scorePlayer1Text;
     }
     if (logic.name == player2ScoreName) {
-        score.text = std::to_string(scorePlayer2);
+        score.text = &scorePlayer2Text;
     }
 }
 
@@ -220,13 +246,13 @@ void scoreText() {
     // Text Score Player 1 components
     // Text component
     NOOK::Text text_player1;
-    text_player1.font = "font1";
-    text_player1.text = std::to_string(scorePlayer1);
-    text_player1.size = 100;
+    text_player1.font = &fontName;
+    text_player1.text = &scorePlayer1Text;
+    text_player1.size = &fontSize;
     text_player1.color = sf::Color::White;
     // Transform component
     NOOK::Transform transform_1;
-    transform_1.position = b2Vec2{width / 2.0f - text_player1.size, text_player1.size / 4.0f};
+    transform_1.position = b2Vec2{width / 2.0f - float(fontSize), float(fontSize) / 4.0f};
     // Game Logic Component
     NOOK::Logic logic1{};
     logic1.gameLogicFunction = updateScore;
@@ -235,13 +261,13 @@ void scoreText() {
     // Text Score Player 2 components
     // Text component
     NOOK::Text text_player2;
-    text_player2.font = "font1";
-    text_player2.text = std::to_string(scorePlayer2);
-    text_player2.size = 100;
+    text_player2.font = &fontName;
+    text_player2.text = &scorePlayer2Text;
+    text_player2.size = &fontSize;
     text_player2.color = sf::Color::White;
     // Transform component
     NOOK::Transform transform_2;
-    transform_2.position = b2Vec2{width / 2.0f + 30, text_player2.size / 4.0f};
+    transform_2.position = b2Vec2{width / 2.0f + 30, float(fontSize) / 4.0f};
     // Game Logic Component
     NOOK::Logic logic2{};
     logic2.gameLogicFunction = updateScore;
@@ -266,16 +292,14 @@ void updateBall(const NOOK::Entity entity) {
 
     if (transform.position.x < 0) {
         scorePlayer2++;
-        b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{0, 0});
-        b2Body_SetTransform(rb.bodyId, center, transform.rotation);
-        b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{NOOK::randomFloat(5, 10), NOOK::randomFloat(-10, -5)});
     }
     if(transform.position.x > width) {
         scorePlayer1++;
-        b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{0, 0});
-        b2Body_SetTransform(rb.bodyId, center, transform.rotation);
-        b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{NOOK::randomFloat(5, 10), NOOK::randomFloat(-10, -5)});
     }
+    int direction = NOOK::randomSign();
+    b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{0, 0});
+    b2Body_SetTransform(rb.bodyId, center, transform.rotation);
+    b2Body_SetLinearVelocity(rb.bodyId, b2Vec2{direction * NOOK::randomFloat(5, 10), direction * NOOK::randomFloat(5, 10)});
 }
 
 void initBall() {
@@ -290,8 +314,8 @@ void initBall() {
     shape.color = sf::Color::White;
     // CircleShape component
     NOOK::CircleShape circleShape;
-    circleShape.radius = 10.f;
-    circleShape.numSides = 100;
+    circleShape.radius = &circleRadius;
+    circleShape.numSides = &circleSides;
     // Transform component
     NOOK::Transform transform;
     // Set velocities array
@@ -299,17 +323,17 @@ void initBall() {
     // RigidBody component
     NOOK::RigidBody rigidBody;
     rigidBody.bodyType = b2_dynamicBody;
-    rigidBody.position = b2Vec2{width / 2.0f - circleShape.radius, height / 2.f - circleShape.radius};
+    rigidBody.position = b2Vec2{width / 2.0f - circleRadius, height / 2.f - circleRadius};
     rigidBody.shapeType = NOOK::b2Circle;
-    rigidBody.density = 1.0f;
-    rigidBody.restitution = 1.0f;
-    rigidBody.gravityScale = 0.0;
-    rigidBody.fixedRotation = true;
-    rigidBody.initSpeed = b2Vec2{-NOOK::randomFloat(5.0f, 8.0f), NOOK::randomFloat(5.0f, 8.f)};
-    rigidBody.collidable = true;
+    rigidBody.density = &ballDensity;
+    rigidBody.restitution = &ballRestitution;
+//    rigidBody.gravityScale = 0.0;
+    rigidBody.fixedRotation = &fixedRotation;
+    rigidBody.initSpeed = b2Vec2{NOOK::randomSign() * NOOK::randomFloat(5.0f, 10.0f), NOOK::randomSign() * NOOK::randomFloat(5.0f, 10.f)};
+    rigidBody.collidable = &isCollidable;
     // PhysicsCircle component
     NOOK::PhysicsCircle circleComponent;
-    circleComponent.radius = 10.0f;
+    circleComponent.radius = &circleRadius;
     // Game Logic component
     NOOK::Logic logic{};
     logic.gameLogicFunction = updateBall;

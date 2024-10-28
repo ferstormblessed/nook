@@ -18,7 +18,7 @@ namespace NOOK {
         sf::Texture texture{};
         sf::Color color{};
         sf::Color outlineColor{};
-        float outlineThickness{};
+        float* outlineThickness{};
         bool loaded{};
     };
 

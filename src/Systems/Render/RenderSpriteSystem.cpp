@@ -28,8 +28,8 @@ void initSprite(NOOK::Sprite& sprite) {
         return;
     }
     sprite.sprite.setTexture(*resourceManager.getTexture(sprite.spriteName));
-    float scaleX = sprite.width / resourceManager.getTexture(sprite.spriteName)->getSize().x;
-    float scaleY = sprite.height / resourceManager.getTexture(sprite.spriteName)->getSize().y;
+    float scaleX = *sprite.width / resourceManager.getTexture(sprite.spriteName)->getSize().x;
+    float scaleY = *sprite.height / resourceManager.getTexture(sprite.spriteName)->getSize().y;
     sprite.sprite.setScale(scaleX, scaleY);
     sprite.loaded = true;
 }

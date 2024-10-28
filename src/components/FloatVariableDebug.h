@@ -13,7 +13,7 @@ namespace NOOK {
 
     struct FloatVariableDebug {
         std::string name{};
-        float value{};
+        float* value{};
     };
 
 } // NAMESPACE NOOK

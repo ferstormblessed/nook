@@ -29,42 +29,42 @@ void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::En
     auto& text = gCoordinator.getComponent<NOOK::Text>(entity);
     auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
 
-    if (text.font.empty()) {
+    if (text.font->empty()) {
         spdlog::error("Provide a font name");
         return;
     }
 
-    if (text.size < 1) {
+    if (*text.size < 1) {
         spdlog::error("Invalid size for text");
         return;
     }
 
-    if (resourceManager.getFont(text.font) == nullptr) {
-        spdlog::error("Unable to get font: {}", text.font);
+    if (resourceManager.getFont(*text.font) == nullptr) {
+        spdlog::error("Unable to get font: {}", *text.font);
         return;
     }
 
     sf::Text newText;
-    newText.setFont(*resourceManager.getFont(text.font));
-    newText.setString(text.text);
-    newText.setCharacterSize(text.size);
+    newText.setFont(*resourceManager.getFont(*text.font));
+    newText.setString(*text.text);
+    newText.setCharacterSize(*text.size);
     newText.setFillColor(text.color);
     newText.setOutlineColor(text.outlineColor);
-    newText.setOutlineThickness(text.outlineThickness);
-    newText.setLineSpacing(text.lineSpacing);
-    newText.setLetterSpacing(text.letterSpacing);
+    newText.setOutlineThickness(*text.outlineThickness);
+    newText.setLineSpacing(*text.lineSpacing);
+    newText.setLetterSpacing(*text.letterSpacing);
     newText.setPosition(transform.position.x, transform.position.y);
 
-    if (text.isBold) {
+    if (*text.isBold) {
         newText.setStyle(newText.getStyle() | sf::Text::Bold);
     }
-    if (text.isItalic) {
+    if (*text.isItalic) {
         newText.setStyle(newText.getStyle() | sf::Text::Italic);
     }
-    if (text.isUnderlined) {
+    if (*text.isUnderlined) {
         newText.setStyle(newText.getStyle() | sf::Text::Underlined);
     }
-    if (text.isStrikeThrough) {
+    if (*text.isStrikeThrough) {
         newText.setStyle(newText.getStyle() | sf::Text::StrikeThrough);
     }
 

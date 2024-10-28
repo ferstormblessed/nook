@@ -13,8 +13,8 @@ namespace NOOK {
 
     struct PhysicsPolygon {
         struct b2Polygon shape{};
-        float width{};
-        float height{};
+        float* width{};
+        float* height{};
     };
 
 } // NAMESPACE NOOK

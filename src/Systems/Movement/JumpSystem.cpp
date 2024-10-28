@@ -30,7 +30,7 @@ void NOOK::JumpSystem::update(sf::Event *event, const GAME_STATE& gameState) {
 
 void NOOK::JumpSystem::jump(NOOK::RigidBody &rb, const NOOK::Jump &jump, const sf::Keyboard::Key &key) {
     if (sf::Keyboard::isKeyPressed(key) && jump.jumpKey == key) {
-        b2Vec2 force = {0.0f, -jump.force * b2Body_GetMass(rb.bodyId)};
+        b2Vec2 force = {0.0f, -*jump.force * b2Body_GetMass(rb.bodyId)};
         b2Body_ApplyForceToCenter(rb.bodyId, force, true);
     }
 }

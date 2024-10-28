@@ -9,6 +9,7 @@
 #include "spdlog/spdlog.h"
 #include <fstream>
 #include <sstream>
+#include <random>
 
 const extern NOOK::Config config;
 
@@ -91,11 +92,23 @@ namespace NOOK {
         return (metricValue + config.HEIGHT / 2);
     }
 
+    int randomSign() {
+        static std::random_device rd;  // Seed for random number engine
+        static std::mt19937 gen(rd()); // Mersenne Twister RNG
+        static std::uniform_int_distribution<int> dist(0, 1); // Generate 0 or 1
+        return dist(gen) == 0 ? -1 : 1; // Map 0 to -1, 1 to 1
+    }
+
     float randomFloat(float min, float max) {
-        srand(time(nullptr));
-        float randomNum = static_cast<float>(rand()) / RAND_MAX;
-        float result = min + randomNum * (max - min);
-        return result;
+        // Create a random device and generator
+        static std::random_device rd;
+        static std::mt19937 gen(rd());
+
+        // Define the distribution within the given range [min, max]
+        std::uniform_real_distribution<float> dist(min, max);
+
+        // Generate and return a random float within the range
+        return dist(gen);
     }
 
 } // NAMESPACE NOOK

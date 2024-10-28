@@ -24,13 +24,13 @@ namespace NOOK {
         b2BodyId bodyId{};
         shape shapeType{};
         b2ShapeDef shapeDef{};
-        float density{};
-        float friction{};
-        float restitution{};
-        float gravityScale{};
-        bool fixedRotation{};
+        float* density{};
+        float* friction{};
+        float* restitution{};
+        float* gravityScale{};
+        bool* fixedRotation{};
         b2Vec2 initSpeed{};
-        bool collidable{};
+        bool* collidable{};
     };
 
 } // NAMESPACE NOOK

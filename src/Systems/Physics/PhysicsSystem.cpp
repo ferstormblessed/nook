@@ -32,21 +32,21 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     float xCoordinate = NOOK::xCoordinatePixelToMetric(rigidBody.position.x);
     float yCoordinate = NOOK::yCoordinatePixelToMetric(rigidBody.position.y);
     rigidBody.bodyDef.position = b2Vec2{xCoordinate, yCoordinate};
-    rigidBody.bodyDef.gravityScale = rigidBody.gravityScale;
-    rigidBody.bodyDef.fixedRotation = rigidBody.fixedRotation;
+    rigidBody.bodyDef.gravityScale = *rigidBody.gravityScale;
+    rigidBody.bodyDef.fixedRotation = *rigidBody.fixedRotation;
     rigidBody.bodyDef.linearVelocity = rigidBody.initSpeed;
 
     rigidBody.bodyId = b2CreateBody(world, &rigidBody.bodyDef);
 
     rigidBody.shapeDef = b2DefaultShapeDef();
-    rigidBody.shapeDef.density = rigidBody.density;
-    rigidBody.shapeDef.friction = rigidBody.friction;
-    rigidBody.shapeDef.restitution = rigidBody.restitution;
-    rigidBody.shapeDef.enableHitEvents = rigidBody.collidable;
+    rigidBody.shapeDef.density = *rigidBody.density;
+    rigidBody.shapeDef.friction = *rigidBody.friction;
+    rigidBody.shapeDef.restitution = *rigidBody.restitution;
+    rigidBody.shapeDef.enableHitEvents = *rigidBody.collidable;
 
     if (rigidBody.shapeType == NOOK::b2Circle) {
         auto& b2CircleComponent = gCoordinator.getComponent<NOOK::PhysicsCircle>(entity);
-        b2CircleComponent.shape.radius = b2CircleComponent.radius;
+        b2CircleComponent.shape.radius = *b2CircleComponent.radius;
 
         b2CreateCircleShape(rigidBody.bodyId, &rigidBody.shapeDef, &b2CircleComponent.shape);
     }
@@ -54,8 +54,8 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     if (rigidBody.shapeType == NOOK::b2Polygon) {
         auto& b2PolygonComponent = gCoordinator.getComponent<NOOK::PhysicsPolygon>(entity);
         // b2MakeBox function takes half height and width
-        float x = b2PolygonComponent.width / 2.0f;
-        float y = b2PolygonComponent.height / 2.0f;
+        float x = *b2PolygonComponent.width / 2.0f;
+        float y = *b2PolygonComponent.height / 2.0f;
         b2PolygonComponent.shape = b2MakeBox(x, y);
 
         b2CreatePolygonShape(rigidBody.bodyId, &rigidBody.shapeDef,&b2PolygonComponent.shape);

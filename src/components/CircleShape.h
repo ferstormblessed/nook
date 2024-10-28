@@ -14,8 +14,8 @@ namespace NOOK {
 
     struct CircleShape {
         std::shared_ptr<sf::CircleShape> shape{};
-        float radius{};
-        int numSides{};
+        float* radius{};
+        int* numSides{};
     };
 
 } // NAMESPACE NOOK

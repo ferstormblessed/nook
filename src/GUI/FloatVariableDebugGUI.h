@@ -4,15 +4,15 @@
 
 #pragma once
 
-#ifndef NOOK_INTVARIABLEDEBUGGUI_H
-#define NOOK_INTVARIABLEDEBUGGUI_H
+#ifndef NOOK_FLOATVARIABLEDEBUGGUI_H
+#define NOOK_FLOATVARIABLEDEBUGGUI_H
 
 #include <string>
 #include "imgui.h"
 
 namespace NOOK {
 
-    void IntVariableDebugGUI(const std::string& variableName, int* variableValue) {
+    void FloatVariableDebugGUI(const std::string& variableName, float* variableValue) {
         std::string windowTitle = variableName + " - Debug";
         ImGui::SetNextWindowSize(ImVec2(400, 300), ImGuiCond_FirstUseEver);  // Set initial window size
 
@@ -20,11 +20,10 @@ namespace NOOK {
         // Display the variable name and its value side by side
         ImGui::Text("%s: ", variableName.c_str());
         ImGui::SameLine();
-        ImGui::InputInt(("##" + variableName).c_str(), variableValue, 1, 10);
-
+        ImGui::InputFloat(("##" + variableName).c_str(), variableValue, 0.1f, 1.0f, "%.3f");
         ImGui::End();
     }
 
 } // NAMESPACE NOOK
 
-#endif //NOOK_INTVARIABLEDEBUGGUI_H
+#endif //NOOK_FLOATVARIABLEDEBUGGUI_H

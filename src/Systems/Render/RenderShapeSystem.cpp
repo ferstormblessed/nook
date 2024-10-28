@@ -35,21 +35,21 @@ void NOOK::RenderShapeSystem::drawShape(sf::RenderWindow& window, const NOOK::En
 void NOOK::RenderShapeSystem::initCircleShape(const NOOK::Entity& entity, NOOK::Shape& shape, NOOK::CircleShape& circleShape) {
     auto newShape = std::make_shared<sf::CircleShape>();
 
-    if (circleShape.radius <= 0) {
-        spdlog::error("Invalid radius magnitude: {}", circleShape.radius);
+    if (*circleShape.radius <= 0) {
+        spdlog::error("Invalid radius magnitude: {}", *circleShape.radius);
         return;
     }
 
     // 2 because the function only works with 3 sides onwards
-    if (circleShape.numSides > 2) {
-        newShape->setPointCount(circleShape.numSides);
+    if (*circleShape.numSides > 2) {
+        newShape->setPointCount(*circleShape.numSides);
     }
 
-    newShape->setRadius(circleShape.radius);
+    newShape->setRadius(*circleShape.radius);
 
     newShape->setFillColor(shape.color);
     newShape->setOutlineColor(shape.outlineColor);
-    newShape->setOutlineThickness(shape.outlineThickness);
+    newShape->setOutlineThickness(*shape.outlineThickness);
 
     // TODO: handle textures for circle shapes
 
@@ -66,8 +66,8 @@ void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NO
         initCircleShape(entity, shape, circleShape);
     }
 
-    float x = transform.position.x - circleShape.radius;
-    float y = transform.position.y - circleShape.radius;
+    float x = transform.position.x - *circleShape.radius;
+    float y = transform.position.y - *circleShape.radius;
 
     circleShape.shape->setPosition(x, y);
 
@@ -77,16 +77,16 @@ void NOOK::RenderShapeSystem::drawCircleShape(sf::RenderWindow &window, const NO
 void NOOK::RenderShapeSystem::initRectangleShape(const NOOK::Entity& entity, NOOK::Shape& shape, NOOK::RectangleShape& rectangleShape) {
     auto newShape = std::make_shared<sf::RectangleShape>();
 
-    if (rectangleShape.height <= 0 || rectangleShape.width <= 0) {
-        spdlog::error("Invalid rectangle dimensions: {} {}", rectangleShape.height, rectangleShape.width);
+    if (*rectangleShape.height <= 0 || *rectangleShape.width <= 0) {
+        spdlog::error("Invalid rectangle dimensions: {} {}", *rectangleShape.height, *rectangleShape.width);
         return;
     }
 
-    newShape->setSize(sf::Vector2f(rectangleShape.width, rectangleShape.height));
+    newShape->setSize(sf::Vector2f(*rectangleShape.width, *rectangleShape.height));
 
     newShape->setFillColor(shape.color);
     newShape->setOutlineColor(shape.outlineColor);
-    newShape->setOutlineThickness(shape.outlineThickness);
+    newShape->setOutlineThickness(*shape.outlineThickness);
 
     // TODO: handle textures for rectangle shapes
 
@@ -102,8 +102,8 @@ void NOOK::RenderShapeSystem::drawRectangleShape(sf::RenderWindow &window, const
         initRectangleShape(entity, shape, rectangleShape);
     }
 
-    float x = transform.position.x - rectangleShape.width / 2;
-    float y = transform.position.y - rectangleShape.height / 2;
+    float x = transform.position.x - *rectangleShape.width / 2;
+    float y = transform.position.y - *rectangleShape.height / 2;
 
     rectangleShape.shape->setPosition(x, y);
 
