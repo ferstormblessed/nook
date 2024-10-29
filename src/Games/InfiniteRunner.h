@@ -21,8 +21,6 @@
 #include "../GUI/PauseScreen.h"
 #include "../components/GameOver.h"
 
-extern NOOK::Coordinator gCoordinator;
-
 namespace InfiniteRunner {
 
     // Global variables
@@ -89,7 +87,6 @@ namespace InfiniteRunner {
     }
 
     void pause(const NOOK::Entity entity) {
-        auto& p = gCoordinator.getComponent<NOOK::Pause>(entity);
         NOOK::PauseScreen("P");
     }
 

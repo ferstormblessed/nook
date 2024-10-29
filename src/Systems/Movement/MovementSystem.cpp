@@ -47,7 +47,7 @@ void NOOK::MovementSystem::moveWithKeyboard(NOOK::RigidBody& rb, const NOOK::Pla
 }
 
 void NOOK::MovementSystem::moveUp(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
-    velocity.y += playerMove.speed * b2Body_GetMass(rb.bodyId);
+    velocity.y += *playerMove.speed * b2Body_GetMass(rb.bodyId);
     b2Body_ApplyLinearImpulseToCenter(rb.bodyId, -velocity, true);
 
     if (velocity.y > 0.0f) {
@@ -56,7 +56,7 @@ void NOOK::MovementSystem::moveUp(NOOK::RigidBody& rb, const NOOK::PlayerMove& p
 }
 
 void NOOK::MovementSystem::moveDown(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
-    velocity.y += playerMove.speed * b2Body_GetMass(rb.bodyId);
+    velocity.y += *playerMove.speed * b2Body_GetMass(rb.bodyId);
     b2Body_ApplyLinearImpulseToCenter(rb.bodyId, velocity, true);
 
     if (velocity.y > 0.0f) {
@@ -65,7 +65,7 @@ void NOOK::MovementSystem::moveDown(NOOK::RigidBody& rb, const NOOK::PlayerMove&
 }
 
 void NOOK::MovementSystem::moveRight(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
-    velocity.x += playerMove.speed * b2Body_GetMass(rb.bodyId);
+    velocity.x += *playerMove.speed * b2Body_GetMass(rb.bodyId);
     b2Body_ApplyLinearImpulseToCenter(rb.bodyId, -velocity, true);
 
     if (velocity.x > 0.0f) {
@@ -74,7 +74,7 @@ void NOOK::MovementSystem::moveRight(NOOK::RigidBody& rb, const NOOK::PlayerMove
 }
 
 void NOOK::MovementSystem::moveLeft(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
-    velocity.x += playerMove.speed * b2Body_GetMass(rb.bodyId);
+    velocity.x += *playerMove.speed * b2Body_GetMass(rb.bodyId);
     b2Body_ApplyLinearImpulseToCenter(rb.bodyId, velocity, true);
 
     if (velocity.x > 0.0f) {

@@ -35,6 +35,8 @@ void NOOK::PhysicsSystem::initRigidBody(b2WorldId& world, const NOOK::Entity& en
     rigidBody.bodyDef.gravityScale = *rigidBody.gravityScale;
     rigidBody.bodyDef.fixedRotation = *rigidBody.fixedRotation;
     rigidBody.bodyDef.linearVelocity = rigidBody.initSpeed;
+    rigidBody.bodyDef.isEnabled = true;
+    rigidBody.bodyDef.enableSleep = false;
 
     rigidBody.bodyId = b2CreateBody(world, &rigidBody.bodyDef);
 

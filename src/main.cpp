@@ -77,9 +77,9 @@ int main() {
 
     // ----------------- GAMES ------------------
     // Pong
-    // Pong(config);
+    Pong::Pong(config);
     // Infinite Runner
-    InfiniteRunner::InfiniteRunner(config);
+    // InfiniteRunner::InfiniteRunner(config);
     // ----------------- GAMES ------------------
 
     // ---------------- GAME LOOP ---------------
