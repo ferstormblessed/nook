@@ -30,8 +30,8 @@ jobs:
 
       - name: Set Environment Variable for MSBuild
         if: runner.os == 'Windows'
-        run: |
-          echo "##[set-env name=MSBuildHeapSize;]4096
+        shell: pwsh  # Use PowerShell
+        run: echo "MSBuildHeapSize=4096" >> $GITHUB_ENV
 
       - name: Configure
         shell: bash
