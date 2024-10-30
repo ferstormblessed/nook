@@ -2,10 +2,10 @@
 // Created by stormblessed on 10/27/24.
 //
 
-#include "PauseSystem.h"
-#include "../../core/Coordinator.h"
-#include "../../components/Pause.h"
 #include <iostream>
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/GameLogic/PauseSystem.h"
+#include "NOOK/components/Pause.h"
 
 extern NOOK::Coordinator gCoordinator;
 

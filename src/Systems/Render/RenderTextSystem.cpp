@@ -2,16 +2,13 @@
 // Created by stormblessed on 9/5/24.
 //
 
-#include "RenderTextSystem.h"
-#include "../../core/Coordinator.h"
-#include "../../components/Text.h"
-#include "SFML/Graphics/Text.hpp"
-#include "../../core/ResourceManager.h"
-#include "../../components/Transform.h"
-
 #include <iostream>
-
-// TODO: add transform component management
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/core/ResourceManager.h"
+#include "NOOK/Systems/Render/RenderTextSystem.h"
+#include "NOOK/components/Text.h"
+#include "NOOK/components/Transform.h"
+#include "SFML/Graphics/Text.hpp"
 
 extern NOOK::Coordinator gCoordinator;
 extern NOOK::ResourceManager resourceManager;

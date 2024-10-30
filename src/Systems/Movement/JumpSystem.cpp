@@ -2,9 +2,9 @@
 // Created by stormblessed on 10/27/24.
 //
 
-#include "JumpSystem.h"
-#include "../../core/Coordinator.h"
 #include "box2d/box2d.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/Movement/JumpSystem.h"
 
 extern NOOK::Coordinator gCoordinator;
 

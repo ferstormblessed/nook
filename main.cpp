@@ -1,13 +1,13 @@
 #include <iostream>
-#include "Utils/Register.h"
-#include "core/Coordinator.h"
-#include "core/ResourceManager.h"
-#include "SFML/Audio.hpp"
-#include "Config.h"
-#include "Utils/utils.h"
+#include "include/NOOK/core/Coordinator.h"
+#include "include/NOOK/core/ResourceManager.h"
+#include "include/NOOK/Utils/Config.h"
+#include "include/NOOK/Utils/utils.h"
+#include "include/NOOK/Utils/Register.h"
 #include "Games/Pong.h"
-#include "Games/InfiniteRunner.h"
 #include "imgui-SFML.h"
+#include "SFML/Audio/Sound.hpp"
+#include "Games/InfiniteRunner.h"
 
 NOOK::Coordinator gCoordinator;
 NOOK::ResourceManager resourceManager;
@@ -29,7 +29,7 @@ int main() {
     // ------------ WORLD BOX2D ------------
 
     // ------------ LOAD CONFIG ------------
-    config = NOOK::loadConfigFromFile("/home/stormblessed/nook/src/config.txt");
+    config = NOOK::loadConfigFromFile("/home/stormblessed/nook/config.txt");
     // ------------ LOAD CONFIG ------------
 
     // ------------ RESOURCE MANAGER ------------
@@ -78,9 +78,9 @@ int main() {
 
     // ----------------- GAMES ------------------
     // Pong
-    Pong::Pong(config);
+    // Pong::Pong(config);
     // Infinite Runner
-    // InfiniteRunner::InfiniteRunner(config);
+    InfiniteRunner::InfiniteRunner(config);
     // ----------------- GAMES ------------------
 
     // ---------------- GAME LOOP ---------------

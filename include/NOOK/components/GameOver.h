@@ -7,7 +7,7 @@
 #ifndef NOOK_GAMEOVER_H
 #define NOOK_GAMEOVER_H
 
-#include "../core/Types.h"
+#include "NOOK/core/Types.h"
 
 namespace NOOK {
 

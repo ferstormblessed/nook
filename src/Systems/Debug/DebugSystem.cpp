@@ -2,14 +2,13 @@
 // Created by stormblessed on 10/27/24.
 //
 
-#include "DebugSystem.h"
-#include "../../core/Coordinator.h"
-#include "../../components/Debug.h"
-#include "../../components/FloatVariableDebug.h"
-#include "../../components/IntVariableDebug.h"
-#include "../../GUI/IntVariableDebugGUI.h"
-#include "../../components/BoolVariableDebug.h"
-#include "../../GUI/FloatVariableDebugGUI.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/Debug/DebugSystem.h"
+#include "NOOK/components/Debug.h"
+#include "NOOK/components/IntVariableDebug.h"
+#include "NOOK/components/BoolVariableDebug.h"
+#include "NOOK/components/FloatVariableDebug.h"
+#include "NOOK/GUI/Screens.h"
 
 extern NOOK::Coordinator gCoordinator;
 

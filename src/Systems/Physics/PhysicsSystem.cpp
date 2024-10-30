@@ -2,15 +2,15 @@
 // Created by stormblessed on 7/28/24.
 //
 
-#include "../../core/Coordinator.h"
-#include "PhysicsSystem.h"
-#include "../../components/RigidBody.h"
-#include "../../Utils/utils.h"
-#include "box2d/box2d.h"
-#include "../../components/PhysicsCircle.h"
-#include "../../components/PhysicsPolygon.h"
-#include "../../components/Transform.h"
 #include <iostream>
+#include "box2d/box2d.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/Physics/PhysicsSystem.h"
+#include "NOOK/components/RigidBody.h"
+#include "NOOK/Utils/utils.h"
+#include "NOOK/components/PhysicsCircle.h"
+#include "NOOK/components/PhysicsPolygon.h"
+#include "NOOK/components/Transform.h"
 
 extern NOOK::Coordinator gCoordinator;
 

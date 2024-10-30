@@ -7,8 +7,8 @@
 #ifndef NOOK_CIRCLESHAPE_H
 #define NOOK_CIRCLESHAPE_H
 
-#include "SFML/Graphics/CircleShape.hpp"
 #include "memory"
+#include "SFML/Graphics/CircleShape.hpp"
 
 namespace NOOK {
 

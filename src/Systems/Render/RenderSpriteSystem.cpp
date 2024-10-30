@@ -2,11 +2,11 @@
 // Created by stormblessed on 7/28/24.
 //
 
-#include "RenderSpriteSystem.h"
-#include "../../core/Coordinator.h"
-#include "../../core/ResourceManager.h"
-#include "../../components/Sprite.h"
-#include "../../components/Transform.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/core/ResourceManager.h"
+#include "NOOK/Systems/Render/RenderSpriteSystem.h"
+#include "NOOK/components/Sprite.h"
+#include "NOOK/components/Transform.h"
 
 extern NOOK::Coordinator gCoordinator;
 extern NOOK::ResourceManager resourceManager;

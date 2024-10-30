@@ -2,9 +2,9 @@
 // Created by stormblessed on 9/6/24.
 //
 
-#include "ResourceManager.h"
-#include "../Utils/utils.h"
 #include <iostream>
+#include "NOOK/core/ResourceManager.h"
+#include "NOOK/Utils/utils.h"
 
 void NOOK::ResourceManager::init() {
     std::cout << "INFO: initializing RESOURCE MANAGER" << std::endl;

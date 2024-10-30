@@ -7,11 +7,13 @@
 #ifndef NOOK_GAMELOGICSYSTEM_H
 #define NOOK_GAMELOGICSYSTEM_H
 
+
+#include "NOOK/core/System.h"
 #include "../../core/System.h"
 
 namespace NOOK {
 
-    class GameLogicSystem : public NOOK::System {
+    class GameLogicSystem : public System {
     public:
         void init();
         void update();

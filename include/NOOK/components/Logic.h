@@ -7,8 +7,6 @@
 #ifndef NOOK_LOGIC_H
 #define NOOK_LOGIC_H
 
-#include "../core/Types.h"
-
 namespace NOOK {
 
     struct Logic {

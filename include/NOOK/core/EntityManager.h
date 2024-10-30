@@ -9,7 +9,6 @@
 
 #include <queue>
 #include <array>
-#include <cassert>
 #include "Types.h"
 
 namespace NOOK {

@@ -7,7 +7,6 @@
 #ifndef NOOK_PLAYERMOVE_H
 #define NOOK_PLAYERMOVE_H
 
-#include <vector>
 #include "SFML/Window/Keyboard.hpp"
 
 namespace NOOK {

@@ -3,24 +3,6 @@
 #ifndef NOOK_INFINITERUNNER_H
 #define NOOK_INFINITERUNNER_H
 
-#include "../Config.h"
-#include "../core/Types.h"
-#include "../core/Coordinator.h"
-#include "../components/Transform.h"
-#include "../components/RigidBody.h"
-#include "../components/Shape.h"
-#include "../components/Sprite.h"
-#include "../components/RectangleShape.h"
-#include "../components/PlayerMove.h"
-#include "../components/PhysicsPolygon.h"
-#include "../components/Logic.h"
-#include "../Utils/utils.h"
-#include "../components/Text.h"
-#include "imgui.h"
-#include "../GUI/GameOverScreen.h"
-#include "../GUI/PauseScreen.h"
-#include "../components/GameOver.h"
-
 namespace InfiniteRunner {
 
     // Global variables

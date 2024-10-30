@@ -7,7 +7,6 @@
 #ifndef NOOK_PAUSE_H
 #define NOOK_PAUSE_H
 
-#include "../core/Types.h"
 #include "SFML/Window/Keyboard.hpp"
 
 namespace NOOK {

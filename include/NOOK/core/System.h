@@ -14,7 +14,6 @@ namespace NOOK {
 
     class System {
     public:
-        // TODO: Explain why set, reason: stored in contiguous memory, can make use of cache locality
         std::set<NOOK::Entity> m_entities;
     };
 

@@ -2,14 +2,12 @@
 // Created by stormblessed on 9/5/24.
 //
 
-#include "utils.h"
-#include <cstdlib>
-#include <ctime>
 #include <filesystem>
 #include <fstream>
 #include <sstream>
 #include <random>
 #include <iostream>
+#include "NOOK/Utils/Config.h"
 
 const extern NOOK::Config config;
 

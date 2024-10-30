@@ -7,15 +7,8 @@
 #ifndef NOOK_PONG_H
 #define NOOK_PONG_H
 
-#include "../core/Types.h"
-#include "../core/Coordinator.h"
-#include "../components/Shape.h"
-#include "../components/RectangleShape.h"
-#include "../components/Transform.h"
-#include "../components/PlayerMove.h"
-#include "../Config.h"
-#include "../Utils/Register.h"
-#include "../GUI/PauseScreen.h"
+
+#include "NOOK/GUI/Screens.h"
 
 namespace Pong {
 

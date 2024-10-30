@@ -5,7 +5,7 @@
 #ifndef NOOK_DEBUGSYSTEM_H
 #define NOOK_DEBUGSYSTEM_H
 
-#include "../../core/System.h"
+#include "NOOK/core/System.h"
 #include "SFML/Window/Event.hpp"
 
 namespace NOOK {

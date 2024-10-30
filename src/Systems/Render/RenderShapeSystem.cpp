@@ -2,10 +2,9 @@
 // Created by stormblessed on 9/5/24.
 //
 
-#include "RenderShapeSystem.h"
-#include "../../core/Coordinator.h"
-#include "SFML/Graphics/RectangleShape.hpp"
-#include "../../components/Transform.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/Render/RenderShapeSystem.h"
+#include "NOOK/components/Transform.h"
 #include <iostream>
 
 extern NOOK::Coordinator gCoordinator;

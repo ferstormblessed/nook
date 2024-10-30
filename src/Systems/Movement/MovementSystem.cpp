@@ -2,8 +2,8 @@
 // Created by stormblessed on 9/8/24.
 //
 
-#include "MovementSystem.h"
-#include "../../core/Coordinator.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/Movement/MovementSystem.h"
 
 extern NOOK::Coordinator gCoordinator;
 

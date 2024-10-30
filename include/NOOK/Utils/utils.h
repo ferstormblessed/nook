@@ -9,7 +9,7 @@
 
 #include <vector>
 #include <string>
-#include "../Config.h"
+#include "Config.h"
 
 namespace NOOK {
 

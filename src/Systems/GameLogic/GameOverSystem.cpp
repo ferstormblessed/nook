@@ -2,10 +2,10 @@
 // Created by stormblessed on 10/27/24.
 //
 
-#include "GameOverSystem.h"
-#include "../../core/Coordinator.h"
-#include "../../components/GameOver.h"
 #include <iostream>
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/GameLogic/GameOverSystem.h"
+#include "NOOK/components/GameOver.h"
 
 extern NOOK::Coordinator gCoordinator;
 

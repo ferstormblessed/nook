@@ -2,9 +2,9 @@
 // Created by stormblessed on 10/6/24.
 //
 
-#include "GameLogicSystem.h"
-#include "../../core/Coordinator.h"
-#include "../../components/Logic.h"
+#include "NOOK/core/Coordinator.h"
+#include "NOOK/Systems/GameLogic/GameLogicSystem.h"
+#include "NOOK/components/Logic.h"
 
 extern NOOK::Coordinator gCoordinator;
 

@@ -7,12 +7,11 @@
 #ifndef NOOK_COORDINATOR_H
 #define NOOK_COORDINATOR_H
 
+#include <iostream>
 #include <memory>
 #include "ComponentManager.h"
 #include "EntityManager.h"
 #include "SystemManager.h"
-#include "SFML/Graphics/RenderWindow.hpp"
-#include <iostream>
 
 namespace NOOK {
 
