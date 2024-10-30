@@ -3,16 +3,15 @@
 //
 
 #include "RenderShapeSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
-#include "../../components/RectangleShape.h"
 #include "SFML/Graphics/RectangleShape.hpp"
 #include "../../components/Transform.h"
+#include <iostream>
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::RenderShapeSystem::init() {
-    spdlog::info("initializing RENDER SHAPE SYSTEM");
+    std::cout << "INFO: initializing RENDER SHAPE SYSTEM" << std::endl;
 }
 
 void NOOK::RenderShapeSystem::update(sf::RenderWindow *window) {
@@ -36,7 +35,7 @@ void NOOK::RenderShapeSystem::initCircleShape(const NOOK::Entity& entity, NOOK::
     auto newShape = std::make_shared<sf::CircleShape>();
 
     if (*circleShape.radius <= 0) {
-        spdlog::error("Invalid radius magnitude: {}", *circleShape.radius);
+        std::cerr << "ERROR: Invalid radius magnitude: " << *circleShape.radius << std::endl;
         return;
     }
 
@@ -78,7 +77,7 @@ void NOOK::RenderShapeSystem::initRectangleShape(const NOOK::Entity& entity, NOO
     auto newShape = std::make_shared<sf::RectangleShape>();
 
     if (*rectangleShape.height <= 0 || *rectangleShape.width <= 0) {
-        spdlog::error("Invalid rectangle dimensions: {} {}", *rectangleShape.height, *rectangleShape.width);
+        std::cerr << "ERROR: Invalid rectangle dimensions: height=" << *rectangleShape.height << " width=" << *rectangleShape.width << std::endl;
         return;
     }
 

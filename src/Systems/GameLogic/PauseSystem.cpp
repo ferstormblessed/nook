@@ -5,11 +5,12 @@
 #include "PauseSystem.h"
 #include "../../core/Coordinator.h"
 #include "../../components/Pause.h"
+#include <iostream>
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::PauseSystem::init() {
-    spdlog::info("initializing GAME LOGIC SYSTEM");
+    std::cout << "INFO: initializing GAME LOGIC SYSTEM" << std::endl;
 }
 
 void NOOK::PauseSystem::update(sf::Event* event, GAME_STATE& gameState) {

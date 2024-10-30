@@ -3,14 +3,13 @@
 //
 
 #include "JumpSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
 #include "box2d/box2d.h"
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::JumpSystem::init() {
-    spdlog::info("initializing JUMP SYSTEM");
+    std::cout << "INFO: initializing JUMP SYSTEM" << std::endl;
 }
 
 void NOOK::JumpSystem::update(sf::Event *event, const GAME_STATE& gameState) {

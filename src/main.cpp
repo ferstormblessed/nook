@@ -1,6 +1,6 @@
+#include <iostream>
 #include "Utils/Register.h"
 #include "core/Coordinator.h"
-#include <spdlog/spdlog.h>
 #include "core/ResourceManager.h"
 #include "SFML/Audio.hpp"
 #include "Config.h"
@@ -16,7 +16,7 @@ NOOK::Config config;
 NOOK::GAME_STATE gameState = NOOK::PLAY_STATE;
 
 int main() {
-    spdlog::info("ENTRY POINT: STARTING GAME");
+    std::cout << "INFO: ENTRY POINT: STARTING GAME" << std::endl;
     // Initialize coordinator
     gCoordinator.init();
 
@@ -90,6 +90,20 @@ int main() {
     sf::Clock clock;
     window.create(sf::VideoMode(config.WIDTH, config.HEIGHT), config.WINDOW_TITLE);
     if (!ImGui::SFML::Init(window)) return -1;
+
+    // ------------------ TEST ------------------
+    sf::SoundBuffer buffer;
+    if (!buffer.loadFromFile("/home/stormblessed/nook/Assets/Audio/chains.mp3")) {
+        std::cerr << "ERROR: Failed to load audio file." << std::endl;
+        return -1;
+    } else {
+        std::cout << "INFO: Audio file loaded successfully." << std::endl;
+    }
+
+    sf::Sound sound;
+    sound.setBuffer(buffer);
+    sound.play();
+    // ------------------ TEST ------------------
 
     // TODO: change awake implementation. Awake runs only in the first frame of the game
     // ----------------- AWAKE ------------------

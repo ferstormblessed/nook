@@ -6,10 +6,10 @@
 #include <cstdlib>
 #include <ctime>
 #include <filesystem>
-#include "spdlog/spdlog.h"
 #include <fstream>
 #include <sstream>
 #include <random>
+#include <iostream>
 
 const extern NOOK::Config config;
 
@@ -19,7 +19,7 @@ namespace NOOK {
         std::vector<std::string> files;
 
         if (!std::filesystem::exists(directoryPath) || !std::filesystem::is_directory(directoryPath)) {
-            spdlog::error("Error opening directory: {}", directoryPath);
+            std::cerr << "ERROR: Error opening directory: " << directoryPath << std::endl;
             return files;
         }
 
@@ -42,7 +42,7 @@ namespace NOOK {
 
         std::ifstream configFile(filename);
         if (!configFile.is_open()) {
-            spdlog::error("Error opening config file");
+            std::cerr << "ERROR: Error opening config file" << std::endl;
             return config;
         }
 

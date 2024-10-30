@@ -28,11 +28,6 @@ FetchContent_Declare(box2d
         GIT_TAG             v3.0.0)
 FetchContent_MakeAvailable(box2d)
 
-FetchContent_Declare(spdlog
-        GIT_REPOSITORY      https://github.com/gabime/spdlog
-        GIT_TAG             v1.14.1)
-FetchContent_MakeAvailable(spdlog)
-
 add_executable(main src/main.cpp
         src/core/Types.h
         src/components/Transform.h
@@ -50,8 +45,6 @@ add_executable(main src/main.cpp
         src/Systems/Render/RenderSpriteSystem.h
         src/Utils/Register.h
         src/Utils/Register.h
-        src/Input/Input.cpp
-        src/Input/Input.h
         src/components/Shape.h
         src/components/CircleShape.h
         src/Systems/Render/RenderShapeSystem.cpp
@@ -96,7 +89,8 @@ add_executable(main src/main.cpp
         src/components/FloatVariableDebug.h
         src/GUI/FloatVariableDebugGUI.h
 )
-target_link_libraries(main PRIVATE sfml-graphics sfml-audio sfml-network ImGui-SFML::ImGui-SFML box2d spdlog)
+
+target_link_libraries(main PRIVATE sfml-graphics sfml-audio ImGui-SFML::ImGui-SFML box2d)
 target_compile_features(main PRIVATE cxx_std_17)
 
 if(WIN32)

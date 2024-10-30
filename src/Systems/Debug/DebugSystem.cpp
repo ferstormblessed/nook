@@ -3,7 +3,6 @@
 //
 
 #include "DebugSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
 #include "../../components/Debug.h"
 #include "../../components/FloatVariableDebug.h"
@@ -11,12 +10,11 @@
 #include "../../GUI/IntVariableDebugGUI.h"
 #include "../../components/BoolVariableDebug.h"
 #include "../../GUI/FloatVariableDebugGUI.h"
-#include "../../components/RigidBody.h"
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::DebugSystem::init() {
-    spdlog::info("initializing DEBUG SYSTEM");
+    std::cout << "INFO: initializing DEBUG SYSTEM" << std::endl;
 }
 
 void NOOK::DebugSystem::update(const sf::Event* event) {

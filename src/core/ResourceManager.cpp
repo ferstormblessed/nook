@@ -3,18 +3,18 @@
 //
 
 #include "ResourceManager.h"
-#include "spdlog/spdlog.h"
 #include "../Utils/utils.h"
+#include <iostream>
 
 void NOOK::ResourceManager::init() {
-    spdlog::info("initializing RESOURCE MANAGER");
+    std::cout << "INFO: initializing RESOURCE MANAGER" << std::endl;
     loadTextures();
     loadSounds();
     loadFonts();
 }
 
 void NOOK::ResourceManager::loadTextures() {
-    spdlog::info("loading TEXTURES");
+    std::cout << "INFO: loading TEXTURES" << std::endl;
     std::vector<std::string> spriteFiles = NOOK::getFilesInDirectory(m_assetsPath+m_textureDirectory);
 
     for (auto& file : spriteFiles) {
@@ -25,7 +25,7 @@ void NOOK::ResourceManager::loadTextures() {
 }
 
 void NOOK::ResourceManager::loadSounds() {
-    spdlog::info("loading AUDIOS");
+    std::cout << "INFO: loading AUDIOS" << std::endl;
     std::vector<std::string> files = NOOK::getFilesInDirectory(m_assetsPath+m_soundsDirectory);
 
     for (auto& file : files) {
@@ -36,7 +36,7 @@ void NOOK::ResourceManager::loadSounds() {
 }
 
 void NOOK::ResourceManager::loadFonts() {
-    spdlog::info("loading FONTS");
+    std::cout << "INFO: loading FONTS" << std::endl;
     std::vector<std::string> files = NOOK::getFilesInDirectory(m_assetsPath+m_fontsDirectory);
 
     for (auto& file : files) {
@@ -49,10 +49,10 @@ void NOOK::ResourceManager::loadFonts() {
 std::shared_ptr<sf::Texture> NOOK::ResourceManager::loadTexture(const std::string &path) {
     auto texture = std::make_shared<sf::Texture>();
     if (!texture->loadFromFile(path)) {
-        spdlog::error("Failed to load texture from file: {}", path);
+        std::cerr << "ERROR: Failed to load texture from file: " << path << std::endl;
     }
     if (!texture->generateMipmap()) {
-        spdlog::error("Failed to generate MipMap for texture of file: {}", path);
+        std::cerr << "ERROR: Failed to generate MipMap for texture of file: " << path << std::endl;
     }
     return texture;
 }
@@ -60,7 +60,7 @@ std::shared_ptr<sf::Texture> NOOK::ResourceManager::loadTexture(const std::strin
 std::shared_ptr<sf::SoundBuffer> NOOK::ResourceManager::loadSound(const std::string &path) {
     auto sound = std::make_shared<sf::SoundBuffer>();
     if (!sound->loadFromFile(path)) {
-        spdlog::error("Failed to load sound from file: {}", path);
+        std::cerr << "ERROR: Failed to load sound from file: " << path << std::endl;
     }
     return sound;
 }
@@ -68,14 +68,14 @@ std::shared_ptr<sf::SoundBuffer> NOOK::ResourceManager::loadSound(const std::str
 std::shared_ptr<sf::Font> NOOK::ResourceManager::loadFont(const std::string &path) {
     auto font = std::make_shared<sf::Font>();
     if (!font->loadFromFile(path)) {
-        spdlog::error("Failed to load font from file: {}", path);
+        std::cerr << "ERROR: Failed to load font from file: {}" << path << std::endl;
     }
     return font;
 }
 
 std::shared_ptr<sf::Font> NOOK::ResourceManager::getFont(const std::string& font) {
     if (m_fonts.count(font) == 0) {
-        spdlog::error("Not a valid font name: {}", font);
+        std::cerr << "ERROR: Not a valid font name: {}" << font << std::endl;
         return nullptr;
     }
     return m_fonts.at(font);
@@ -83,7 +83,7 @@ std::shared_ptr<sf::Font> NOOK::ResourceManager::getFont(const std::string& font
 
 std::shared_ptr<sf::Texture> NOOK::ResourceManager::getTexture(const std::string &texture) {
     if (m_textures.count(texture) == 0) {
-        spdlog::error("Not a valid texture name: {}", texture);
+        std::cerr << "ERROR: Not a valid texture name: {}" << texture << std::endl;
         return nullptr;
     }
     return m_textures.at(texture);

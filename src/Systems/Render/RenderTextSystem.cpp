@@ -9,13 +9,15 @@
 #include "../../core/ResourceManager.h"
 #include "../../components/Transform.h"
 
+#include <iostream>
+
 // TODO: add transform component management
 
 extern NOOK::Coordinator gCoordinator;
 extern NOOK::ResourceManager resourceManager;
 
 void NOOK::RenderTextSystem::init() {
-    spdlog::info("initializing RENDER TEXT SYSTEM");
+    std::cout << "INFO: initializing RENDER TEXT SYSTEM" << std::endl;
 }
 
 void NOOK::RenderTextSystem::update(sf::RenderWindow* window) {
@@ -30,17 +32,17 @@ void NOOK::RenderTextSystem::renderText(sf::RenderWindow& window, const NOOK::En
     auto& transform = gCoordinator.getComponent<NOOK::Transform>(entity);
 
     if (text.font->empty()) {
-        spdlog::error("Provide a font name");
+        std::cerr << "ERROR: Provide a font name" << std::endl;
         return;
     }
 
     if (*text.size < 1) {
-        spdlog::error("Invalid size for text");
+        std::cerr << "ERROR: Invalid size for text" << std::endl;
         return;
     }
 
     if (resourceManager.getFont(*text.font) == nullptr) {
-        spdlog::error("Unable to get font: {}", *text.font);
+        std::cerr << "ERROR: Unable to get font: " << *text.font << std::endl;
         return;
     }
 

@@ -4,18 +4,18 @@
 
 #include "../../core/Coordinator.h"
 #include "PhysicsSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../components/RigidBody.h"
 #include "../../Utils/utils.h"
 #include "box2d/box2d.h"
 #include "../../components/PhysicsCircle.h"
 #include "../../components/PhysicsPolygon.h"
 #include "../../components/Transform.h"
+#include <iostream>
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::PhysicsSystem::init() {
-    spdlog::info("initializing PHYSICS SYSTEM");
+    std::cout << "INFO: initializing PHYSICS SYSTEM" << std::endl;
 }
 
 void NOOK::PhysicsSystem::awake(b2WorldId& world) {

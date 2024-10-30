@@ -3,7 +3,6 @@
 //
 
 #include "RenderSpriteSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
 #include "../../core/ResourceManager.h"
 #include "../../components/Sprite.h"
@@ -13,7 +12,7 @@ extern NOOK::Coordinator gCoordinator;
 extern NOOK::ResourceManager resourceManager;
 
 void NOOK::RenderSpriteSystem::init() {
-    spdlog::info("initializing RENDER SPRITE SYSTEM");
+    std::cout << "INFO: initializing RENDER SPRITE SYSTEM" << std::endl;
 }
 
 void NOOK::RenderSpriteSystem::update(sf::RenderWindow* window) {
@@ -24,7 +23,7 @@ void NOOK::RenderSpriteSystem::update(sf::RenderWindow* window) {
 
 void initSprite(NOOK::Sprite& sprite) {
     if (sprite.spriteName.empty() || resourceManager.getTexture(sprite.spriteName) == nullptr){
-        spdlog::error("Not a valid sprite name: {}", sprite.spriteName);
+        std::cerr << "Not a valid sprite name: " << sprite.spriteName << std::endl;
         return;
     }
     sprite.sprite.setTexture(*resourceManager.getTexture(sprite.spriteName));

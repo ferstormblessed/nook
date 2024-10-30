@@ -3,15 +3,12 @@
 //
 
 #include "MovementSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
-#include "../../components/RigidBody.h"
-#include "../../Utils/utils.h"
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::MovementSystem::init() {
-    spdlog::info("initializing MOVEMENT SYSTEM");
+    std::cout << "INFO: initializing MOVEMENT SYSTEM" << std::endl;
 }
 
 void NOOK::MovementSystem::update(sf::Event* event, const GAME_STATE& gameState) {

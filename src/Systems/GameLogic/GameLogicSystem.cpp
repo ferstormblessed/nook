@@ -3,14 +3,13 @@
 //
 
 #include "GameLogicSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
 #include "../../components/Logic.h"
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::GameLogicSystem::init() {
-    spdlog::info("initializing GAME LOGIC SYSTEM");
+    std::cout << "INFO: initializing GAME LOGIC SYSTEM" << std::endl;
 }
 
 void NOOK::GameLogicSystem::update() {

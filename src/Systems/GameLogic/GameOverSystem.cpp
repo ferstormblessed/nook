@@ -3,14 +3,14 @@
 //
 
 #include "GameOverSystem.h"
-#include "spdlog/spdlog.h"
 #include "../../core/Coordinator.h"
 #include "../../components/GameOver.h"
+#include <iostream>
 
 extern NOOK::Coordinator gCoordinator;
 
 void NOOK::GameOverSystem::init() {
-    spdlog::info("initializing GAME OVER SYSTEM");
+    std::cout << "INFO: initializing GAME OVER SYSTEM" << std::endl;
 }
 
 void NOOK::GameOverSystem::update(NOOK::GAME_STATE &gameState) {

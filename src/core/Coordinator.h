@@ -12,14 +12,14 @@
 #include "EntityManager.h"
 #include "SystemManager.h"
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "spdlog/spdlog.h"
+#include <iostream>
 
 namespace NOOK {
 
     class Coordinator {
     public:
         void init() {
-            spdlog::info("Initializing COORDINATOR");
+            std::cout << "INFO: Initializing COORDINATOR" << std::endl;
             // Create pointers to each manager
             m_componentManager = std::make_unique<ComponentManager>();
             m_entityManager = std::make_unique<EntityManager>();
