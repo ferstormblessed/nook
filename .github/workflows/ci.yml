@@ -28,6 +28,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Set Environment Variable for MSBuild
+        if: runner.os == 'Windows'
+        run: |
+          echo "##[set-env name=MSBuildHeapSize;]4096
+
       - name: Configure
         shell: bash
         run: cmake -S . -B build -DCMAKE_INSTALL_PREFIX=install ${{matrix.platform.flags}} ${{matrix.config.flags}}
