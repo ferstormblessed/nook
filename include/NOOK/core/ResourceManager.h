@@ -13,8 +13,6 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Font.hpp"
 #include "SFML/Audio/SoundBuffer.hpp"
-#include "../../../cmake-build-release/_deps/sfml-src/include/SFML/Graphics/Font.hpp"
-#include "../../../cmake-build-release/_deps/sfml-src/include/SFML/Graphics/Texture.hpp"
 
 namespace NOOK {
 

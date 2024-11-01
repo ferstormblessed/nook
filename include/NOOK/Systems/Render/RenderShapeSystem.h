@@ -5,11 +5,10 @@
 #ifndef NOOK_RENDERSHAPESYSTEM_H
 #define NOOK_RENDERSHAPESYSTEM_H
 
-#include "../../core/System.h"
 #include "SFML/Graphics/RenderWindow.hpp"
-#include "../../components/Shape.h"
-#include "../../components/CircleShape.h"
-#include "../../components/RectangleShape.h"
+#include "NOOK/components/Shape.h"
+#include "NOOK/components/CircleShape.h"
+#include "NOOK/components/RectangleShape.h"
 
 namespace NOOK {
 

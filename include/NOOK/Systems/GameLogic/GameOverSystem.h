@@ -5,8 +5,6 @@
 #ifndef NOOK_GAMEOVERSYSTEM_H
 #define NOOK_GAMEOVERSYSTEM_H
 
-#include "../../core/System.h"
-
 namespace NOOK {
 
     class GameOverSystem : public System {

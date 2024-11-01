@@ -8,7 +8,6 @@
 #define NOOK_RENDERTEXTSYSTEM_H
 
 #include <unordered_map>
-#include "../../core/System.h"
 #include "SFML/Graphics/RenderWindow.hpp"
 
 namespace NOOK {

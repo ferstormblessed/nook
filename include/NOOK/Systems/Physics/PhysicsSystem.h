@@ -8,7 +8,6 @@
 #define NOOK_PHYSICSSYSTEM_H
 
 
-#include "../../core/System.h"
 #include "box2d/id.h"
 #include "box2d/math_functions.h"
 

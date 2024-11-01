@@ -7,11 +7,10 @@
 #ifndef NOOK_JUMPSYSTEM_H
 #define NOOK_JUMPSYSTEM_H
 
-#include "../../core/System.h"
 #include "SFML/Window/Event.hpp"
-#include "../../components/RigidBody.h"
-#include "../../components/PlayerMove.h"
-#include "../../components/Jump.h"
+#include "NOOK/components/RigidBody.h"
+#include "NOOK/components/Jump.h"
+#include "SFML/Window/Keyboard.hpp"
 
 namespace NOOK {
 

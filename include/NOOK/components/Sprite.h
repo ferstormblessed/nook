@@ -12,7 +12,6 @@
 
 namespace NOOK {
 
-    // TODO: check the smooth, repeated, etc variables of the texture
     struct Sprite {
         sf::Sprite sprite;
         std::string spriteName;

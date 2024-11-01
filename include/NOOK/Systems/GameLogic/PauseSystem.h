@@ -7,7 +7,6 @@
 #ifndef NOOK_PAUSESYSTEM_H
 #define NOOK_PAUSESYSTEM_H
 
-#include "../../core/System.h"
 #include "SFML/Window/Keyboard.hpp"
 #include "SFML/Window/Event.hpp"
 
