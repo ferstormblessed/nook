@@ -13,7 +13,7 @@ jobs:
         platform:
           - { name: Windows VS2019, os: windows-2019  }
           - { name: Windows VS2022, os: windows-2022  }
-          - { name: Linux GCC,      os: ubuntu-latest }
+          - { name: Linux GCC,      os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=gcc -DCMAKE_CXX_COMPILER=g++ -DCMAKE_CXX_STANDARD=17 }
           - { name: Linux Clang,    os: ubuntu-latest, flags: -DCMAKE_C_COMPILER=clang -DCMAKE_CXX_COMPILER=clang++ }
           - { name: macOS,          os: macos-latest  }
         config:
@@ -27,11 +27,6 @@ jobs:
 
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Set Environment Variable for MSBuild
-        if: runner.os == 'Windows'
-        shell: pwsh  # Use PowerShell
-        run: echo "MSBuildHeapSize=4096" >> $GITHUB_ENV
 
       - name: Configure
         shell: bash
