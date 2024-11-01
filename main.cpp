@@ -11,7 +11,6 @@
 
 NOOK::Coordinator gCoordinator;
 NOOK::ResourceManager resourceManager;
-// TODO: fix config uses
 NOOK::Config config;
 NOOK::GAME_STATE gameState = NOOK::PLAY_STATE;
 

@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib) # Output directory for the library
 
-option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
 
 include(FetchContent)
 FetchContent_Declare(SFML
@@ -33,60 +33,18 @@ FetchContent_Declare(box2d
 FetchContent_MakeAvailable(box2d)
 
 add_library(NOOK STATIC
-        include/NOOK/core/Types.h
-        include/NOOK/components/Transform.h
-        include/NOOK/core/EntityManager.h
-        include/NOOK/core/ComponentArray.h
-        include/NOOK/core/ComponentManager.h
-        include/NOOK/core/System.h
-        include/NOOK/core/SystemManager.h
-        include/NOOK/core/Coordinator.h
-        include/NOOK/components/RigidBody.h
         src/Systems/Physics/PhysicsSystem.cpp
-        include/NOOK/Systems/Physics/PhysicsSystem.h
-        include/NOOK/components/Sprite.h
         src/Systems/Render/RenderSpriteSystem.cpp
-        include/NOOK/Systems/Render/RenderSpriteSystem.h
-        include/NOOK/Utils/Register.h
-        include/NOOK/Utils/Register.h
-        include/NOOK/components/Shape.h
-        include/NOOK/components/CircleShape.h
         src/Systems/Render/RenderShapeSystem.cpp
-        include/NOOK/Systems/Render/RenderShapeSystem.h
-        include/NOOK/components/RectangleShape.h
         src/Systems/Render/RenderTextSystem.cpp
-        include/NOOK/Systems/Render/RenderTextSystem.h
-        include/NOOK/components/Text.h
-        include/NOOK/Utils/utils.h
         src/Utils/utils.cpp
         src/core/ResourceManager.cpp
-        include/NOOK/core/ResourceManager.h
-        include/NOOK/Utils/Config.h
         src/Systems/Movement/MovementSystem.cpp
-        include/NOOK/Systems/Movement/MovementSystem.h
-        include/NOOK/components/PlayerMove.h
-        include/NOOK/components/PhysicsPolygon.h
-        include/NOOK/components/PhysicsCircle.h
-        include/NOOK/Systems/GameLogic/GameLogicSystem.h
         src/Systems/GameLogic/GameLogicSystem.cpp
-        include/NOOK/components/Logic.h
-        include/NOOK/components/Jump.h
-        include/NOOK/Systems/Movement/JumpSystem.h
         src/Systems/Movement/JumpSystem.cpp
-        include/NOOK/components/Pause.h
-        include/NOOK/Systems/GameLogic/PauseSystem.h
         src/Systems/GameLogic/PauseSystem.cpp
-        include/NOOK/components/GameOver.h
-        include/NOOK/Systems/GameLogic/GameOverSystem.h
-        include/NOOK/Systems/GameLogic/GameOverSystem.h
         src/Systems/GameLogic/GameOverSystem.cpp
-        include/NOOK/components/IntVariableDebug.h
-        include/NOOK/components/Debug.h
-        include/NOOK/Systems/Debug/DebugSystem.h
         src/Systems/Debug/DebugSystem.cpp
-        include/NOOK/components/BoolVariableDebug.h
-        include/NOOK/components/FloatVariableDebug.h
-        include/NOOK/GUI/Screens.h
         src/GUI/Screens.cpp
 )
 
@@ -125,9 +83,3 @@ endif()
 
 install(TARGETS NOOK DESTINATION lib)  # Install command for the library
 install(TARGETS main DESTINATION bin)   # Install command for the executable
-
-# Install headers
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/include/NOOK/
-        DESTINATION include/NOOK
-        FILES_MATCHING PATTERN "*.h"
-)
