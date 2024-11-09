@@ -7,6 +7,7 @@
 #include "Games/Pong.h"
 #include "imgui-SFML.h"
 #include "Games/InfiniteRunner.h"
+#include "Games/Platformer.h"
 
 NOOK::Coordinator gCoordinator;
 NOOK::ResourceManager resourceManager;
@@ -77,12 +78,12 @@ int main() {
     // Pong
     // Pong::Pong(config);
     // Infinite Runner
-    InfiniteRunner::InfiniteRunner(config);
+    // InfiniteRunner::InfiniteRunner(config);
+    // Snake
+    Platformer::Platformer(config);
     // ----------------- GAMES ------------------
 
     // ---------------- GAME LOOP ---------------
-    // TODO: abstract this to a separate function
-
     sf::RenderWindow window;
     window.setFramerateLimit(config.FRAMES);
     sf::Clock clock;

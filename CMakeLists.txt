@@ -69,7 +69,9 @@ target_link_libraries(NOOK PRIVATE sfml-graphics sfml-audio ImGui-SFML::ImGui-SF
 target_compile_features(NOOK PRIVATE cxx_std_17)
 
 # Create an executable target
-add_executable(main main.cpp)
+add_executable(main main.cpp
+        Games/Platformer.h
+)
 # Link the NOOK library to the executable
 target_link_libraries(main PRIVATE NOOK)
 

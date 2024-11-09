@@ -63,7 +63,7 @@ void NOOK::MovementSystem::moveDown(NOOK::RigidBody& rb, const NOOK::PlayerMove&
 
 void NOOK::MovementSystem::moveRight(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
     velocity.x += *playerMove.speed * b2Body_GetMass(rb.bodyId);
-    b2Body_ApplyLinearImpulseToCenter(rb.bodyId, -velocity, true);
+    b2Body_ApplyLinearImpulseToCenter(rb.bodyId, velocity, true);
 
     if (velocity.x > 0.0f) {
         b2Body_SetLinearDamping(rb.bodyId,1);
@@ -72,7 +72,7 @@ void NOOK::MovementSystem::moveRight(NOOK::RigidBody& rb, const NOOK::PlayerMove
 
 void NOOK::MovementSystem::moveLeft(NOOK::RigidBody& rb, const NOOK::PlayerMove& playerMove, const sf::Keyboard::Key& key, b2Vec2& velocity) {
     velocity.x += *playerMove.speed * b2Body_GetMass(rb.bodyId);
-    b2Body_ApplyLinearImpulseToCenter(rb.bodyId, velocity, true);
+    b2Body_ApplyLinearImpulseToCenter(rb.bodyId, -velocity, true);
 
     if (velocity.x > 0.0f) {
         b2Body_SetLinearDamping(rb.bodyId,1);

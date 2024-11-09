@@ -352,8 +352,6 @@ namespace Pong {
     void initBall() {
         // Ball
         NOOK::Entity ball = gCoordinator.createEntity();
-        // TODO: Abstract the creation of this type of primitives
-        // TODO: a circle that can collide, get initial position, radius, etc.
         // Ball components
         // Shape component
         NOOK::Shape shape;
