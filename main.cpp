@@ -6,7 +6,6 @@
 #include "include/NOOK/Utils/Register.h"
 #include "Games/Pong.h"
 #include "imgui-SFML.h"
-#include "SFML/Audio/Sound.hpp"
 #include "Games/InfiniteRunner.h"
 
 NOOK::Coordinator gCoordinator;
@@ -19,17 +18,16 @@ int main() {
     // Initialize coordinator
     gCoordinator.init();
 
-    // ------------ WORLD BOX2D ------------
-    b2WorldDef worldDef = b2DefaultWorldDef();
-    b2Vec2 gravity = {0.0f, 10.0f};
-    worldDef.gravity = gravity;
-    b2WorldId worldId = b2CreateWorld(&worldDef);
-    b2World_SetHitEventThreshold(worldId, 0.01f);
-    // ------------ WORLD BOX2D ------------
-
     // ------------ LOAD CONFIG ------------
     config = NOOK::loadConfigFromFile("/home/stormblessed/nook/config.txt");
     // ------------ LOAD CONFIG ------------
+
+    // ------------ WORLD BOX2D ------------
+    b2WorldDef worldDef = b2DefaultWorldDef();
+    worldDef.gravity = {0.0f, config.GRAVITY};
+    b2WorldId worldId = b2CreateWorld(&worldDef);
+    b2World_SetHitEventThreshold(worldId, config.HIT_THRESHOLD);
+    // ------------ WORLD BOX2D ------------
 
     // ------------ RESOURCE MANAGER ------------
     resourceManager.m_assetsPath = config.ASSETS_PATH;
@@ -91,21 +89,6 @@ int main() {
     window.create(sf::VideoMode(config.WIDTH, config.HEIGHT), config.WINDOW_TITLE);
     if (!ImGui::SFML::Init(window)) return -1;
 
-    // ------------------ TEST ------------------
-    sf::SoundBuffer buffer;
-    if (!buffer.loadFromFile("/home/stormblessed/nook/Assets/Audio/chains.mp3")) {
-        std::cerr << "ERROR: Failed to load audio file." << std::endl;
-        return -1;
-    } else {
-        std::cout << "INFO: Audio file loaded successfully." << std::endl;
-    }
-
-    sf::Sound sound;
-    sound.setBuffer(buffer);
-    sound.play();
-    // ------------------ TEST ------------------
-
-    // TODO: change awake implementation. Awake runs only in the first frame of the game
     // ----------------- AWAKE ------------------
     int iteration = 0;
     while (window.isOpen()) {
@@ -127,7 +110,6 @@ int main() {
 
         window.clear();
 
-        // TODO: could each system be on its own thread? Maybe not, because i need the physics transformations
         physicsSystem->update(worldId, gameState);
         movementSystem->update(&event, gameState);
         jumpSystem->update(&event, gameState);

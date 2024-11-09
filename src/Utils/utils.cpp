@@ -67,6 +67,8 @@ namespace NOOK {
                     config.SPRITES_DIRECTORY = value;
                 } else if (key == "GRAVITY") {
                     config.GRAVITY = std::stof(value);
+                } else if (key == "HIT_THRESHOLD") {
+                    config.HIT_THRESHOLD = std::stof(value);
                 }
             }
         }
